@@ -1,0 +1,268 @@
+<mvc:View
+    controllerName="tasa.com.preciosponderados.controller.App"
+	xmlns:core="sap.ui.core"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns:form="sap.ui.layout.form"
+	xmlns="sap.ui.table"
+	xmlns:semantic="sap.f.semantic"
+	xmlns:m="sap.m"
+>
+	<m:Shell id="shell">
+		<m:App id="app">
+			<semantic:SemanticPage
+		>
+
+		<semantic:titleHeading>
+			<m:Title
+				text="{i18n>Precios Ponderados}"
+				level="H2"/>
+		</semantic:titleHeading>
+
+		<semantic:headerContent >
+	
+
+	<form:Form visible="true" editable="true" width="100%">
+
+
+	<form:title>
+	<core:Title level="Auto" text="Ingresar Datos"/>
+
+	</form:title>
+
+
+	<form:formContainers>
+
+
+	<form:FormContainer visible="true">
+
+
+	<form:formElements>
+
+
+	<form:FormElement visible="true">
+
+
+	<form:label>
+
+	<m:Label visible="true" width="100%" text="Planta" textDirection="Inherit" textAlign="Begin" required="false" design="Standard"/>
+
+	</form:label>
+
+
+	<form:fields>
+	<m:CheckBox visible="true" editable="true" width="auto" id="idMALABRIGO" text="MALABRIGO" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idCALLAO" text="CALLAO" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idSAMANCO" text="SAMANCO" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idSUPE" text="SUPE" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	</form:fields>
+
+	</form:FormElement>
+
+
+	<form:FormElement visible="true">
+
+
+	<form:label>
+
+	<m:Label visible="true" width="100%" text="" textDirection="Inherit" textAlign="Begin" required="false" design="Standard"/>
+
+	</form:label>
+
+
+	<form:fields>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idVEGUETA" text="VEGUETA" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idILO" text="ILO" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idPISCOSUR" text="PISCO SUR" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idATICO" text="ATICO" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	</form:fields>
+
+	</form:FormElement>
+
+
+	<form:FormElement visible="true">
+
+
+	<form:label>
+
+	<m:Label visible="true" width="100%" text="" textDirection="Inherit" textAlign="Begin" required="false" design="Standard"/>
+
+	</form:label>
+
+
+	<form:fields>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idMATARANI" text="MATARANI" textDirection="Inherit" useEntireWidth="true" wrapping="true" enabled="true" selected="false" class="sapUiResponsiveMargin"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idCHIMBOTE" text="CHIMBOTE" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false" class="sapUiResponsiveMargin"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idTASAARTILLERO" text="TASA ARTILLERO" textDirection="Inherit" useEntireWidth="true" wrapping="false" enabled="true" selected="false"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idTASACHD" text="TASA CHD" textDirection="Inherit" useEntireWidth="true" wrapping="true" enabled="true" selected="false" class="sapUiResponsiveMargin"/>
+
+	</form:fields>
+
+	</form:FormElement>
+
+
+	<form:FormElement visible="true">
+
+
+	<form:label>
+
+	<m:Label visible="true" width="100%" text="" textDirection="Inherit" textAlign="Begin" required="false" design="Standard"/>
+
+	</form:label>
+
+
+	<form:fields>
+	<m:CheckBox visible="true" editable="true" width="auto" id="idCHIMBOTESUR" text="CHIMBOTE SUR" textDirection="Inherit" useEntireWidth="true" wrapping="true" enabled="true" selected="false" class="sapUiResponsiveMargin"/>
+
+	<m:CheckBox visible="true" editable="true" width="auto" id="idPISCONORTE" text="PISCO NORTE" textDirection="Inherit" useEntireWidth="true" wrapping="true" enabled="true" selected="false" class="sapUiResponsiveMargin"/>
+
+	</form:fields>
+
+	</form:FormElement>
+
+
+	<form:FormElement visible="true">
+
+
+	<form:label>
+
+	<m:Label visible="true" width="100%" text="Fecha de producción" textDirection="Inherit" textAlign="Begin" required="false" design="Standard"/>
+
+	</form:label>
+
+
+	<form:fields>
+
+	<m:DateRangeSelection  id="idFechaProduccion" displayFormat="dd/MM/yyyy" valueFormat="yyyyMMdd" width="377.609375px" />
+
+	</form:fields>
+
+	</form:FormElement>
+
+
+	<form:FormElement visible="true">
+
+
+	<form:label>
+
+	<m:Label visible="true" width="100%" text="" textDirection="Inherit" textAlign="Begin" required="false" design="Standard"/>
+
+	</form:label>
+
+	<form:fields>
+
+	<m:Button visible="true" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" press="loadTablaPrecioPonderado" width="auto" text="Buscar" enabled="true"  iconDensityAware="false" iconFirst="true"/>
+	<m:Button visible="true" tooltip="Limpiar" type="Emphasized" icon="sap-icon://clear-filter" press="limpiarFiltros" width="auto" text="Limpiar" enabled="true"  iconDensityAware="false" iconFirst="true"/>
+	</form:fields>
+
+	</form:FormElement>
+
+	</form:formElements>
+
+	<form:title/>
+
+	</form:FormContainer>
+
+	</form:formContainers>
+
+	 <form:layout>
+					<form:ResponsiveGridLayout
+						labelSpanXL="2"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false"  />
+				</form:layout>
+					
+				</form:Form>
+				</semantic:headerContent>
+				<semantic:content>
+				<Table
+					id="table"
+					rows="{/t_PRCPESCPTA}"
+					visibleRowCount="7"
+					selectionMode="None"
+					showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
+					enableColumnFreeze="{ui>/showFreezeMenuEntry}"
+					enableCellFilter="{ui>/enableCellFilter}"
+					columnSelect="onColumnSelect"
+					cellContextmenu="onProductIdCellContextMenu"
+					ariaLabelledBy="title">
+					<extension>
+						<m:OverflowToolbar style="Clear">
+							<m:Title id="title" text=""/>
+							<m:ToolbarSpacer/>
+							<m:Button icon="sap-icon://excel-attachment" text="Exportar" tooltip="Exportar Excel" press="onDataExport"/>
+							<m:ToolbarSeparator/>
+							<m:SearchField
+								placeholder="Búsqueda rápida"
+								value="{ui>/globalFilter}"
+								search="filterGlobally"
+								width="15rem"/>
+						</m:OverflowToolbar>
+					</extension>
+					<columns>
+						<Column
+							id="NOMPTA"
+							width="11rem"
+							sortProperty="NOMPTA"
+							filterProperty="NOMPTA"
+							showFilterMenuEntry="true"
+							showSortMenuEntry="true">
+							<m:Label text="Planta" />
+							<template>
+								<m:Text text="{NOMPTA}" wrapping="false" />
+							</template>
+						</Column>
+						<Column
+							id="PRCPOND"
+							width="11rem"
+							sortProperty="PRCPOND"
+							filterProperty="PRCPOND"
+							showFilterMenuEntry="true"
+							showSortMenuEntry="true">
+							<m:Label text="Precio ponderado" />
+							<template>
+								<m:Text text="{PRCPOND}" wrapping="false" />
+							</template>
+						</Column>
+						<!--Columnas-->
+
+					</columns>
+					<footer>
+						<m:OverflowToolbar id="infobar">
+
+						</m:OverflowToolbar>
+					</footer>
+				</Table>
+
+
+			
+      
+        </semantic:content>
+
+	</semantic:SemanticPage>
+		</m:App>
+	</m:Shell>
+</mvc:View>

@@ -1,0 +1,545 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="tasa.com.consultapreciospesca.controller.App" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<m:Shell id="shell">
+		<m:App id="app">
+			<semantic:SemanticPage
+		>
+
+		<semantic:titleHeading>
+			<m:Title
+				text="{i18n>Precios de Acopio}"
+				level="H2"/>
+		</semantic:titleHeading>
+
+		<semantic:headerContent >
+
+            <form:Form width="100%" editable="true" visible="true">
+                
+                <form:title>
+                    <core:Title text="Datos de selección" level="Auto"/>
+                </form:title>
+                
+                <form:formContainers>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            
+                            
+                              <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                            <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlantaIni"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<m:suggestionColumns>
+													
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Centro"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Planta"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Planta>WERKS}"/>
+														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Centro'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+											<m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlantaFin"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<m:suggestionColumns>
+													
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Centro"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Planta"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Planta>WERKS}"/>
+														<m:Label text="{Planta>CDPTA}"/>
+														
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                            			<form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Armador Comercial" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                            <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
+											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
+                                            </form:fields>
+                                        </form:FormElement>
+                            <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                            <m:Input type="Text" id="idEmbarcacionIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb')"/>			
+											<m:Input type="Text" id="idEmbarcacionFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb2')"/>
+                                            </form:fields>
+                                        </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:DateRangeSelection change="buscarFecha" id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" />
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:ComboBox editable="true" id="idEstado" selectedKey="L" items="{precio>/ZDO_PRECIO}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                        <m:items>
+                                                        <core:Item text="{precio>descripcion}" enabled="true" key="{precio>id}"/>
+                                        </m:items>
+                                    </m:ComboBox>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="Estado castigo" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:ComboBox editable="true" id="idEstadoCastigo" selectedKey="L" items="{castigo>/ZESPRC}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                        <m:items>
+                                                        <core:Item text="{castigo>descripcion}" enabled="true" key="{castigo>id}"/>
+                                        </m:items>
+                                    </m:ComboBox>
+                                </form:fields>
+                            </form:FormElement>
+                            
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    
+									<m:Button text="Buscar" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+                                                   press="loadTablaPreciosAcopio"/>
+                                                   <m:Button text="Limpiar" tooltip="Limpiar" type="Emphasized" icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+                                                   press="limpiarFiltros"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                </form:formContainers>
+                   <form:layout>
+					<form:ResponsiveGridLayout
+						labelSpanXL="2"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false"  />
+				</form:layout>
+            </form:Form>
+
+			</semantic:headerContent>
+		<semantic:content>
+            <!-- <ScrollContainer horizontal="true" vertical="true" width="100%" height="194.375px" visible="true"> -->
+              <Table
+				id="table"
+				rows="{Acopio>/listaPrecio}"
+				visibleRowCount="7"
+                selectionMode="None"
+				showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
+				enableColumnFreeze="{ui>/showFreezeMenuEntry}"
+				enableCellFilter="{ui>/enableCellFilter}"
+				columnSelect="onColumnSelect"
+				cellContextmenu="onProductIdCellContextMenu"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Lista de registros"/>
+						<m:ToolbarSpacer/> 
+						  <m:Button icon="sap-icon://excel-attachment" press="onDataExport" text="Exportar" tooltip="Exportar Excel"/>
+						<m:ToolbarSeparator/>
+						<m:SearchField
+							placeholder="Búsqueda rápida"
+							value="{ui>/globalFilter}"
+							search="filterGlobally"
+							width="15rem"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+               
+                	<Column
+						id="WERKS"
+						width="11rem"
+						sortProperty="WERKS"
+						filterProperty="WERKS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Centro" />
+						<template>
+							<m:Text text="{Acopio>WERKS}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="MREMB"
+						width="11rem"
+						sortProperty="MREMB"
+						filterProperty="MREMB"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Matricula" />
+						<template>
+							<m:Text text="{Acopio>MREMB}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="NMEMB"
+						width="11rem"
+						sortProperty="NMEMB"
+						filterProperty="NMEMB"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Embarcacion" />
+						<template>
+							<m:Text text="{Acopio>NMEMB}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="NAME1"
+						width="11rem"
+						sortProperty="NAME1"
+						filterProperty="NAME1"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Armador" />
+						<template>
+							<m:Text text="{Acopio>NAME1}" wrapping="false" />
+						</template>
+					</Column>
+					
+					<Column
+						id="FECCONMOV"
+						width="11rem"
+						sortProperty="FECCONMOV"
+						filterProperty="FECCONMOV"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Fecha prod" />
+						<template>
+							<m:Text text="{Acopio>FECCONMOV}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CNPDS"
+						width="11rem"
+						sortProperty="CNPDS"
+						filterProperty="CNPDS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Cant. descargada" />
+						<template>
+							<m:Text text="{Acopio>CNPDS}" wrapping="false" />
+						</template>
+					</Column>
+                   <Column
+						id="PRCOM"
+						width="11rem"
+						sortProperty="PRCOM"
+						filterProperty="PRCOM"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Compra" />
+						<template>
+							<m:Text text="{Acopio>PRCOM}" wrapping="false" />
+						</template>
+					</Column>
+					 <Column
+						id="BONIF"
+						width="11rem"
+						sortProperty="BONIF"
+						filterProperty="BONIF"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Bonif" />
+						<template>
+							<m:Text text="{Acopio>BONIF}" wrapping="false" />
+						</template>
+					</Column>
+					 <Column
+						id="PRVEN"
+						width="11rem"
+						sortProperty="PRVEN"
+						filterProperty="PRVEN"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Venta" />
+						<template>
+							<m:Text text="{Acopio>PRVEN}" wrapping="false" />
+						</template>
+					</Column>
+					 <Column
+						id="DESC_WAERS"
+						width="11rem"
+						sortProperty="DESC_WAERS"
+						filterProperty="DESC_WAERS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Moneda" />
+						<template>
+							<m:Text text="{Acopio>DESC_WAERS}" wrapping="false" />
+						</template>
+					</Column>
+					 <Column
+						id="DESC_ESPRC"
+						width="11rem"
+						sortProperty="DESC_ESPRC"
+						filterProperty="DESC_ESPRC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Estado" />
+						<template>
+							<m:Text text="{Acopio>DESC_ESPRC}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PCSPP"
+						width="11rem"
+						sortProperty="PCSPP"
+						filterProperty="PCSPP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="% Prop" />
+						<template>
+							<m:Text text="{Acopio>PCSPP}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PCCSG"
+						width="11rem"
+						sortProperty="PCCSG"
+						filterProperty="PCCSG"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="% Def" />
+						<template>
+							<m:Text text="{Acopio>PCCSG}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="DESC_ESCSG"
+						width="11rem"
+						sortProperty="DESC_ESCSG"
+						filterProperty="DESC_ESCSG"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Estado" />
+						<template>
+							<m:Text text="{Acopio>DESC_ESCSG}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="OBCDF"
+						width="11rem"
+						sortProperty="OBCDF"
+						filterProperty="OBCDF"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Obs. super." />
+						<template>
+							<m:Text text="{Acopio>OBCDF}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="OBCPP"
+						width="11rem"
+						sortProperty="OBCPP"
+						filterProperty="OBCPP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Obs. ger." />
+						<template>
+							<m:Text text="{Acopio>OBCPP}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="CALIDAD"
+						width="11rem"
+						sortProperty="CALIDAD"
+						filterProperty="CALIDAD"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Calidad" />
+						<template>
+							<m:Text text="{Acopio>CALIDAD}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="JUVEN"
+						width="11rem"
+						sortProperty="JUVEN"
+						filterProperty="JUVEN"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="% Juveniles" />
+						<template>
+							<m:Text text="{Acopio>JUVEN}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="TVN"
+						width="11rem"
+						sortProperty="TVN"
+						filterProperty="TVN"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="TVN" />
+						<template>
+							<m:Text text="{Acopio>TVN}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="TDC"
+						width="11rem"
+						sortProperty="TDC"
+						filterProperty="TDC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="TDC" />
+						<template>
+							<m:Text text="{Acopio>TDC}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="OBCPP2"
+						width="11rem"
+						sortProperty="OBCPP"
+						filterProperty="OBCPP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Obs. calidad" />
+						<template>
+							<m:Text text="{Acopio>OBCPP}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="EBELN"
+						width="11rem"
+						sortProperty="EBELN"
+						filterProperty="EBELN"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Orden compra" />
+						<template>
+							<m:Text text="{Acopio>EBELN}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="BELNR"
+						width="11rem"
+						sortProperty="BELNR"
+						filterProperty="BELNR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Factura" />
+						<template>
+							<m:Text text="{Acopio>BELNR}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="DOCFI"
+						width="11rem"
+						sortProperty="DOCFI"
+						filterProperty="DOCFI"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Doc. Fi" />
+						<template>
+							<m:Text text="{Acopio>DOCFI}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="DOCFI2"
+						width="11rem"
+						sortProperty="DOCFI2"
+						filterProperty="DOCFI2"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Doc. Anulación" />
+						<template>
+							<m:Text text="{Acopio>DOCFI2}" wrapping="false" />
+						</template>
+					</Column>
+					
+					<!--Columnas-->
+
+				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar">
+
+                    </m:OverflowToolbar>
+				</footer>
+			</Table>
+
+        </semantic:content>
+
+	</semantic:SemanticPage>
+		</m:App>
+	</m:Shell>
+</mvc:View>

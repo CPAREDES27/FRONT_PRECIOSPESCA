@@ -1,0 +1,352 @@
+sap.ui.define([
+	"./BaseController",
+    "sap/ui/core/mvc/Controller",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/routing/History",
+    'sap/m/MessageBox',
+    "sap/ui/model/Filter",
+    "sap/ui/model/FilterOperator",
+    'sap/ui/export/library',
+	'sap/ui/export/Spreadsheet',
+    "sap/ui/core/util/ExportTypeCSV",
+    "sap/ui/core/util/Export",
+],
+	/**
+	 * @param {typeof sap.ui.core.mvc.Controller} Controller
+	 */
+	 function (BaseController,Controller,JSONModel,History,MessageBox,Filter,FilterOperator,exportLibrary, Spreadsheet,ExportTypeCSV,Export) {
+		"use strict";
+		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
+		var oGlobalBusyDialog = new sap.m.BusyDialog();
+		var JsonFechaIni={
+			fechaIni:"",
+			fechaIni2:""
+		};
+		return BaseController.extend("tasa.com.preciosponderados.controller.App", {
+			onInit: function () {
+				let ViewModel= new JSONModel(
+					{}
+					);
+					var oGlobalBusyDialog = new sap.m.BusyDialog();
+					this.setModel(ViewModel,"litoral");
+					this.setModel(ViewModel,"precio");
+					this.setModel(ViewModel,"reporteCala")
+					
+					
+			},
+
+		// 	goBackMain: function () {
+		// 		   this.getRouter().navTo("RouteApp");
+		// 		   location.reload();
+		//    },
+		buscarFecha: function(oEvent){
+			debugger;
+			var dateIni= new Date(oEvent.mParameters.from);
+			var dateIni2 = new Date(oEvent.mParameters.to);
+			console.log(oEvent.mParameters.from);
+			console.log(oEvent.mParameters.to)
+			console.log(dateIni);
+			console.log(dateIni2);
+			if(oEvent.mParameters.from==null){
+				dateIni="";	
+			}
+			if(oEvent.mParameters.to==null){
+				dateIni2="";	
+			}
+			var id=oEvent.mParameters.id;
+			var fechaIni="";
+			var fechaIni2="";
+			if(dateIni){
+				 fechaIni=this.generateFecha(dateIni);
+			}
+			if(dateIni2){
+				 fechaIni2=this.generateFecha(dateIni2);
+			}
+
+			
+			if(id==="application-preciosponderados-display-component---App--idFechaProduccion")
+			{
+				JsonFechaIni={
+					fechaIni:fechaIni,
+					fechaIni2:fechaIni2
+				}
+			}
+		    console.log("Fecha generada " +JsonFechaIni);
+		
+		   
+		},
+		zeroFill: function( number, width )
+		{
+			width -= number.toString().length;
+			if ( width > 0 )
+			{
+				return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+			}
+			return number + ""; // siempre devuelve tipo cadena
+		},
+		generateFecha: function(date){
+			debugger;
+			var day=date.getDate();
+			var anio=date.getFullYear();
+			var mes=date.getMonth()+1;
+			console.log(day);
+			console.log(anio);
+			console.log(mes);
+			if(mes<10){
+				mes=this.zeroFill(mes,2);
+			}
+			if(day<10){
+				day=this.zeroFill(day,2);
+			}
+			var fecha= anio.toString()+mes.toString()+day.toString();
+		   console.log(fecha);
+		   
+			return fecha;
+		},		  
+		castFechas: function(fecha){
+			var arrayFecha=fecha.split("/");
+			console.log(arrayFecha);
+			var fechas = arrayFecha[2]+""+arrayFecha[1]+""+arrayFecha[0];
+			return fechas;
+		},
+		   loadTablaPrecioPonderado: function(){
+			   oGlobalBusyDialog.open();
+			   let fecha=this.byId("idFechaProduccion").getValue();
+			   console.log(fecha);
+			   let idMALABRIGO = this.byId("idMALABRIGO").getSelected();
+			   let idCALLAO = this.byId("idCALLAO").getSelected();
+			   let idSAMANCO = this.byId("idSAMANCO").getSelected();
+			   let idSUPE = this.byId("idSUPE").getSelected();
+			   let idVEGUETA = this.byId("idVEGUETA").getSelected();
+			   let idILO = this.byId("idILO").getSelected();
+			   let idPISCOSUR = this.byId("idPISCOSUR").getSelected();
+			   let idATICO = this.byId("idATICO").getSelected();
+			   let idMATARANI = this.byId("idMATARANI").getSelected();
+			   let idCHIMBOTE = this.byId("idCHIMBOTE").getSelected();
+			   let idTASAARTILLERO = this.byId("idTASAARTILLERO").getSelected();
+			   let idTASACHD = this.byId("idTASACHD").getSelected();
+			   let idCHIMBOTESUR = this.byId("idCHIMBOTESUR").getSelected();
+			   let idPISCONORTE = this.byId("idPISCONORTE").getSelected();
+			   debugger;
+			   var cadena="";
+			   var planta="";
+			   var error=""
+			   var estado=true;
+			   if(!fecha){
+				error="Debe ingresar una fecha de inicio de vigencia\n";
+				estado=false;
+			   }
+			   if(!estado){
+				MessageBox.error(error);
+				oGlobalBusyDialog.close()
+				return false;
+				}
+				var feccc =[];
+			   feccc= fecha.trim().split("-");
+			   for(var i=0;i<feccc.length;i++){
+				   feccc[i]=feccc[i].trim();
+			   }
+			   var fechaIniVigencia= this.castFechas(feccc[0]);
+			   var fechaIniVigencia2= this.castFechas(feccc[1]);
+			   console.log(fechaIniVigencia+" "+fechaIniVigencia2);
+			   if(idMALABRIGO){
+				   planta ="CDPTA = "+"'"+"0005"+"'"+ " OR ";
+			   }
+			   if(idCALLAO){
+				   planta +="CDPTA = "+"'"+"0012"+"'"+ " OR ";
+			   }
+			   if(idSAMANCO){
+				   planta +="CDPTA = "+"'"+"0009"+"'"+ " OR ";
+			   }
+			   if(idSUPE){
+				   planta +="CDPTA = "+"'"+"0010"+"'"+ " OR ";
+			   }
+			   if(idVEGUETA){
+				   planta +="CDPTA = "+"'"+"0011"+"'"+ " OR ";
+			   }
+			   if(idILO){
+				   planta +="CDPTA = "+"'"+"0019"+"'"+ " OR ";
+			   }
+			   if(idPISCOSUR){
+				   planta +="CDPTA = "+"'"+"0015"+"'"+ " OR ";
+			   }
+			   if(idATICO){
+				   planta +="CDPTA = "+"'"+"0016"+"'"+ " OR ";
+			   }
+			   if(idMATARANI){
+				   planta +="CDPTA = "+"'"+"0018"+"'"+ " OR ";
+			   }
+			   if(idCHIMBOTE){
+				   planta +="CDPTA = "+"'"+"0119"+"'"+ " OR ";
+			   }
+			   if(idTASAARTILLERO){
+				   planta +="CDPTA = "+"'"+"0125"+"'"+ " OR ";
+			   }
+			   if(idTASACHD){
+				   planta +="CDPTA = "+"'"+"0021"+"'"+ " OR ";
+			   }
+			   if(idCHIMBOTESUR){
+				   planta +="CDPTA = "+"'"+"0007"+"'"+ " OR ";
+			   }
+			   if(idPISCONORTE){
+				   planta +="CDPTA = "+"'"+"0014"+"'"+ " OR ";
+			   }
+			   
+   
+			   if(planta==""){
+				oGlobalBusyDialog.close();
+				MessageBox.error("Debe escoger al menos una planta");
+				return false;
+			   }
+			   console.log(planta.substring(0,planta.length-4));
+			   console.log(JsonFechaIni);
+			   if(fechaIniVigencia || fechaIniVigencia2){
+				   cadena=" AND FECCONMOV BETWEEN "+"'"+fechaIniVigencia+"'"+ " AND "+"'"+fechaIniVigencia2+"'";
+			   }else{
+				oGlobalBusyDialog.close();
+				   MessageBox.error("Debe ingresar una fecha de producción inicial");
+				   return false;
+			   }
+	
+			   
+			  
+			   console.log(idMALABRIGO);
+			   let body = {
+						"option": [
+							{
+						   "wa": planta.substring(0,planta.length-4)
+							},
+							{
+						   "wa": cadena
+							}
+						],
+					   "options": [
+						   
+					   ]
+					}
+					console.log(body);
+					var indice=-1;
+				   fetch(`${mainUrlServices}preciospesca/ObtenerPrecioPond`,
+						{
+							method: 'POST',
+							body: JSON.stringify(body)
+						})
+						.then(resp => resp.json()).then(data => {
+						   
+						   console.log(data.total);
+						   console.log(data)
+						   let ViewModel= new JSONModel();
+						   var dataPrecio = data;
+						   ViewModel.setData(dataPrecio);
+						   this.getView().setModel(ViewModel);
+						   var valor= this.getView().getModel();
+						   console.log(valor.oData);
+						   if(data.t_PRCPESCPTA.length>0){
+						   var currentRows = valor.getProperty("/t_PRCPESCPTA");
+						   var newRows = currentRows.concat(this.createEntry(data.total));
+						   valor.setProperty("/t_PRCPESCPTA", newRows);
+						   
+						   }
+						   //this.getModel("reporteCala").setProperty("/items",data.t_PRCPESCPTA);
+						   oGlobalBusyDialog.close();
+						   
+						}).catch(error => MessageBox.error("El servicio no está disponible",oGlobalBusyDialog.close())
+						);
+   
+			   },
+			   limpiarFiltros: function(){
+				this.byId("idCALLAO").setSelected(false);
+				this.byId("idMALABRIGO").setSelected(false);
+				this.byId("idCALLAO").setSelected(false);
+				this.byId("idSAMANCO").setSelected(false);
+				this.byId("idSUPE").setSelected(false);
+				this.byId("idVEGUETA").setSelected(false);
+				this.byId("idILO").setSelected(false);
+				this.byId("idPISCOSUR").setSelected(false);
+				this.byId("idATICO").setSelected(false);
+				this.byId("idMATARANI").setSelected(false);
+				this.byId("idCHIMBOTE").setSelected(false);
+				this.byId("idTASAARTILLERO").setSelected(false);
+				this.byId("idTASACHD").setSelected(false);
+				this.byId("idCHIMBOTESUR").setSelected(false);
+				this.byId("idPISCONORTE").setSelected(false);
+				this.byId("idFechaProduccion").setValue("");
+				JsonFechaIni.fechaIni2="";
+				JsonFechaIni.fechaIni="";
+			   },
+		   goBackMain: function () {
+				   this.getRouter().navTo("RouteApp");
+				   location.reload();
+			   },
+   
+			   createEntry: function(data) {
+   
+			   return {
+   
+				   NOMPTA: "Total",
+   
+				   PRCPOND: data
+   
+			   };
+   
+			   },
+			   filterGlobally : function(oEvent) {
+				   var sQuery = oEvent.getParameter("query");
+				   this._oGlobalFilter = null;
+   
+				   if (sQuery) {
+					   this._oGlobalFilter = new Filter([
+						   new Filter("NOMPTA", FilterOperator.Contains, sQuery)
+					   ], false);
+				   }
+   
+				   this._filter();
+			   },
+			   _filter : function() {
+			   var oFilter = null;
+   
+			   if (this._oGlobalFilter && this._oPriceFilter) {
+				   oFilter = new Filter([this._oGlobalFilter, this._oPriceFilter], true);
+			   } else if (this._oGlobalFilter) {
+				   oFilter = this._oGlobalFilter;
+			   } else if (this._oPriceFilter) {
+				   oFilter = this._oPriceFilter;
+			   }
+   
+			   this.byId("table").getBinding().filter(oFilter, "Application");
+		   },
+		   onDataExport:  function() {
+			   var oExport = new Export({
+				   exportType: new ExportTypeCSV({ // required from "sap/ui/core/util/ExportTypeCSV"
+					 separatorChar: ";",
+					 charset: "utf-8"
+				   }),
+				   //PoliticaPrecio>/listaPolitica
+				   models: this.getView().getModel(),
+				   rows:{path:""},
+				   rows: { path: "/t_PRCPESCPTA" },
+				   columns: [
+					 {
+					   name: "Código de Precio",
+					   template: {
+						 content: "{NOMPTA}"
+					   }
+					 },
+					 {
+					   name: "Zona de Pesca",
+					   template: {
+						 content: "{PRCPOND}"
+					   }
+					 },
+					 
+				   ]
+				 });
+				 oExport.saveFile("Politica de Precios").catch(function(oError) {
+				   MessageBox.error("Error when downloading data. ..." + oError);
+				 }).then(function() {
+				   oExport.destroy();
+				 });
+			   },
+			  
+		});
+	});

@@ -1,0 +1,657 @@
+<mvc:View
+    controllerName="com.tasa.politicadeprecios.controller.App"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+	xmlns:semantic="sap.f.semantic"
+    xmlns="sap.ui.table" xmlns:m="sap.m"
+    xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
+>
+<m:Shell>
+<m:App id="app">
+		<semantic:SemanticPage
+		>
+
+		<semantic:titleHeading>
+			<m:Title
+				text="{i18n>Política de Precios}"
+				level="H2"/>
+		</semantic:titleHeading>
+
+		<semantic:headerContent >
+			<form:Form id="idFormHeader"  >
+				<form:title>
+					<core:Title text="Datos de Selección" />
+				</form:title>
+				<form:formContainers >
+					<form:FormContainer  >
+						<form:formElements>
+										<form:FormElement visible="true" >
+															<form:label>
+																<m:Label text="Zona Litoral" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+															</form:label>
+															<form:fields>
+																<m:MultiComboBox
+																	id="cboLitoral"
+																	selectionFinish="handleSelectionFinish"
+																	width="377.609375px"
+																	items="{
+																		path: 'litoral>/zdoZinprpDom'
+																	}">
+																	<core:Item key="{litoral>id}" text="{litoral>descripcion}"/>
+																</m:MultiComboBox>
+															</form:fields>
+										</form:FormElement>
+						
+					
+										<form:FormElement visible="true" width="100%">
+                                            <form:label>
+                                                <m:Label text="Puerto" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+											<m:Input  change="multiInput" class="sapUiSmallMarginBottom"
+												id="idPuertoIni"
+												width="100%"
+												placeholder="Ingresar Puerto..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Puerto>/listaPuertos}">
+												<m:suggestionColumns>
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Puerto"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripcion"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Puerto>CDPTO}"/>
+														<m:Label text="{Puerto>DSPTO}"/>
+														<m:Label text="{
+																parts:[{path:'Puerto'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+											<m:Input  change="multiInput" class="sapUiSmallMarginBottom"
+												id="idPuertoFin"
+												width="100%"
+												placeholder="Ingresar Puerto..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Puerto>/listaPuertos}">
+												<m:suggestionColumns>
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Puerto"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripcion"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Puerto>CDPTO}"/>
+														<m:Label text="{Puerto>DSPTO}"/>
+														<m:Label text="{
+																parts:[{path:'Puerto'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+                                            </form:fields>
+                                        </form:FormElement>
+										<form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                            <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlantaIni"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<m:suggestionColumns>
+													
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Centro"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Planta"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Planta>WERKS}"/>
+														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Centro'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+											<m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlantaFin"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<m:suggestionColumns>
+													
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Centro"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Planta"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Planta>WERKS}"/>
+														<m:Label text="{Planta>CDPTA}"/>
+														
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+                                            </form:fields>
+                                        </form:FormElement>
+										<form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Armador Comercial" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                            <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
+											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Fecha Inicio Vigencia" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                                <m:DateRangeSelection  id="idFechaIniVigencia" width="377.609375px" displayFormat="dd/MM/yyyy" valueFormat="yyyyMMdd"/>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Fecha Fin Vigencia" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                                <m:DateRangeSelection change="buscarFecha" id="idFechaFinVigencia" width="377.609375px" displayFormat="dd/MM/yyyy"  valueFormat="yyyyMMdd"/>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Especie" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                                <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idEspecieIni"
+												width="100%"
+												placeholder="Ingresar Especie..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Especie>/listaEspecie}">
+												<m:suggestionColumns>
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Cod. Especie"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripcion"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Especie>id}"/>
+														<m:Label text="{Especie>descripcion}"/>
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'},{path:'RUC'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+											  <m:Input  change="multiInputArmador" class="sapUiSmallMarginBottom"
+												id="idEspecieFin"
+												width="100%"
+												placeholder="Ingresar Especie..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Especie>/listaEspecie}">
+												<m:suggestionColumns>
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Cod. Especie"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripcion"/>
+													</m:Column>
+												
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Especie>id}"/>
+														<m:Label text="{Especie>descripcion}"/>
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'},{path:'RUC'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                                        <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Estado de precio" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                               <m:ComboBox id="cbEstadoPrecio" selectedKey="L" items="{precio>/zdoTipoMareaDom}" editable="true" enabled="true" visible="true" width="377.609375px" valueState="None" maxWidth="100%">
+                                                    <m:items>
+                                                        <core:Item text="{precio>descripcion}" enabled="true" key="{precio>id}"/>
+                                                    </m:items>
+                                                </m:ComboBox>                                               
+                                            </form:fields>
+                                        </form:FormElement>
+										<form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                                <m:Button text="Buscar" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+                                                   press="loadTablaPrecios"/>
+                                                   <m:Button text="Limpiar" tooltip="Limpiar" type="Emphasized" icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+                                                   press="limpiarFiltros"/>
+                                            </form:fields>
+                                        </form:FormElement>
+						</form:formElements>
+
+						
+					</form:FormContainer>
+				</form:formContainers>
+				<form:layout>
+					<form:ResponsiveGridLayout
+						labelSpanXL="2"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false"  />
+				</form:layout>
+			</form:Form>
+		</semantic:headerContent>
+
+		<semantic:content>
+						
+			<Table
+                            id="table"
+                            rows="{PoliticaPrecio>/listaPolitica}"
+                            visibleRowCount="7"
+                            selectionMode="MultiToggle"
+                            showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
+                            enableColumnFreeze="{ui>/showFreezeMenuEntry}"
+                            enableCellFilter="{ui>/enableCellFilter}"
+                            columnSelect="onColumnSelect"
+                            cellContextmenu="onProductIdCellContextMenu"
+                            ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Lista de registros: {dataPrecio.str_ppc.total}" />
+						<m:ToolbarSpacer/>
+                        <m:Button type="Information" icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo"/>
+						  <m:Button type="Reject" icon="sap-icon://sys-cancel" press="anularRegistro" tooltip="Anular" text="Anular"/>
+						<m:ToolbarSeparator/>
+                        <m:Button icon="sap-icon://excel-attachment" press="onDataExport" text="Exportar" tooltip="Exportar Excel"/>
+						<m:SearchField
+							placeholder="Búsqueda rápida"
+							value="{ui>/globalFilter}"
+							search="filterGlobally"
+							width="15rem"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+                 
+                	<Column
+						id="CDPPC"
+						width="11rem"
+						sortProperty="CDPPC"
+						filterProperty="CDPPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                        <multiLabels>
+							<m:Label visible="false" />
+							<m:Label text="Codigo de Precio" />
+						</multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>CDPPC}" wrapping="false" />
+						</template>
+					</Column>
+                   
+                    <Column
+						id="DSZLT"
+						width="11rem"
+						sortProperty="DSZLT"
+						filterProperty="DSZLT"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                         <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Zona de pesca" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>DSZLT}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DSPTO"
+						width="11rem"
+						sortProperty="DSPTO"
+						filterProperty="DSPTO"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                        <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Puerto" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>DSPTO}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DESCR"
+						width="22rem"
+						sortProperty="DESCR"
+						filterProperty="DESCR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                        <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Planta" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>DESCR}"  />
+						</template>
+					</Column>
+                    <Column
+						id="NAME1"
+						width="11rem"
+						sortProperty="NAME1"
+						filterProperty="NAME1"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                         <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Armador Comercial" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>NAME1}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="FIVIG"
+						width="11rem"
+						sortProperty="FIVIG"
+						filterProperty="FIVIG"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                         <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Fecha Inicio" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>FIVIG}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="FFVIG"
+						width="11rem"
+						sortProperty="FFVIG"
+						filterProperty="FFVIG"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                         <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Fecha Fin" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>FFVIG}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRCMX"
+						width="11rem"
+						sortProperty="PRCMX"						
+						filterProperty="PRCMX"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+                        headerSpan="2,1"
+						hAlign="End"
+						>
+                        <multiLabels>
+							<m:Label text="Precio Compra" textAlign="Center" width="100%"/>
+                            <m:Label text="Max" textAlign="Center" width="100%"/>
+						</multiLabels>
+						
+						<template style="text-align: left;">
+							<m:Text style="text-align: left;" text="{PoliticaPrecio>PRCMX}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRCTP"
+						width="11rem"
+						sortProperty="PRCTP"
+						filterProperty="PRCTP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+                        headerSpan="2,1"
+						hAlign="End">
+                        <multiLabels>
+							<m:Label text="Precio Compra" textAlign="Center" width="100%"/>
+                            <m:Label text="Tope" />
+						</multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>PRCTP}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRVMN"
+						width="11rem"
+						sortProperty="PRVMN"
+						filterProperty="PRVMN"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+                        headerSpan="2,1"
+						hAlign="End">
+						<multiLabels>
+							<m:Label text="Precio Venta" textAlign="Center" width="100%"/>
+                            <m:Label text="Min" />
+						</multiLabels>
+						<template>
+							<m:Text text="{PoliticaPrecio>PRVMN}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRVTP"
+						width="11rem"
+						sortProperty="PRVTP"
+						filterProperty="PRVTP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="2,1"
+						hAlign="End">
+						<multiLabels>
+							<m:Label text="Precio Venta" textAlign="Center" width="100%"/>
+                            <m:Label text="Tope" />
+						</multiLabels>
+						<template>
+							<m:Text text="{PoliticaPrecio>PRVTP}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DSSPC"
+						width="11rem"
+						sortProperty="DSSPC"
+						filterProperty="DSSPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                         <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Especie" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>DSSPC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="WAERS"
+						width="11rem"
+						sortProperty="WAERS"
+						filterProperty="WAERS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                          <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Moneda" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>WAERS}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="ESPMR"
+						width="11rem"
+						sortProperty="ESPMR"
+						filterProperty="ESPMR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+                        <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Estado" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{PoliticaPrecio>ESPMRDESC}" wrapping="false" />
+						</template>
+					</Column>
+
+					<!--Columnas-->
+
+				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar">
+
+                    </m:OverflowToolbar>
+				</footer>
+			</Table>
+			
+		</semantic:content>
+
+	</semantic:SemanticPage>
+	</m:App>
+	</m:Shell>
+</mvc:View>
+
+

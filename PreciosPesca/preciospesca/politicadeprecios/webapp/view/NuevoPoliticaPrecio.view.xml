@@ -1,0 +1,325 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.tasa.politicadeprecios.controller.NuevoPoliticaPrecio" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Page showHeader="true" title="Nuevo Precio de Pesca" showFooter="true" showNavButton="false">
+        <content>
+        <Panel height="auto" id="formEvento" width="100%" headerText="Datos Generales" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+            <form:Form width="100%" id="form1" editable="true" visible="true">
+                <form:title>
+                    <core:Title text="Ingresar Datos" level="Auto"/>
+                </form:title>
+                <form:formContainers>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Método" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <ComboBox id="metodo" items="{metodo>/lista}" editable="true" selectionChange="onChange" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                                    <items>
+                                                        <core:Item text="{metodo>descripcion}" enabled="true" key="{metodo>id}"/>
+                                                    </items>
+                                    </ComboBox>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                </form:formContainers>
+                <form:layout>
+                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                </form:layout>
+            </form:Form>
+            </Panel>
+            <Panel height="auto" id="form2" width="100%" headerText="Datos Generales" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                <content>
+                    <form:Form width="100%" editable="true" visible="true">
+                        <form:title/>
+                        <form:formContainers>
+                            <form:FormContainer visible="true">
+                                <form:formElements>
+                                    <form:FormElement id="idLitoralForm" visible="true">
+                                        <form:label>
+                                            <Label text="Zona Litoral"  design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </form:label>
+                                        <form:fields>
+                                            <ComboBox id="litoral" items="{litoral>/listas}" editable="true" selectionChange="onChange" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                                    <items>
+                                                        <core:Item text="{litoral>descripcion}" enabled="true" key="{litoral>id}"/>
+                                                    </items>
+                                                </ComboBox>
+                                                
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement id="idPuertoForm" visible="true">
+                                        <form:label>
+                                            <Label text="Puerto" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </form:label>
+                                        
+                                        <form:fields>
+                                            <Input  change="multiInputPuerto" class="sapUiSmallMarginBottom"
+												id="idPuerto"
+												width="100%"
+												placeholder="Ingresar Puerto..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Puerto>/listaPuertos}">
+												<suggestionColumns>
+													<Column
+                                                        width="15%"
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Cod. Puerto"/>
+													</Column>
+													<Column
+                                                        width="20%"
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Descripción"/>
+													</Column>
+                                                    
+												</suggestionColumns>
+												<suggestionRows>
+													<ColumnListItem>
+													<cells>
+														<Label text="{Puerto>CDPTO}" width="100%"/>
+                                                        <Label text="{Puerto>DSPTO}"/>
+														<Label text="{
+																parts:[{path:'Cod. Puerto'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</cells>
+													</ColumnListItem>
+												</suggestionRows>
+											</Input>
+                                            
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement id="idPlantaForm" visible="true">
+                                        <form:label>
+                                            <Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </form:label>
+                                        <form:fields>
+                                            <Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlanta"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<suggestionColumns>
+													<Column
+                                                        width="20%"
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Centro"/>
+													</Column>
+                                                    <Column
+                                                        width="15%"
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Cod. Planta"/>
+													</Column>
+													
+                                                    
+												</suggestionColumns>
+												<suggestionRows>
+													<ColumnListItem>
+													<cells>
+														
+                                                        <Label text="{Planta>WERKS}"/>
+                                                       <Label text="{Planta>CDPTA}" width="100%"/>
+														<Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</cells>
+													</ColumnListItem>
+												</suggestionRows>
+											</Input>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement id="idArmadorForm" visible="true">
+                                        <form:label>
+                                            <Label text="Armador" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </form:label>
+                                        <form:fields>
+                                            <Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador"/>	
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement visible="true">
+                                        <form:label>
+                                            <Label text="Fecha Inicio" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </form:label>
+                                        <form:fields>
+                                            <DatePicker width="auto" value="{
+                                            path : '/idFechaIni',
+                                            type : 'sap.ui.model.type.String'
+                                        }" id="idFechaIni" change=".onNameChange2" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
+                                        </form:fields>
+                                    </form:FormElement>
+                                    <form:FormElement visible="true">
+                                        <form:label>
+                                            <Label text="Fecha Fin" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                        </form:label>
+                                        <form:fields>
+                                            <DatePicker value="{
+                                            path : '/idFechaFin',
+                                            type : 'sap.ui.model.type.String'
+                                        }" width="auto" id="idFechaFin" change=".onNameChange2" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="yyyyMMdd"/>
+                                        </form:fields>
+                                    </form:FormElement>
+                                </form:formElements>
+                                <form:title/>
+                            </form:FormContainer>
+                        </form:formContainers>
+                        <form:layout>
+                            <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                        </form:layout>
+                    </form:Form>
+                    
+                </content>
+            </Panel>
+            <Panel height="auto" id="form3" width="100%" headerText="Datos de precios" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                        <content>
+                            <form:Form width="100%" editable="true" visible="true">
+                                <form:title/>
+                                <form:formContainers>
+                                    <form:FormContainer visible="true">
+                                        <form:formElements>
+                                            <form:FormElement visible="true">
+                                                <form:label>
+                                                    <Label text="Precio max. compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input type="Number" value="{
+                                            path : '/idPrecioMax',
+                                            type : 'sap.ui.model.type.String'
+                                        }" change=".onNameChange" id="idPrecioMax"  showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                    <Label text="Precio tope compra:" design="Standard" width="100%" required="false" textAlign="Right" textDirection="Inherit" visible="true"/>
+                                                    <Input   type="Number" value="{
+                                            path : '/idPrecioTopeCompra',
+                                            type : 'sap.ui.model.type.String'
+                                        }" change=".onNameChange" id="idPrecioTopeCompra" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement visible="true">
+                                                <form:label>
+                                                    <Label text="Precio min. venta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input  type="Number" value="{
+                                            path : '/idPrecioMin',
+                                            type : 'sap.ui.model.type.String'
+                                        }" change=".onNameChange" id="idPrecioMin" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                    <Label text="Precio tope venta" design="Standard" width="100%" required="false" textAlign="Right" textDirection="Inherit" visible="true"/>
+                                                    <Input  type="Number" value="{
+                                            path : '/idPrecioTopeVenta',
+                                            type : 'sap.ui.model.type.String'
+                                        }" change=".onNameChange" id="idPrecioTopeVenta" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement visible="true">
+                                                <form:label>
+                                                    <Label text="Especie" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </form:label>
+                                                <form:fields>
+                                            <Input  change="multiInputEspecie" class="sapUiSmallMarginBottom"
+												id="idEspecieIni"
+												width="100%"
+												placeholder="Ingresar Especie..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Especie>/listaEspecie}">
+												<suggestionColumns>
+													<Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Cod. Especie"/>
+													</Column>
+													<Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Descripcion"/>
+													</Column>
+												</suggestionColumns>
+												<suggestionRows>
+													<ColumnListItem>
+													<cells>
+														<Label text="{Especie>id}"/>
+														<Label text="{Especie>descripcion}"/>
+														<Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'},{path:'RUC'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</cells>
+													</ColumnListItem>
+												</suggestionRows>
+											</Input>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement visible="true">
+                                                <form:label>
+                                                    <Label text="Moneda" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </form:label>
+                                                <form:fields>
+                                                    <ComboBox id="moneda" selectedKey="00002" items="{moneda>/mLista}" editable="true" selectionChange="onChangeMoneda" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                                    <items>
+                                                        <core:Item text="{moneda>descripcion}" enabled="true" key="{moneda>id}"/>
+                                                    </items>
+                                                </ComboBox>
+                                                </form:fields>
+                                            </form:FormElement>
+                                            <form:FormElement visible="true">
+                                                <form:label>
+                                                    <Label text="Estado precio:" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </form:label>
+                                                <form:fields>
+                                                    <Input type="Text" id="idEstadoPrecio" value="Liberado" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                </form:fields>
+                                            </form:FormElement>
+                                        </form:formElements>
+                                        <form:title/>
+                                    </form:FormContainer>
+                                </form:formContainers>
+                                <form:layout>
+                                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                                </form:layout>
+                            </form:Form>
+                        </content>
+                    </Panel>
+        </content>
+        <footer>
+            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <content>
+                    <ToolbarSpacer width=""/>
+                    <Button text="Guardar" id="btnGuardar" press="guardar" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <Button text="Cancelar" press="regresarMain" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                </content>
+            </OverflowToolbar>
+        </footer>
+        <headerContent/>
+        <subHeader/>
+        <customHeader/>
+    </Page>
+</mvc:View>

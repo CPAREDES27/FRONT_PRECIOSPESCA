@@ -1,0 +1,527 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="tasa.com.aprobacioncastigospropuestos.controller.EditarAprobacionCastigos" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+       <m:Page showHeader="true" title="Aprobación de Castigos Propuestos" showFooter="true" showNavButton="false">
+        <m:content>
+             <m:Panel id="PanelMasivo" height="auto" width="100%" headerText="Datos de precio" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                <m:content>
+                    <form:Form width="100%" editable="true" visible="true">
+                        <form:title/>
+                        <form:formContainers>
+                            <form:FormContainer visible="true">
+                                <form:formElements>
+                                    <form:FormElement visible="true">
+                                        <form:label>
+                                            <m:Label text="Porc. castigo" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="LTR" visible="true"/>
+                                        </form:label>
+                                        <form:fields>
+                                            <m:Input type="Text" id="idPorcentajePP"  showValueHelp="false" enabled="true" visible="true" width="288px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                        </form:fields>
+                                    </form:FormElement>
+                                </form:formElements>
+                                <form:title/>
+                            </form:FormContainer>
+                        </form:formContainers>
+                        <form:layout>
+                            <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                        </form:layout>
+                    </form:Form>
+                </m:content>
+            </m:Panel>
+           
+            <m:Panel id="idPanelInfo" height="auto" width="100%" headerText="Resumen de información" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                <m:content>
+                    <m:IconTabBar expandable="false" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true" selectedKey="Ok">
+                        <m:items>
+                            <m:IconTabFilter icon="sap-icon://hint" iconColor="Default" text="Datos de marea" count="" design="Horizontal" showAll="false" textDirection="Inherit" enabled="true" visible="true" tooltip="Datos de marea" iconDensityAware="false">
+                                <m:content>
+                                    <m:Panel height="auto" width="100%" headerText="Datos de marea" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                                        <m:content>
+                                            <form:Form width="100%" editable="true" visible="true">
+                                                <form:title/>
+                                                <form:formContainers>
+                                                    <form:FormContainer visible="true">
+                                                        <form:formElements>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Marea" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" id="idMarea" value="{AprobacionCastigosPropuestos>NRMAR}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Propietario" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>NAME1}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Embarcación" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>NMEMB}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                        </form:formElements>
+                                                        <form:title/>
+                                                    </form:FormContainer>
+                                                </form:formContainers>
+                                                <form:layout>
+                                                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                                                </form:layout>
+                                            </form:Form>
+                                        </m:content>
+                                    </m:Panel>
+                                </m:content>
+                            </m:IconTabFilter>
+                            <m:IconTabSeparator icon="" iconDensityAware="false"/>
+                            <m:IconTabFilter icon="sap-icon://attachment" iconColor="Default" text="Datos de descarga" count="2" design="Horizontal" showAll="false" textDirection="Inherit" enabled="true" visible="true" tooltip="Datos de descarga" iconDensityAware="false">
+                                <m:content>
+                                    <m:Panel height="auto" width="100%" headerText="Datos de descarga" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                                        <m:content>
+                                            <form:Form width="100%" editable="true" visible="true">
+                                                <form:title/>
+                                                <form:formContainers>
+                                                    <form:FormContainer visible="true">
+                                                        <form:formElements>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Nro. descarga" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" id="idNroDescarga" value="{AprobacionCastigosPropuestos>NRDES}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>DESCR}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Especie"  design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" id="idcodEspecie" value="{AprobacionCastigosPropuestos>CDSPC}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Text text="{AprobacionCastigosPropuestos>DSSPC}"  width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Fecha/hora inic. desc." design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>FIDES}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>HIDES}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Fecha/hora fin desc." design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>FFDES}"  showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>HIDES}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Fecha producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>FECCONMOV}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Cant. descarga" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>CNPDS}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Text text="Tn" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                        </form:formElements>
+                                                        <form:title/>
+                                                    </form:FormContainer>
+                                                </form:formContainers>
+                                                <form:layout>
+                                                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                                                </form:layout>
+                                            </form:Form>
+                                        </m:content>
+                                    </m:Panel>
+                                </m:content>
+                            </m:IconTabFilter>
+                            <m:IconTabFilter icon="sap-icon://attachment" iconColor="Default" text="Datos de precio" count="3" design="Horizontal" showAll="false" textDirection="Inherit" enabled="true" visible="true" tooltip="Datos de precio" iconDensityAware="false">
+                                <m:content>
+                                    <m:Panel height="auto" width="100%" headerText="Datos de precio" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                                        <m:content>
+                                            <form:Form width="100%" editable="true" visible="true">
+                                                <form:title/>
+                                                <form:formContainers>
+                                                    <form:FormContainer visible="true">
+                                                        <form:formElements>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Precio de compra:" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>PRCOM}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                          
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Precio max. compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>PRCMX}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Precio tope compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{AprobacionCastigosPropuestos>PRCTP}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Porc. castigo prop:" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" id="idPCP" value="{AprobacionCastigosPropuestos>PCSPP}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Text text="%" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Porc. castigo def" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Number" id="idPorcCastigoDef" value="{AprobacionCastigosPropuestos>PCCSG}" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Text text="%" width="auto" maxLines="1"  wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Obs. castigo" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:TextArea rows="2" id="idObsCastigo" cols="20"  value="{AprobacionCastigosPropuestos>OBCDF}" maxLength="0" wrapping="None" enabled="true" required="false" valueStateText="Invalid entry" visible="true"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Moneda" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" id="idMoneda" value="{AprobacionCastigosPropuestos>WAERS}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                             <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:ComboBox id="cbEstadoPrecio" selectedKey="N" items="{Precio>/zdoTipoMareaDom}" editable="true" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                                                        <m:items>
+                                                                            <core:Item text="{Precio>descripcion}" enabled="true" key="{Precio>id}"/>
+                                                                        </m:items>
+                                                                    </m:ComboBox>                                               
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                        </form:formElements>
+                                                        <form:title/>
+                                                    </form:FormContainer>
+                                                </form:formContainers>
+                                                <form:layout>
+                                                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                                                </form:layout>
+                                            </form:Form>
+                                        </m:content>
+                                    </m:Panel>
+                                </m:content>
+                            </m:IconTabFilter>
+                            <m:IconTabSeparator icon="" iconDensityAware="false"/>
+                        </m:items>
+                        <m:content>
+                            <m:Text text="Tab Bar Content goes here ..." width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </m:content>
+                    </m:IconTabBar>
+                </m:content>
+            </m:Panel>
+            <Table
+				id="tablePrecio"
+				rows="{dataCastigo>/items}"
+				visibleRowCount="7"
+                selectionMode="None"
+				showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
+				enableColumnFreeze="{ui>/showFreezeMenuEntry}"
+				enableCellFilter="{ui>/enableCellFilter}"
+				columnSelect="onColumnSelect"
+				cellContextmenu="onProductIdCellContextMenu"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Products"/>
+						<m:ToolbarSpacer/>
+                          
+						<m:ToolbarSeparator/>
+			
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+                
+                	<Column
+						id="NRMAR"
+						width="11rem"
+						sortProperty="NRMAR"
+						filterProperty="NRMAR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Marea" />
+						<template>
+							<m:Text text="{dataCastigo>NRMAR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="NRDES"
+						width="11rem"
+						sortProperty="NRDES"
+						filterProperty="NRDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Nro descarga" />
+						<template>
+							<m:Text text="{dataCastigo>NRDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DESCR"
+						width="11rem"
+						sortProperty="DESCR"
+						filterProperty="DESCR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Planta" />
+						<template>
+							<m:Text text="{dataCastigo>DESCR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CDSPC"
+						width="11rem"
+						sortProperty="CDSPC"
+						filterProperty="CDSPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+                        visible="false">
+						<m:Label text="Planta" />
+						<template>
+							<m:Text text="{dataCastigo>CDSPC}" wrapping="false" />
+						</template>
+					</Column>
+                    
+                    <Column
+						id="FIDES"
+						width="11rem"
+						sortProperty="FIDES"
+						filterProperty="FIDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Fecha/hora inic. desc." />
+						<template>
+							<m:Text text="{dataCastigo>FIDES} {dataAcopio>HIDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="FFDES"
+						width="11rem"
+						sortProperty="FFDES"
+						filterProperty="FFDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Fecha/hora fin desc." />
+						<template>
+							<m:Text text="{dataCastigo>FFDES} {dataAcopio>HFDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CNPDS"
+						width="11rem"
+						sortProperty="CNPDS"
+						filterProperty="CNPDS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Cant. desc. (Tn)" />
+						<template>
+							<m:Text text="{dataCastigo>CNPDS}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="FECCONMOV"
+						width="11rem"
+						sortProperty="FECCONMOV"
+						filterProperty="FECCONMOV"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Fecha prod." />
+						<template>
+							<m:Text text="{dataCastigo>FECCONMOV}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="NMEMB"
+						width="11rem"
+						sortProperty="NMEMB"
+						filterProperty="NMEMB"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Embarcación" />
+						<template>
+							<m:Text text="{dataCastigo>NMEMB}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="NAME1"
+						width="11rem"
+						sortProperty="NAME1"
+						filterProperty="NAME1"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Armador comercial" />
+						<template>
+							<m:Text text="{dataCastigo>NAME1}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRCTP"
+						width="11rem"
+						sortProperty="PRCTP"
+						filterProperty="PRCTP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Pactado" />
+						<template>
+							<m:Text text="{dataCastigo>PRCOM}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="BONIF"
+						width="11rem"
+						sortProperty="BONIF"
+						filterProperty="BONIF"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Bonif." />
+						<template>
+							<m:Text text="{dataCastigo>BONIF}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRCMX"
+						width="11rem"
+						sortProperty="PRCMX"
+						filterProperty="PRCMX"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Max." />
+						<template>
+							<m:Text text="{dataCastigo>PRCMX}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRCTP2"
+						width="11rem"
+						sortProperty="PRCTP"
+						filterProperty="PRCTP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Tope" />
+						<template>
+							<m:Text text="{dataCastigo>PRCTP}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="WAERS"
+						width="11rem"
+						sortProperty="WAERS"
+						filterProperty="WAERS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Moneda" />
+						<template>
+							<m:Text text="{dataCastigo>WAERS}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="ESPRC"
+						width="11rem"
+						sortProperty="ESPRC"
+						filterProperty="ESPRC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Estado" />
+						<template>
+							<m:Text text="{dataCastigo>ESPRC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DSSPC"
+						width="11rem"
+						sortProperty="DSSPC"
+						filterProperty="DSSPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Especie" />
+						<template>
+							<m:Text text="{dataCastigo>DSSPC}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CALIDA"
+						width="11rem"
+						sortProperty="CALIDA"
+						filterProperty="CALIDA"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Calidad" />
+						<template>
+							<m:Text text="{dataCastigo>CALIDA}" wrapping="false" />
+						</template>
+					</Column>
+					<!--Columnas-->
+
+				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar">
+
+                    </m:OverflowToolbar>
+				</footer>
+			</Table>
+        </m:content>
+        <m:footer>
+            <m:OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <m:content>
+                    <m:ToolbarSpacer width=""/>
+                    <m:Button text="GuardarMasivo" id="btnGuardarMasivo" press="guardarAcopioMasivo" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <m:Button text="Guardar" id="btnGuardar" press="editarCastigo" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <m:Button text="Cancel" press="goBackAcopio" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                </m:content>
+            </m:OverflowToolbar>
+        </m:footer>
+        <m:headerContent/>
+        <m:subHeader/>
+        <m:customHeader/>
+    </m:Page>
+
+</mvc:View>

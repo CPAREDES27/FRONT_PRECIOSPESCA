@@ -1,0 +1,575 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="tasa.com.aprobacioncastigospropuestos.controller.App" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
+	<m:Shell id="shell">
+		<m:App id="app">
+			<semantic:SemanticPage>
+				<semantic:titleHeading>
+						<m:Title
+						text="{i18n>Aprobación de Castigos Propuestos}"
+						level="H2"/>
+				</semantic:titleHeading>
+		   <semantic:headerContent>
+		    <form:Form width="100%" editable="true" visible="true">
+                
+                <form:title>
+                    <core:Title text="Datos de selección" level="Auto"/>
+                </form:title>
+                
+                <form:formContainers>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            
+                              <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                            <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlantaIni"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<m:suggestionColumns>
+													
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Centro"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Planta"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Planta>WERKS}"/>
+														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Centro'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+											<m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+												id="idPlantaFin"
+												width="100%"
+												placeholder="Ingresar Planta..."
+												showSuggestion="true"
+												showValueHelp="false"
+												valueState="Information"
+												valueStateText="Ingrese un texto"
+												suggestionRows="{Planta>/listaPlanta}">
+												<m:suggestionColumns>
+													
+													<m:Column
+														hAlign="Begin"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Centro"/>
+													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Planta"/>
+													</m:Column>
+												</m:suggestionColumns>
+												<m:suggestionRows>
+													<m:ColumnListItem>
+													<m:cells>
+														<m:Label text="{Planta>WERKS}"/>
+														<m:Label text="{Planta>CDPTA}"/>
+														
+														<m:Label text="{
+																parts:[{path:'Planta'},{path:'Descripcion'}],
+																type: 'sap.ui.model.type.Currency',
+																formatOptions: {showMeasure: true}
+																}"/>
+													</m:cells>
+													</m:ColumnListItem>
+												</m:suggestionRows>
+											</m:Input>
+                                            </form:fields>
+                                        </form:FormElement>
+                            			
+                            <form:FormElement visible="true">
+                                            <form:label>
+                                                <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                            </form:label>
+                                            <form:fields>
+                                          <m:Input type="Text" id="idEmbarcacionIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb')"/>			
+											<m:Input type="Text" id="idEmbarcacionFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb2')"/>
+                                            </form:fields>
+                                        </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:DateRangeSelection change="buscarFecha" id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" />
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:RadioButtonGroup  id="rbgtype" selectedIndex ="{= ${rbgtype} ? 0 : 1 }" columns="1"  valueState="None" width="auto" editable="true" enabled="true" textDirection="Inherit" select="_onRadioButtonGroupSelect">
+                                        <m:buttons>
+                                            <m:RadioButton text="Pendientes de castigo" editable="true" enabled="true" visible="true" width="auto" valueState="None" selected="false"/>
+                                            <m:RadioButton text="Todas" editable="true" enabled="true" visible="true" width="auto" valueState="None" selected="false"/>
+                                        </m:buttons>
+                                    </m:RadioButtonGroup>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="Cant. de Aciertos" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:Input type="Number" id="idAciertos" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <m:Button text="Ejecutar" press="loadTablaPreciosAcopio" type="Default" iconFirst="true" width="342.109375px" enabled="true" visible="true" iconDensityAware="false"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                </form:formContainers>
+                <form:layout>
+					<form:ResponsiveGridLayout
+						labelSpanXL="2"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="2"
+						columnsM="2"
+						singleContainerFullSize="false" />
+				</form:layout>
+            </form:Form>
+			</semantic:headerContent>
+            <!-- <ScrollContainer horizontal="true" vertical="true" width="100%" height="194.375px" visible="true"> -->
+            <semantic:content>
+			<Table
+				id="table"
+				rows="{AprobacionCastigosPropuestos>/items}"
+				visibleRowCount="7"
+                selectionMode="MultiToggle"
+				showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
+				enableColumnFreeze="{ui>/showFreezeMenuEntry}"
+				enableCellFilter="{ui>/enableCellFilter}"
+				columnSelect="onColumnSelect"
+				cellContextmenu="onProductIdCellContextMenu"
+				ariaLabelledBy="title">
+				<extension>
+					<m:OverflowToolbar style="Clear">
+						<m:Title id="title" text="Lista de registros: "/>
+						<m:ToolbarSpacer/>
+                          <m:Button icon="sap-icon://edit" press="editarMasivo" text="Editar" tooltip="Editar"/> 
+						  <m:Button icon="sap-icon://excel-attachment" press="onDataExport" text="Exportar"/>
+						<m:ToolbarSeparator/>
+						<m:SearchField
+							placeholder="Búsqueda rápida"
+							value="{ui>/globalFilter}"
+							search="filterGlobally"
+							width="15rem"/>
+					</m:OverflowToolbar>
+				</extension>
+				<columns>
+				<!--Se quita la columna editar temporalmente por pruebas -->
+                <!-- <Column
+						id="edit"
+						headerSpan="1,1"
+						width="11rem"
+						sortProperty="edit"
+						filterProperty="edit"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						 <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="" />
+                        </multiLabels>
+						
+						<template>
+						<m:Button icon="sap-icon://edit" text="Editar" press="editRow"/> 
+						</template>
+					</Column> -->
+                	<Column
+						id="NRMAR"
+						width="11rem"
+						sortProperty="NRMAR"
+						filterProperty="NRMAR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+							 <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Marea" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>NRMAR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="NRDES"
+						width="11rem"
+						sortProperty="NRDES"
+						filterProperty="NRDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						 <multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Nro descarga" />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>NRDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DESCR"
+						width="11rem"
+						sortProperty="DESCR"
+						filterProperty="DESCR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						
+						<multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Planta" />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>DESCR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CDSPC"
+						width="11rem"
+						sortProperty="CDSPC"
+						filterProperty="CDSPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+                        visible="false">
+						<multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Planta" />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>CDSPC}" wrapping="false" />
+						</template>
+					</Column>
+                    
+                    <Column
+						id="FIDES"
+						width="11rem"
+						sortProperty="FIDES"
+						filterProperty="FIDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						
+						<multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Fecha/hora inic. desc." />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>FIDES} {AprobacionCastigosPropuestos>HIDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="FFDES"
+						width="11rem"
+						sortProperty="FFDES"
+						filterProperty="FFDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						
+						<multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="Fecha/hora fin desc." />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>FFDES} {AprobacionCastigosPropuestos>HFDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CNPDS"
+						width="11rem"
+						sortProperty="CNPDS"
+						filterProperty="CNPDS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						hAlign="End">
+						<multiLabels>
+							<m:Label visible="false" />
+                           	<m:Label text="Cant. desc. (Tn)" />
+                        </multiLabels>
+					
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>CNPDS}" wrapping="false" />
+						</template>
+					</Column>
+					 <Column
+						id="FECCONMOV"
+						width="11rem"
+						sortProperty="FECCONMOV"
+						filterProperty="FECCONMOV"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<multiLabels>
+							<m:Label visible="false" />
+                           	<m:Label text="Fecha prod." />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>FECCONMOV}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="NMEMB"
+						width="11rem"
+						sortProperty="NMEMB"
+						filterProperty="NMEMB"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+					
+						<multiLabels>
+							<m:Label visible="false" />
+                   			<m:Label text="Embarcación" />	
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>NMEMB}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="NAME1"
+						width="11rem"
+						sortProperty="NAME1"
+						filterProperty="NAME1"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						
+						<multiLabels>
+							<m:Label visible="false" />
+                   			<m:Label text="Propietario" />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>NAME1}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PRCOM"
+						width="11rem"
+						sortProperty="PRCOM"
+						filterProperty="PRCOM"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="4,1"
+						hAlign="End">
+						<m:Label text="Pactado" />
+						<multiLabels>
+							
+							<m:Label text="Precio Compra" textAlign="Center" width="100%"/>
+                            <m:Label text="Cant. desc. (Tn)" textAlign="Center" width="100%"/>
+                        </multiLabels>
+						<template>
+						<m:Text text="{AprobacionCastigosPropuestos>PRCOM}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PRCMX"
+						width="11rem"
+						sortProperty="PRCMX"
+						filterProperty="PRCMX"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="4,1"
+						hAlign="End">
+						<multiLabels>
+							
+							<m:Label text="Precio Compra" textAlign="Center" width="100%"/>
+                            <m:Label text="Max" textAlign="Center" width="100%"/>
+                        </multiLabels>
+					
+						<template>
+							
+                            <m:Text text="{AprobacionCastigosPropuestos>PRCMX}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PRCTP"
+						width="11rem"
+						sortProperty="PRCTP"
+						filterProperty="PRCTP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="4,1"
+						hAlign="End">
+						
+						<multiLabels>
+							
+							<m:Label text="Precio Compra" textAlign="Center" width="100%"/>
+                            <m:Label text="Tope" textAlign="Center" width="100%"/>
+                        </multiLabels>
+						<template>
+                            <m:Text text="{AprobacionCastigosPropuestos>PRCTP}" wrapping="false" />
+							</template>
+					
+						
+					</Column>
+					<Column
+						id="WAERSDESC"
+						width="11rem"
+						sortProperty="WAERSDESC"
+						filterProperty="WAERSDESC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="4,1">
+				
+						<multiLabels>
+							<m:Label text="Precio Compra" textAlign="Center" width="100%"/>
+                            <m:Label text="Moneda" textAlign="Center" width="100%"/>
+						</multiLabels>
+						<template>
+						<m:Text text="{AprobacionCastigosPropuestos>WAERSDESC}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="PCSPP"
+						width="11rem"
+						sortProperty="PCSPP"
+						filterProperty="PCSPP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="2,1"
+						hAlign="End">
+						 <multiLabels>
+							<m:Label text="Castigo" textAlign="Center" width="100%"/>
+                            <m:Label text="% Prop" />
+                        </multiLabels>
+						<template>
+						
+							<m:Text text="{AprobacionCastigosPropuestos>PCSPP}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="OBCPP"
+						width="11rem"
+						sortProperty="OBCPP"
+						filterProperty="OBCPP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="2,1">
+						<multiLabels>
+							<m:Label text="Castigo" textAlign="Center" width="100%"/>
+                            <m:Label text="ObsCastigoProp" />
+                        </multiLabels>
+						<template>
+						
+							<m:Text text="{AprobacionCastigosPropuestos>OBCPP}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PCCSG"
+						width="11rem"
+						sortProperty="PCCSG"
+						filterProperty="PCCSG"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<multiLabels>
+							<m:Label visible="false" />
+                            <m:Label text="% Def." />
+                        </multiLabels>
+						
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>PCCSG}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="OBCDF"
+						width="11rem"
+						sortProperty="OBCDF"
+						filterProperty="OBCDF"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="2,1">
+						<multiLabels>
+							<m:Label text="Calidad" textAlign="Center" width="100%"/>
+                            <m:Label text="ObsCastigoDef." />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>OBCDF}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="ESCSG"
+						width="11rem"
+						sortProperty="ESCSG"
+						filterProperty="ESCSG"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="2,1">
+						<multiLabels>
+							<m:Label text="Calidad" textAlign="Center" width="100%"/>
+                            <m:Label text="Estado" />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>ESCSG}" wrapping="false" />
+						</template>
+					</Column>
+					<Column
+						id="DSSPC"
+						width="11rem"
+						sortProperty="DSSPC"
+						filterProperty="DSSPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						headerSpan="2,1">
+						<multiLabels>
+							<m:Label text="Calidad" textAlign="Center" width="100%"/>
+                            <m:Label text="Estado" />
+                        </multiLabels>
+						<template>
+							<m:Text text="{AprobacionCastigosPropuestos>DSSPC}" wrapping="false" />
+						</template>
+					</Column>
+					<!--Columnas-->
+
+				</columns>
+				<footer>
+					<m:OverflowToolbar id="infobar">
+
+                    </m:OverflowToolbar>
+				</footer>
+			</Table>
+    </semantic:content>
+				
+			</semantic:SemanticPage>
+		</m:App>
+	</m:Shell>
+</mvc:View>

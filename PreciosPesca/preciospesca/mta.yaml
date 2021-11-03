@@ -1,0 +1,205 @@
+_schema-version: "3.2"
+ID: preciospesca
+description: Precios de pesca
+version: 0.0.1
+modules:
+- name: preciospesca-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: preciospesca-dest-srv
+    parameters:
+      content-target: true
+  - name: preciospesca-repo-host
+    parameters:
+      service-key:
+        name: preciospesca-repo-host-key
+  - name: preciospesca-uaa
+    parameters:
+      service-key:
+        name: preciospesca-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: preciospesca_repo_host
+          ServiceInstanceName: preciospesca-html5-srv
+          ServiceKeyName: preciospesca-repo-host-key
+          sap.cloud.service: preciospesca
+        - Authentication: OAuth2UserTokenExchange
+          Name: preciospesca_uaa
+          ServiceInstanceName: preciospesca-xsuaa-srv
+          ServiceKeyName: preciospesca-uaa-key
+          sap.cloud.service: preciospesca
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
+- name: preciospesca-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: preciospesca-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - comtasapoliticadeprecios.zip
+      name: comtasapoliticadeprecios
+      target-path: resources/
+    - artifacts:
+      - tasacompreciosponderados.zip
+      name: tasacompreciosponderados
+      target-path: resources/
+    - artifacts:
+      - tasacompreciosacopio.zip
+      name: tasacompreciosacopio
+      target-path: resources/
+    - artifacts:
+      - tasacomaprobacionprecios.zip
+      name: tasacomaprobacionprecios
+      target-path: resources/
+    - artifacts:
+      - tasacomcastigospropuestos.zip
+      name: tasacomcastigospropuestos
+      target-path: resources/
+    - artifacts:
+      - tasacomaprobacioncastigospropuestos.zip
+      name: tasacomaprobacioncastigospropuestos
+      target-path: resources/
+    - artifacts:
+      - tasacomconsultapreciospesca.zip
+      name: tasacomconsultapreciospesca
+      target-path: resources/
+    - artifacts:
+      - tasacomestadodeprecios.zip
+      name: tasacomestadodeprecios
+      target-path: resources/
+    - artifacts:
+      - tasacomhorometros.zip
+      name: tasacomhorometros
+      target-path: resources/
+- name: comtasapoliticadeprecios
+  type: html5
+  path: politicadeprecios
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacompreciosponderados
+  type: html5
+  path: preciosponderados
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacompreciosacopio
+  type: html5
+  path: preciosacopio
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacomaprobacionprecios
+  type: html5
+  path: aprobacionprecios
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacomcastigospropuestos
+  type: html5
+  path: castigospropuestos
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacomaprobacioncastigospropuestos
+  type: html5
+  path: aprobacioncastigospropuestos
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacomconsultapreciospesca
+  type: html5
+  path: consultapreciospesca
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacomestadodeprecios
+  type: html5
+  path: estadodeprecios
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+- name: tasacomhorometros
+  type: html5
+  path: horometros
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: preciospesca-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: preciospesca-xsuaa-srv
+    service-plan: application
+- name: preciospesca-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: preciospesca-dest-srv
+    service-plan: lite
+- name: preciospesca-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: preciospesca-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo

@@ -132,7 +132,14 @@
 														minScreenWidth="Tablet">
 														<Label text="Cod. Planta"/>
 													</Column>
-													
+													 <Column
+                                                        width="15%"
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<Label text="Descripción"/>
+													</Column>
                                                     
 												</suggestionColumns>
 												<suggestionRows>
@@ -141,6 +148,7 @@
 														
                                                         <Label text="{Planta>WERKS}"/>
                                                        <Label text="{Planta>CDPTA}" width="100%"/>
+                                                       <Label text="{Planta>DESCR}" width="100%"/>
 														<Label text="{
 																parts:[{path:'Planta'},{path:'Descripcion'}],
 																type: 'sap.ui.model.type.Currency',

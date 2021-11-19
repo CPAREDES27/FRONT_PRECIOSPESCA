@@ -50,6 +50,7 @@ sap.ui.define([
                    this.getView().getModel("dataAprobacionPrecios").setProperty("/items", data);
                    
                 }
+				console.log(this.getView().getModel("dataAprobacionPrecios").setProperty("/items", data));
 			},
 			loadPrecios: function(){
 				var zdoTipoMareaDom;

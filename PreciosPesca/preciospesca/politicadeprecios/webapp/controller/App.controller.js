@@ -68,10 +68,56 @@ sap.ui.define([
 			
 			listaArmador: function(){
 				oGlobalBusyDialog.open();
+				var idAciertos = 	sap.ui.getCore().byId("idAciertosPop").getValue().trim();
+				var idRuc = 	sap.ui.getCore().byId("idRuc2").getValue().trim();
+				var idDescripcion = 	sap.ui.getCore().byId("idDescripcion").getValue().trim();
+				var idCuentaProveedor =	sap.ui.getCore().byId("idCuentaProveedor").getValue().trim();
+				
+				console.log(idAciertos);
+				console.log(idRuc);
+				console.log(idDescripcion);
+				console.log(idCuentaProveedor);
+				
 				var body={
-					"codigo": "100"
+					"delimitador": "|",
+					"fields": [
+					  
+					],
+					"no_data": "",
+					"option": [
+					 
+					],
+					"options": [
+						{
+							"cantidad": "10",
+							"control": "INPUT",
+							"key": "LIFNR",
+							"valueHigh": "",
+							"valueLow": idCuentaProveedor,
+						  },
+						  {
+							"cantidad": "10",
+							"control": "INPUT",
+							"key": "NAME1",
+							"valueHigh": "",
+							"valueLow": idDescripcion,
+						  },
+						  {
+							"cantidad": "10",
+							"control": "INPUT",
+							"key": "STCD1",
+							"valueHigh": "",
+							"valueLow": idRuc,
+						  }
+					  
+					],
+					"order": "",
+					"p_user": "FGARCIA",
+					"rowcount": idAciertos,
+					"rowskips": 0,
+					"tabla": "LFA1"
 				  }
-				  fetch(`${mainUrlServices}General/Armador`,
+				  fetch(`${mainUrlServices}General/Read_table/`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -80,13 +126,17 @@ sap.ui.define([
 						var dataPuerto=data.data;
 						console.log(dataPuerto);
 						console.log(this.getView().getModel("Armador").setProperty("/listaArmador",dataPuerto));
-				
-							oGlobalBusyDialog.close();
-					
-						
-						
-					  }).catch(error => console.log(error)
-					  );
+						sap.ui.getCore().byId("idListaArmador").setText("Lista de registros: "+dataPuerto.length);
+						if(dataPuerto.length<=0){
+							sap.ui.getCore().byId("idListaArmador").setText("Lista de registros: No se encontraron resultados");
+						}
+						oGlobalBusyDialog.close();
+					  }).catch(function(error){
+							if(error){
+								MessageBox.error(error.message);
+								oGlobalBusyDialog.close();
+							}
+					  });
 			},
 			listPuerto: function(){
 				oGlobalBusyDialog.open();
@@ -579,36 +629,7 @@ sap.ui.define([
 			   var idPlantaFin=this.byId("idPlantaFin").getValue();
 			   var arrayPuerto=[];
 			   var arrayPlanta=[];
-			//region  
-			//    for(var i=0;i<textPlanta.length;i++){
-			// 	arrayPlanta[i]=textPlanta[i].mProperties.key;
-			//    }
-			//    if(textPlanta.length===1){
-			// 	arrayPlanta[1]=textPlanta[0].mProperties.key;
-			//    }
-
-			//    for(var i=0;i<text.length;i++){
-			// 	arrayPuerto[i]=text[i].mProperties.key;
-			//    }
-			//    if(text.length===1){
-			// 	arrayPuerto[1]=text[0].mProperties.key;
-			//    }
-			   
-			   
-			//    console.log(arrayPuerto);
-			//    if(arrayPuerto.length>2){
-			// 	   MessageBox.error("Solo se permite seleccionar 2 puertos");
-			// 	   oGlobalBusyDialog.close();
-			// 	   return false;
-				   
-			//    }
-			//    if(arrayPlanta.length>2){
-			// 	MessageBox.error("Solo se permite seleccionar 2 plantas");
-			// 	oGlobalBusyDialog.close();
-			// 	return false;
-			
-			// }
-			//endregion
+		
 			   let idArmadorIni= this.byId("idArmadorIni").getValue();
 			   let idArmadorFin= this.byId("idArmadorFin").getValue();
 			   let idEspecieIni= this.byId("idEspecieIni").getValue();
@@ -620,6 +641,30 @@ sap.ui.define([
 			   var fechaFin=this.byId("idFechaFinVigencia").getValue();
 			   var error=""
 			   var estado=true;
+			   var num = this.byId("cboLitoral").getSelectedKeys();
+			   console.log(num);
+			   if(num.length>1){
+				num.forEach(motivo => {
+					options.push({
+						cantidad: "10",
+						control: "MULTICOMBOBOX",
+						key: "CDZLT",
+						valueHigh: "",
+						valueLow: motivo
+					});
+				});
+				}
+				else if(num.length<=1){
+					num.forEach(motivo => {
+						options.push({
+							cantidad: "10",
+							control: "MULTICOMBOBOX",
+							key: "CDZLT",
+							valueHigh: "",
+							valueLow: motivo
+						});
+					});
+				}
 			   if(!fechaIni){
 				error="Debe ingresar una fecha de inicio de vigencia\n";
 				estado=false;
@@ -909,6 +954,42 @@ sap.ui.define([
 				  this.getRouter().navTo("RouteApp");
 				  location.reload();
 			  },
+			  onSearch: function (oEvent) {
+				// add filter for search
+				var aFilters = [];
+				var sQuery = oEvent.getSource().getValue();
+				if (sQuery && sQuery.length > 0) {
+					var filter = new Filter([
+						new Filter("CDPPC", FilterOperator.Contains, sQuery),
+						  new Filter("DSZLT", FilterOperator.Contains, sQuery),
+						  new Filter("DSPTO", FilterOperator.Contains, sQuery),
+						  new Filter("DESCR", FilterOperator.Contains, sQuery),
+						  new Filter("NAME1", FilterOperator.Contains, sQuery),
+						  new Filter("FIVIG", FilterOperator.Contains, sQuery),
+						  new Filter("FFVIG", FilterOperator.Contains, sQuery),
+						  //new Filter("PRCMX", FilterOperator.Contains, sQuery),
+						  //new Filter("PRCTP", FilterOperator.Contains, sQuery),
+						  //new Filter("PRVMN", FilterOperator.Contains, sQuery),
+						  //new Filter("PRVTP", FilterOperator.Contains, sQuery),
+						  new Filter("DSSPC", FilterOperator.Contains, sQuery),
+						  new Filter("WAERS", FilterOperator.Contains, sQuery),
+						  new Filter("ESPMR", FilterOperator.Contains, sQuery)
+					
+					]);
+					aFilters.push(filter);
+				}
+	
+				// update list binding
+				var oList = this.byId("table");
+				var oBinding = oList.getBinding("rows");
+				oBinding.filter(aFilters, "Application");
+			},
+			limpiarFiltro: function(){
+							
+				sap.ui.getCore().byId("idRuc2").setValue("");
+				sap.ui.getCore().byId("idDescripcion").setValue("");
+				sap.ui.getCore().byId("idCuentaProveedor").setValue("");
+			},
 			  filterGlobally : function(oEvent) {
 				  var sQuery = oEvent.getParameter("query");
 				  this._oGlobalFilter = null;
@@ -1000,6 +1081,7 @@ sap.ui.define([
 				  }
 				  console.log(options);
 		  },
+		  
 		  onDataExport:  function() {
 			  var oExport = new Export({
 				  exportType: new ExportTypeCSV({ // required from "sap/ui/core/util/ExportTypeCSV"
@@ -1094,7 +1176,7 @@ sap.ui.define([
 					  name: "Estado",
 					  template: {
 						content: "{ESPMRDESC}"
-					  }
+					}
 					}
 				  ]
 				});
@@ -1142,7 +1224,125 @@ sap.ui.define([
 				
 				this._onCloseDialogArmador();	
 			},
-			
+			createColumnConfig: function() {
+				return [
+					{
+						label: 'Código de Precio',
+						property: 'CDPPC' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Zona de Pesca',
+						property: 'DSZLT' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Puerto',
+						property: 'DSPTO' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Planta',
+						property: 'DESCR' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Armador Comercial',
+						property: 'NAME1' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Fecha Inicio',
+						property: 'FIVIG' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Fecha Fin',
+						property: 'FFVIG' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Precio Compra Max',
+						property: 'PRCMX' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Precio Compra Tope',
+						property: 'PRCTP' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Precio Venta Min',
+						property: 'PRVMN' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Precio Venta Tope',
+						property: 'PRVTP' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Especie',
+						property: 'DSSPC' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Moneda',
+						property: 'WAERS' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Estado',
+						property: 'ESPMRDESC' ,
+						type: EdmType.String,
+						scale: 2
+					}
+					];
+			},
+			onExport: function() {
+				var aCols, aProducts, oSettings, oSheet;
+	
+				aCols = this.createColumnConfig();
+				console.log(this.getView().getModel("PoliticaPrecio"));
+				aProducts = this.getView().getModel("PoliticaPrecio").getProperty('/listaPolitica');
+	
+				oSettings = {
+					
+					workbook: { 
+						columns: aCols,
+						context: {
+							application: 'Debug Test Application',
+							version: '1.95.0',
+							title: 'Some random title',
+							modifiedBy: 'John Doe',
+							metaSheetName: 'Custom metadata'
+						}
+						
+					},
+					dataSource: aProducts,
+					fileName:"REPORTE POLITICA DE PRECIOS"
+				};
+	
+				oSheet = new Spreadsheet(oSettings);
+				oSheet.build()
+					.then( function() {
+						MessageToast.show('El Archivo ha sido exportado correctamente');
+					})
+					.finally(oSheet.destroy);
+			}
 			
 		});
 	});

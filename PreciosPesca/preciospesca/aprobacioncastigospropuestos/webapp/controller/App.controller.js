@@ -438,11 +438,12 @@ sap.ui.define([
 			var indices = evt.mParameters.listItem.oBindingContexts.Embarcacion.sPath.split("/")[2];
 			console.log(indices);
 			var data = this.getView().getModel("Embarcacion").oData.listaEmbarcacion[indices].CDEMB;
-			if(this.popEmb==="popEmb"){
+			if (this.currentInputEmba.includes("embarcacionLow")) {
 				this.byId("idEmbarcacionIni").setValue(data);
-			}else if(this.popEmb==="popEmb2"){
+			}else if(this.currentInputEmba.includes("embarcacionHigh")){
 				this.byId("idEmbarcacionFin").setValue(data);
 			}
+			
 			this._onCloseDialogEmbarcacion();
 			
 		},

@@ -7,11 +7,15 @@ sap.ui.define([
     "sap/ui/core/util/Export",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+	"sap/ui/core/BusyIndicator",
+	"sap/m/MessageBox",
+	'sap/ui/export/library',
+	'sap/ui/export/Spreadsheet',
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	 function (BaseController,Controller,JSONModel,History,ExportTypeCSV,Export,Filter,FilterOperator) {
+	 function (BaseController,Controller,JSONModel,History,ExportTypeCSV,Export,Filter,FilterOperator,BusyIndicator,MessageBox,exportLibrary, Spreadsheet) {
 		"use strict";
 		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
@@ -21,11 +25,18 @@ sap.ui.define([
 		};
 		var popEmb="";
 		var popUp="";
+		var EdmType = exportLibrary.EdmType;
 		return BaseController.extend("tasa.com.consultapreciospesca.controller.App", {
 			onInit: function () {
 				let ViewModel= new JSONModel(
 					{}
 					);
+					this.setModel(ViewModel, "consultaMareas");
+					this.currentInputEmba = "";
+						this.primerOption = [];
+						this.segundoOption = [];
+						this.currentPage = "";
+						this.lastPage = "";
 					var oGlobalBusyDialog = new sap.m.BusyDialog();
 					this.setModel(ViewModel,"litoral");
 					this.setModel(ViewModel,"precio");
@@ -34,7 +45,79 @@ sap.ui.define([
 					this.loadComboPrecio(); 
 					this.listPlanta();
 					this.loadIndicadorP();
-					this.listaArmador();
+					
+			},
+
+			listaArmador: function(){
+				oGlobalBusyDialog.open();
+				var idAciertos = 	sap.ui.getCore().byId("idAciertosPop").getValue();
+				var idRuc = 	sap.ui.getCore().byId("idRuc2").getValue();
+				var idDescripcion = 	sap.ui.getCore().byId("idDescripcion").getValue();
+				var idCuentaProveedor =	sap.ui.getCore().byId("idCuentaProveedor").getValue();
+				
+				console.log(idAciertos);
+				console.log(idRuc);
+				console.log(idDescripcion);
+				console.log(idCuentaProveedor);
+				var body={
+					"delimitador": "|",
+					"fields": [
+					  
+					],
+					"no_data": "",
+					"option": [
+					 
+					],
+					"options": [
+						{
+							"cantidad": "10",
+							"control": "INPUT",
+							"key": "LIFNR",
+							"valueHigh": "",
+							"valueLow": idCuentaProveedor,
+						  },
+						  {
+							"cantidad": "10",
+							"control": "INPUT",
+							"key": "NAME1",
+							"valueHigh": "",
+							"valueLow": idDescripcion,
+						  },
+						  {
+							"cantidad": "10",
+							"control": "INPUT",
+							"key": "STCD1",
+							"valueHigh": "",
+							"valueLow": idRuc,
+						  }
+					  
+					],
+					"order": "",
+					"p_user": "FGARCIA",
+					"rowcount": idAciertos,
+					"rowskips": 0,
+					"tabla": "LFA1"
+				  }
+				  fetch(`${mainUrlServices}General/Read_table/`,
+					  {
+						  method: 'POST',
+						  body: JSON.stringify(body)
+					  })
+					  .then(resp => resp.json()).then(data => {
+						var dataPuerto=data.data;
+						console.log(dataPuerto);
+						console.log(this.getView().getModel("Armador").setProperty("/listaArmador",dataPuerto));
+						sap.ui.getCore().byId("idListaArmador").setText("Lista de registros: "+dataPuerto.length);
+						if(dataPuerto.length<=0){
+							sap.ui.getCore().byId("idListaArmador").setText("Lista de registros: No se encontraron resultados");
+						}
+						oGlobalBusyDialog.close();
+					  }).catch(function(error){
+							if(error){
+								MessageBox.error(error.message);
+								oGlobalBusyDialog.close();
+							}
+					  });
 			},
 			buscarFecha: function(oEvent){
 			 
@@ -56,7 +139,7 @@ sap.ui.define([
 					 fechaIni2=this.generateFecha(dateIni2);
 				}
    
-				debugger;
+			
 				if(id==="application-consultapreciospesca-display-component---App--idFechaIniVigencia")
 				{
 					JsonFechaIni={
@@ -83,24 +166,8 @@ sap.ui.define([
 			  return fecha;
 		  },
 			
-			listaArmador: function(){
-				oGlobalBusyDialog.open();
-				var body={
-					"codigo": "100"
-				  }
-				  fetch(`${mainUrlServices}General/Armador`,
-					  {
-						  method: 'POST',
-						  body: JSON.stringify(body)
-					  })
-					  .then(resp => resp.json()).then(data => {
-						var dataPuerto=data.data;
-						console.log(dataPuerto);
-						console.log(this.getView().getModel("Armador").setProperty("/listaArmador",dataPuerto));
-						oGlobalBusyDialog.close();
-					  }).catch(error => console.log(error)
-					  );
-			},
+			
+		  
 			listPlanta: function(){
 				oGlobalBusyDialog.open();
 				var dataPlantas={
@@ -145,10 +212,11 @@ sap.ui.define([
 				this.byId("idPlantaFin").setValue("");
 				this.byId("idArmadorIni").setValue("");
 				this.byId("idArmadorFin").setValue("");
-				this.byId("idEmbarcacionIni").setValue("");
-				this.byId("idEmbarcacionFin").setValue("");
+				this.byId("embarcacionLow").setValue("");
+				this.byId("embarcacionHigh").setValue("");
 				this.byId("idFechaIniVigencia").setValue("");
-				
+				this.byId("idEstado").setValue("");
+				this.byId("idEstadoCastigo").setValue("");
 
 			},
 			loadComboPrecio: function(){
@@ -191,6 +259,28 @@ sap.ui.define([
 					this.getRouter().navTo("RouteApp");
 					location.reload();
 			},
+			castFecha: function(idFechaInicio){
+				var fechaIni = new Date(idFechaInicio);
+				var mes = fechaIni.getMonth()+1;
+				var day= fechaIni.getDate();
+				var anio = fechaIni.getFullYear();
+				if(mes<10){
+					mes=this.zeroFill(mes,2);
+				}
+				if(day<10){
+					day=this.zeroFill(day,2);
+				}
+				return anio+""+mes+""+day;
+			},
+			zeroFill: function( number, width )
+			{
+					width -= number.toString().length;
+					if ( width > 0 )
+					{
+						return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number;
+					}
+					return number + ""; // siempre devuelve tipo cadena
+			},
 			
 			loadTablaPreciosAcopio: function(){
 				oGlobalBusyDialog.open();
@@ -199,10 +289,50 @@ sap.ui.define([
 				var idPlantaFin = this.byId("idPlantaFin").getValue();
 				var idArmadorIni = this.byId("idArmadorIni").getValue();
 				var idArmadorFin = this.byId("idArmadorFin").getValue();
-				var idEmbarcacionIni = this.byId("idEmbarcacionIni").getValue();
-				var idEmbarcacionFin = this.byId("idEmbarcacionFin").getValue();
+				var idEmbarcacionIni = this.byId("embarcacionLow").getValue();
+				var idEmbarcacionFin = this.byId("embarcacionHigh").getValue();
 				var idEstado = this.byId("idEstado").getSelectedKey();
 				var idEstadoCastigo= this.byId("idEstadoCastigo").getSelectedKey();
+				var idFechaZarpe=this.byId("idFechaIniVigencia").getValue();
+				var idFechaIni="";
+				var idFechaF="";
+				var fechaEstado=true;
+				if(idFechaZarpe==="" || idFechaZarpe===null){
+					idFechaIni = "";
+					idFechaF = "";	
+					fechaEstado=false;
+				}else{
+					fechaEstado=true;
+					idFechaIni = this.byId("idFechaIniVigencia").mProperties.dateValue;
+					idFechaF = this.byId("idFechaIniVigencia").mProperties.secondDateValue;
+					var idFechaIni=this.castFecha(idFechaIni);
+					var idFechaF=this.castFecha(idFechaF);
+				}
+
+
+			if(!idFechaZarpe){
+				MessageBox.error("Debe ingresar una fecha de zarpe");
+				oGlobalBusyDialog.close();
+				return false;
+			}
+				if(idEstado){
+					options.push({
+						cantidad: "10",
+						control:"COMBOBOX",
+						key:"ESPRC",
+						valueHigh:"",
+						valueLow:idEstado
+					});
+				}
+				if(idEstadoCastigo){
+					options.push({
+						cantidad: "10",
+						control:"COMBOBOX",
+						key:"ESCSG",
+						valueHigh:"",
+						valueLow:idEstadoCastigo
+					});
+				}
 				if(idPlantaIni && !idPlantaFin){
 					options.push({
 						cantidad: "10",
@@ -234,7 +364,7 @@ sap.ui.define([
 					options.push({
 						cantidad: "10",
 						control:"MULTIINPUT",
-						key:"CDEMP",
+						key:"LIFNR",
 						valueHigh: idArmadorIni,
 						valueLow:idArmadorIni
 					});
@@ -243,7 +373,7 @@ sap.ui.define([
 				options.push({
 					cantidad: "10",
 					control:"MULTIINPUT",
-					key:"CDEMP",
+					key:"LIFNR",
 					valueHigh: idArmadorFin,
 					valueLow:idArmadorFin
 				});
@@ -252,7 +382,7 @@ sap.ui.define([
 				options.push({
 					cantidad: "10",
 					control:"MULTIINPUT",
-					key:"CDEMP",
+					key:"LIFNR",
 					valueHigh: idArmadorFin,
 					valueLow:idArmadorIni
 				});
@@ -284,13 +414,13 @@ sap.ui.define([
 					valueLow:idEmbarcacionIni
 				});
 			}
-			if(JsonFechaIni.fechaIni || JsonFechaIni.fechaIni2){
+			if(idFechaIni || idFechaF){
 					options.push({
 						cantidad: "10",
 						control:"MULTIINPUT",
 						key:"FECCONMOV",
-						valueHigh: JsonFechaIni.fechaIni2,
-						valueLow:JsonFechaIni.fechaIni
+						valueHigh: idFechaF,
+						valueLow:idFechaIni
 					});
 			}
 			// var conPrecio="";
@@ -353,9 +483,9 @@ sap.ui.define([
 				console.log(indices);
 				var data = this.getView().getModel("Embarcacion").oData.listaEmbarcacion[indices].CDEMB;
 				if(this.popEmb==="popEmb"){
-					this.byId("idEmbarcacionIni").setValue(data);
+					this.byId("embarcacionLow").setValue(data);
 				}else if(this.popEmb==="popEmb2"){
-					this.byId("idEmbarcacionFin").setValue(data);
+					this.byId("embarcacionHigh").setValue(data);
 				}
 				this._onCloseDialogEmbarcacion();
 				
@@ -729,6 +859,39 @@ sap.ui.define([
 						oExport.destroy();
 					  });
 					},
+					onSearch: function (oEvent) {
+						// add filter for search
+						var aFilters = [];
+						var sQuery = oEvent.getSource().getValue();
+						if (sQuery && sQuery.length > 0) {
+							var filter = new Filter([
+								new Filter("DOCFI2", FilterOperator.Contains, sQuery),
+									new Filter("DOCFI", FilterOperator.Contains, sQuery),
+									new Filter("BELNR", FilterOperator.Contains, sQuery),
+									new Filter("EBELN", FilterOperator.Contains, sQuery),
+									new Filter("OBCPP", FilterOperator.Contains, sQuery),
+									new Filter("OBCDF", FilterOperator.Contains, sQuery),
+									new Filter("DESC_ESCSG", FilterOperator.Contains, sQuery),
+									// new Filter("PCCSG", FilterOperator.Contains, sQuery),
+									// new Filter("PCSPP", FilterOperator.Contains, sQuery),
+									new Filter("DESC_ESPRC", FilterOperator.Contains, sQuery),
+									new Filter("DESC_WAERS", FilterOperator.Contains, sQuery),
+									new Filter("CALIDA", FilterOperator.Contains, sQuery),
+									new Filter("FECCONMOV", FilterOperator.Contains, sQuery),
+									new Filter("NAME1", FilterOperator.Contains, sQuery),
+									new Filter("NMEMB", FilterOperator.Contains, sQuery),
+									new Filter("MREMB", FilterOperator.Contains, sQuery),
+									new Filter("WERKS", FilterOperator.Contains, sQuery)
+							
+							]);
+							aFilters.push(filter);
+						}
+			
+						// update list binding
+						var oList = this.byId("table");
+						var oBinding = oList.getBinding("rows");
+						oBinding.filter(aFilters, "Application");
+					},
 					filterGlobally : function(oEvent) {
 					  var sQuery = oEvent.getParameter("query");
 					  this._oGlobalFilter = null;
@@ -769,6 +932,474 @@ sap.ui.define([
 						  }
 					
 						  this.byId("table").getBinding().filter(oFilter, "Application");
+				},
+				onSelectEmba: function(evt){
+					var objeto = evt.getParameter("rowContext").getObject();
+					if (objeto) {
+						var cdemb = objeto.CDEMB;
+						if (this.currentInputEmba.includes("embarcacionLow")) {
+							this.byId("embarcacionLow").setValue(cdemb);
+						}else if(this.currentInputEmba.includes("embarcacionHigh")){
+							this.byId("embarcacionHigh").setValue(cdemb);
+						}
+						this.getDialog().close();
+					}
+				},
+		
+				onSearchEmbarcacion: function(evt){
+					BusyIndicator.show(0);
+					var idEmbarcacion = sap.ui.getCore().byId("idEmba").getValue();
+					var idEmbarcacionDesc = sap.ui.getCore().byId("idNombEmba").getValue();
+					var idMatricula = sap.ui.getCore().byId("idMatricula").getValue();
+					var idRuc = sap.ui.getCore().byId("idRucArmador").getValue();
+					var idArmador = sap.ui.getCore().byId("idDescArmador").getValue();
+					var idPropiedad = sap.ui.getCore().byId("indicadorPropiedad").getSelectedKey();
+					var options = [];
+					var options2 = [];
+					let embarcaciones = [];
+					options.push({
+						"cantidad": "20",
+						"control": "COMBOBOX",
+						"key": "ESEMB",
+						"valueHigh": "",
+						"valueLow": "O"
+					})
+					if (idEmbarcacion) {
+						options.push({
+							"cantidad": "20",
+							"control": "INPUT",
+							"key": "CDEMB",
+							"valueHigh": "",
+							"valueLow": idEmbarcacion
+		
+						});
+					}
+					if (idEmbarcacionDesc) {
+						options.push({
+							"cantidad": "20",
+							"control": "INPUT",
+							"key": "NMEMB",
+							"valueHigh": "",
+							"valueLow": idEmbarcacionDesc.toUpperCase()
+		
+						});
+					}
+					if (idMatricula) {
+						options.push({
+							"cantidad": "20",
+							"control": "INPUT",
+							"key": "MREMB",
+							"valueHigh": "",
+							"valueLow": idMatricula
+						});
+					}
+					if (idPropiedad) {
+						options.push({
+							"cantidad": "20",
+							"control": "COMBOBOX",
+							"key": "INPRP",
+							"valueHigh": "",
+							"valueLow": idPropiedad
+						});
+					}
+					if (idRuc) {
+						options2.push({
+							"cantidad": "20",
+							"control": "INPUT",
+							"key": "STCD1",
+							"valueHigh": "",
+							"valueLow": idRuc
+						});
+					}
+					if (idArmador) {
+						options2.push({
+							"cantidad": "20",
+							"control": "INPUT",
+							"key": "NAME1",
+							"valueHigh": "",
+							"valueLow": idArmador.toUpperCase()
+						});
+					}
+		
+					this.primerOption = options;
+					this.segundoOption = options2;
+		
+					var body = {
+						"option": [
+		
+						],
+						"option2": [
+		
+						],
+						"options": options,
+						"options2": options2,
+						"p_user": "BUSQEMB",
+						//"p_pag": "1" //por defecto la primera parte
+					};
+		
+					fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+						{
+							method: 'POST',
+							body: JSON.stringify(body)
+						})
+						.then(resp => resp.json()).then(data => {
+							console.log("Emba: ", data);
+							embarcaciones = data.data;
+		
+							this.getModel("consultaMareas").setProperty("/embarcaciones", embarcaciones);
+							this.getModel("consultaMareas").refresh();
+		
+							if (!isNaN(data.p_totalpag)) {
+								if (Number(data.p_totalpag) > 0) {
+									sap.ui.getCore().byId("goFirstPag").setEnabled(true);
+									sap.ui.getCore().byId("goPreviousPag").setEnabled(true);
+									sap.ui.getCore().byId("comboPaginacion").setEnabled(true);
+									sap.ui.getCore().byId("goLastPag").setEnabled(true);
+									sap.ui.getCore().byId("goNextPag").setEnabled(true);
+									var tituloTablaEmba = "Página 1/" + Number(data.p_totalpag);
+									this.getModel("consultaMareas").setProperty("/TituloEmba", tituloTablaEmba);
+									var numPag = Number(data.p_totalpag) + 1;
+									var paginas = [];
+									for (let index = 1; index < numPag; index++) {
+										paginas.push({
+											numero: index
+										});
+									}
+									this.getModel("consultaMareas").setProperty("/NumerosPaginacion", paginas);
+									sap.ui.getCore().byId("comboPaginacion").setSelectedKey("1");
+									this.currentPage = "1";
+									this.lastPage = data.p_totalpag;
+								} else {
+									var tituloTablaEmba = "Página 1/1";
+									this.getModel("consultaMareas").setProperty("/TituloEmba", tituloTablaEmba);
+									this.getModel("consultaMareas").setProperty("/NumerosPaginacion", []);
+									sap.ui.getCore().byId("goFirstPag").setEnabled(false);
+									sap.ui.getCore().byId("goPreviousPag").setEnabled(false);
+									sap.ui.getCore().byId("comboPaginacion").setEnabled(false);
+									sap.ui.getCore().byId("goLastPag").setEnabled(false);
+									sap.ui.getCore().byId("goNextPag").setEnabled(false);
+									this.currentPage = "1";
+									this.lastPage = data.p_totalpag;
+								}
+							}
+		
+		
+							//sap.ui.getCore().byId("comboPaginacion").setVisible(true);
+		
+							BusyIndicator.hide();
+						}).catch(error => console.log(error));
+				},
+		
+		
+				onChangePag: function (evt) {
+					var id = evt.getSource().getId();
+					var oControl = sap.ui.getCore().byId(id);
+					var pagina = oControl.getSelectedKey();
+					this.currentPage = pagina;
+					this.onNavPage();
+				},
+		
+				onSetCurrentPage: function (evt) {
+					var id = evt.getSource().getId();
+					if (id == "goFirstPag") {
+						this.currentPage = "1";
+					} else if (id == "goPreviousPag") {
+						if (!isNaN(this.currentPage)) {
+							if (this.currentPage != "1") {
+								var previousPage = Number(this.currentPage) - 1;
+								this.currentPage = previousPage.toString();
+							}
+						}
+					} else if (id == "goNextPag") {
+						if (!isNaN(this.currentPage)) {
+							if (this.currentPage != this.lastPage) {
+								var nextPage = Number(this.currentPage) + 1;
+								this.currentPage = nextPage.toString();
+							}
+						}
+					} else if (id == "goLastPag") {
+						this.currentPage = this.lastPage;
+					}
+					this.onNavPage();
+				},
+		
+				onNavPage: function () {
+					BusyIndicator.show(0);
+					let embarcaciones = [];
+					var body = {
+						"option": [
+		
+						],
+						"option2": [
+		
+						],
+						"options": this.primerOption,
+						"options2": this.segundoOption,
+						"p_user": "BUSQEMB",
+						"p_pag": this.currentPage
+					};
+		
+					fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+						{
+							method: 'POST',
+							body: JSON.stringify(body)
+						})
+						.then(resp => resp.json()).then(data => {
+							console.log("Emba: ", data);
+							embarcaciones = data.data;
+		
+							this.getModel("consultaMareas").setProperty("/embarcaciones", embarcaciones);
+							this.getModel("consultaMareas").refresh();
+							var tituloTablaEmba = "Página " + this.currentPage + "/" + Number(data.p_totalpag);
+							this.getModel("consultaMareas").setProperty("/TituloEmba", tituloTablaEmba);
+							sap.ui.getCore().byId("comboPaginacion").setSelectedKey(this.currentPage);
+							BusyIndicator.hide();
+						}).catch(error => console.log(error));
+				},
+				getDialog: function(){
+					if (!this.oDialog) {
+						this.oDialog = sap.ui.xmlfragment("tasa.com.consultapreciospesca.view.Embarcacion", this);
+						this.getView().addDependent(this.oDialog);
+					}
+					return this.oDialog;
+				},
+				onOpenEmba: function(evt){
+					this.currentInputEmba = evt.getSource().getId();
+					this.getDialog().open();
+				},
+		
+				onCerrarEmba: function(){
+					this.clearFilterEmba();
+					this.getDialog().close();
+					this.getModel("consultaMareas").setProperty("/embarcaciones", "");
+					this.getModel("consultaMareas").setProperty("/TituloEmba", "");
+					sap.ui.getCore().byId("comboPaginacion").setEnabled(false);
+					sap.ui.getCore().byId("goFirstPag").setEnabled(false);
+					sap.ui.getCore().byId("goPreviousPag").setEnabled(false);
+					sap.ui.getCore().byId("comboPaginacion").setEnabled(false);
+					sap.ui.getCore().byId("goLastPag").setEnabled(false);
+					sap.ui.getCore().byId("goNextPag").setEnabled(false);
+					sap.ui.getCore().byId("comboPaginacion").setSelectedKey("1");
+				},
+				clearFilterEmba: function(){
+					sap.ui.getCore().byId("idEmba").setValue("");
+					sap.ui.getCore().byId("idNombEmba").setValue("");
+					sap.ui.getCore().byId("idRucArmador").setValue("");
+					sap.ui.getCore().byId("idMatricula").setValue("");
+					sap.ui.getCore().byId("indicadorPropiedad").setValue("");
+					sap.ui.getCore().byId("idDescArmador").setValue("");
+				},
+				buscarEmbarca: function(evt){
+					console.log(evt);
+					var indices = evt.mParameters.listItem.oBindingContexts.consultaMareas.sPath.split("/")[2];
+					console.log(indices);
+				
+					var data = this.getView().getModel("consultaMareas").oData.embarcaciones[indices].CDEMB;
+					if (this.currentInputEmba.includes("embarcacionLow")) {
+						this.byId("embarcacionLow").setValue(data);
+					}else if(this.currentInputEmba.includes("embarcacionHigh")){
+						this.byId("embarcacionHigh").setValue(data);
+					}
+					this.onCerrarEmba();
+					
+				},
+				limpiarFiltro: function(){
+							
+					sap.ui.getCore().byId("idRuc2").setValue("");
+					sap.ui.getCore().byId("idDescripcion").setValue("");
+					sap.ui.getCore().byId("idCuentaProveedor").setValue("");
+					
+				},
+				createColumnConfig: function() {
+					return [
+						{
+							label: 'Centro',
+							property: 'WERKS' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Matricula',
+							property: 'MREMB' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Embarcacion',
+							property: 'NMEMB' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Armador',
+							property: 'NAME1' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Armador Comercial',
+							property: 'NAME1' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Fecha prod',
+							property: 'FECCONMOV' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Cant. descargada',
+							property: 'CNPDS' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Compra',
+							property: 'PRCOM' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Bonificación',
+							property: 'BONIF' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Venta',
+							property: 'PRVEN' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Moneda',
+							property: 'DESC_WAERS' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Estado',
+							property: 'DESC_ESPRC' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: '% Prop',
+							property: 'PCSPP' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: '% Def',
+							property: 'PCCSG' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Estado',
+							property: 'DESC_ESCSG' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Obs. super.',
+							property: 'OBCDF' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Obs. ger.',
+							property: 'OBCPP' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Calidad',
+							property: 'DESC_CALIDA' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: '% Juveniles',
+							property: 'JUVEN' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'TVN',
+							property: 'TVN' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'TDC',
+							property: 'TDC' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Obs. calidad',
+							property: 'OBCPP' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Orden compra',
+							property: 'EBELN' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Factura',
+							property: 'BELNR' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Doc. Fi',
+							property: 'DOCFI' ,
+							type: EdmType.String,
+							scale: 2
+						},
+						{
+							label: 'Doc. Anulación',
+							property: 'DOCFI2' ,
+							type: EdmType.String,
+							scale: 2
+						}
+						];
+				},
+				onExport: function() {
+					var aCols, aProducts, oSettings, oSheet;
+		
+					aCols = this.createColumnConfig();
+					aProducts = this.getView().getModel("Acopio").getProperty('/listaPrecio');
+		
+					oSettings = {
+						
+						workbook: { 
+							columns: aCols,
+							context: {
+								application: 'Debug Test Application',
+								version: '1.95.0',
+								title: 'Some random title',
+								modifiedBy: 'John Doe',
+								metaSheetName: 'Custom metadata'
+							}
+							
+						},
+						dataSource: aProducts,
+						fileName:"REPORTE CONSULTA PRECIOS DE PESCA"
+					};
+		
+					oSheet = new Spreadsheet(oSettings);
+					oSheet.build()
+						.then( function() {
+							MessageToast.show('El Archivo ha sido exportado correctamente');
+						})
+						.finally(oSheet.destroy);
 				}
+			
 		});
 	});

@@ -8,17 +8,21 @@ sap.ui.define([
     "sap/ui/core/util/Export",
     "sap/ui/model/Filter",
     "sap/ui/model/FilterOperator",
+	"sap/ui/core/BusyIndicator",
+	'sap/ui/export/library',
+	'sap/ui/export/Spreadsheet'
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	 function (BaseController,Controller,JSONModel,History,MessageBox,ExportTypeCSV,Export,Filter,FilterOperator) {
+	 function (BaseController,Controller,JSONModel,History,MessageBox,ExportTypeCSV,Export,Filter,FilterOperator,BusyIndicator,exportLibrary, Spreadsheet) {
 		"use strict";
 		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		var JsonFechaIni={
 			fechaIni:"",
 			fechaIni2:""
 		};
+		var EdmType = exportLibrary.EdmType;
 		var popEmb="";
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
 		var popUp="";
@@ -27,6 +31,12 @@ sap.ui.define([
 				let ViewModel= new JSONModel(
 					{}
 					);
+					this.setModel(ViewModel, "consultaMareas");
+					this.currentInputEmba = "";
+						this.primerOption = [];
+						this.segundoOption = [];
+						this.currentPage = "";
+						this.lastPage = "";
 					var oGlobalBusyDialog = new sap.m.BusyDialog();
 					this.setModel(ViewModel,"litoral");
 					this.setModel(ViewModel,"precio");
@@ -225,6 +235,7 @@ sap.ui.define([
 		console.log(idRuc);
 		console.log(idDescripcion);
 		console.log(idCuentaProveedor);
+		
 		var body={
 			"delimitador": "|",
 			"fields": [
@@ -351,8 +362,8 @@ sap.ui.define([
 			   var idPlantaFin = this.byId("idPlantaFin").getValue();
 			   var idArmadorIni = this.byId("idArmadorIni").getValue();
 			   var idArmadorFin = this.byId("idArmadorFin").getValue();
-			   var idEmbarcacionIni = this.byId("idEmbarcacionIni").getValue();
-			   var idEmbarcacionFin = this.byId("idEmbarcacionFin").getValue();
+			   var idEmbarcacionIni = this.byId("embarcacionLow").getValue();
+			   var idEmbarcacionFin = this.byId("embarcacionHigh").getValue();
 			   var idAciertos = this.byId("idAciertos").getValue();
 			   
 			
@@ -394,7 +405,7 @@ sap.ui.define([
 					   options.push({
 						   cantidad: "10",
 						   control:"MULTIINPUT",
-						   key:"CDEMP",
+						   key:"LIFNR",
 						   valueHigh: idArmadorFin,
 						   valueLow:idArmadorIni
 					   });
@@ -508,10 +519,18 @@ sap.ui.define([
 				this.byId("idPlantaFin").setValue("");
 				this.byId("idArmadorIni").setValue("");
 				this.byId("idArmadorFin").setValue("");
-				this.byId("idEmbarcacionIni").setValue("");
-				this.byId("idEmbarcacionFin").setValue("");
+				this.byId("embarcacionHigh").setValue("");
+				this.byId("embarcacionLow").setValue("");
 				this.byId("idFechaIniVigencia").setValue("");
 		   },
+		   clearFilterEmba: function(){
+			sap.ui.getCore().byId("idEmba").setValue("");
+			sap.ui.getCore().byId("idNombEmba").setValue("");
+			sap.ui.getCore().byId("idRucArmador").setValue("");
+			sap.ui.getCore().byId("idMatricula").setValue("");
+			sap.ui.getCore().byId("indicadorPropiedad").setValue("");
+			sap.ui.getCore().byId("idDescArmador").setValue("");
+	   		},
 		   onDataExport:  function() {
 			   var oExport = new Export({
 				   exportType: new ExportTypeCSV({ // required from "sap/ui/core/util/ExportTypeCSV"
@@ -770,6 +789,424 @@ sap.ui.define([
 						sap.ui.getCore().byId("idRuc").setValue("");
 						sap.ui.getCore().byId("idArmador").setValue("");
 							return this._oDialogEmbarcacion;
+						},
+						onSelectEmba: function(evt){
+							var objeto = evt.getParameter("rowContext").getObject();
+							if (objeto) {
+								var cdemb = objeto.CDEMB;
+								if (this.currentInputEmba.includes("embarcacionLow")) {
+									this.byId("embarcacionLow").setValue(cdemb);
+								}else if(this.currentInputEmba.includes("embarcacionHigh")){
+									this.byId("embarcacionHigh").setValue(cdemb);
+								}
+								this.getDialog().close();
+							}
+						},
+				
+						onSearchEmbarcacion: function(evt){
+							BusyIndicator.show(0);
+							var idEmbarcacion = sap.ui.getCore().byId("idEmba").getValue();
+							var idEmbarcacionDesc = sap.ui.getCore().byId("idNombEmba").getValue();
+							var idMatricula = sap.ui.getCore().byId("idMatricula").getValue();
+							var idRuc = sap.ui.getCore().byId("idRucArmador").getValue();
+							var idArmador = sap.ui.getCore().byId("idDescArmador").getValue();
+							var idPropiedad = sap.ui.getCore().byId("indicadorPropiedad").getSelectedKey();
+							var options = [];
+							var options2 = [];
+							let embarcaciones = [];
+							options.push({
+								"cantidad": "20",
+								"control": "COMBOBOX",
+								"key": "ESEMB",
+								"valueHigh": "",
+								"valueLow": "O"
+							})
+							if (idEmbarcacion) {
+								options.push({
+									"cantidad": "20",
+									"control": "INPUT",
+									"key": "CDEMB",
+									"valueHigh": "",
+									"valueLow": idEmbarcacion
+				
+								});
+							}
+							if (idEmbarcacionDesc) {
+								options.push({
+									"cantidad": "20",
+									"control": "INPUT",
+									"key": "NMEMB",
+									"valueHigh": "",
+									"valueLow": idEmbarcacionDesc.toUpperCase()
+				
+								});
+							}
+							if (idMatricula) {
+								options.push({
+									"cantidad": "20",
+									"control": "INPUT",
+									"key": "MREMB",
+									"valueHigh": "",
+									"valueLow": idMatricula
+								});
+							}
+							if (idPropiedad) {
+								options.push({
+									"cantidad": "20",
+									"control": "COMBOBOX",
+									"key": "INPRP",
+									"valueHigh": "",
+									"valueLow": idPropiedad
+								});
+							}
+							if (idRuc) {
+								options2.push({
+									"cantidad": "20",
+									"control": "INPUT",
+									"key": "STCD1",
+									"valueHigh": "",
+									"valueLow": idRuc
+								});
+							}
+							if (idArmador) {
+								options2.push({
+									"cantidad": "20",
+									"control": "INPUT",
+									"key": "NAME1",
+									"valueHigh": "",
+									"valueLow": idArmador.toUpperCase()
+								});
+							}
+				
+							this.primerOption = options;
+							this.segundoOption = options2;
+				
+							var body = {
+								"option": [
+				
+								],
+								"option2": [
+				
+								],
+								"options": options,
+								"options2": options2,
+								"p_user": "BUSQEMB",
+								//"p_pag": "1" //por defecto la primera parte
+							};
+				
+							fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+								{
+									method: 'POST',
+									body: JSON.stringify(body)
+								})
+								.then(resp => resp.json()).then(data => {
+									console.log("Emba: ", data);
+									embarcaciones = data.data;
+				
+									this.getModel("consultaMareas").setProperty("/embarcaciones", embarcaciones);
+									this.getModel("consultaMareas").refresh();
+				
+									if (!isNaN(data.p_totalpag)) {
+										if (Number(data.p_totalpag) > 0) {
+											sap.ui.getCore().byId("goFirstPag").setEnabled(true);
+											sap.ui.getCore().byId("goPreviousPag").setEnabled(true);
+											sap.ui.getCore().byId("comboPaginacion").setEnabled(true);
+											sap.ui.getCore().byId("goLastPag").setEnabled(true);
+											sap.ui.getCore().byId("goNextPag").setEnabled(true);
+											var tituloTablaEmba = "Página 1/" + Number(data.p_totalpag);
+											this.getModel("consultaMareas").setProperty("/TituloEmba", tituloTablaEmba);
+											var numPag = Number(data.p_totalpag) + 1;
+											var paginas = [];
+											for (let index = 1; index < numPag; index++) {
+												paginas.push({
+													numero: index
+												});
+											}
+											this.getModel("consultaMareas").setProperty("/NumerosPaginacion", paginas);
+											sap.ui.getCore().byId("comboPaginacion").setSelectedKey("1");
+											this.currentPage = "1";
+											this.lastPage = data.p_totalpag;
+										} else {
+											var tituloTablaEmba = "Página 1/1";
+											this.getModel("consultaMareas").setProperty("/TituloEmba", tituloTablaEmba);
+											this.getModel("consultaMareas").setProperty("/NumerosPaginacion", []);
+											sap.ui.getCore().byId("goFirstPag").setEnabled(false);
+											sap.ui.getCore().byId("goPreviousPag").setEnabled(false);
+											sap.ui.getCore().byId("comboPaginacion").setEnabled(false);
+											sap.ui.getCore().byId("goLastPag").setEnabled(false);
+											sap.ui.getCore().byId("goNextPag").setEnabled(false);
+											this.currentPage = "1";
+											this.lastPage = data.p_totalpag;
+										}
+									}
+				
+				
+									//sap.ui.getCore().byId("comboPaginacion").setVisible(true);
+				
+									BusyIndicator.hide();
+								}).catch(error => console.log(error));
+						},
+				
+				
+						onChangePag: function (evt) {
+							var id = evt.getSource().getId();
+							var oControl = sap.ui.getCore().byId(id);
+							var pagina = oControl.getSelectedKey();
+							this.currentPage = pagina;
+							this.onNavPage();
+						},
+				
+						onSetCurrentPage: function (evt) {
+							var id = evt.getSource().getId();
+							if (id == "goFirstPag") {
+								this.currentPage = "1";
+							} else if (id == "goPreviousPag") {
+								if (!isNaN(this.currentPage)) {
+									if (this.currentPage != "1") {
+										var previousPage = Number(this.currentPage) - 1;
+										this.currentPage = previousPage.toString();
+									}
+								}
+							} else if (id == "goNextPag") {
+								if (!isNaN(this.currentPage)) {
+									if (this.currentPage != this.lastPage) {
+										var nextPage = Number(this.currentPage) + 1;
+										this.currentPage = nextPage.toString();
+									}
+								}
+							} else if (id == "goLastPag") {
+								this.currentPage = this.lastPage;
+							}
+							this.onNavPage();
+						},
+				
+						onNavPage: function () {
+							BusyIndicator.show(0);
+							let embarcaciones = [];
+							var body = {
+								"option": [
+				
+								],
+								"option2": [
+				
+								],
+								"options": this.primerOption,
+								"options2": this.segundoOption,
+								"p_user": "BUSQEMB",
+								"p_pag": this.currentPage
+							};
+				
+							fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+								{
+									method: 'POST',
+									body: JSON.stringify(body)
+								})
+								.then(resp => resp.json()).then(data => {
+									console.log("Emba: ", data);
+									embarcaciones = data.data;
+				
+									this.getModel("consultaMareas").setProperty("/embarcaciones", embarcaciones);
+									this.getModel("consultaMareas").refresh();
+									var tituloTablaEmba = "Página " + this.currentPage + "/" + Number(data.p_totalpag);
+									this.getModel("consultaMareas").setProperty("/TituloEmba", tituloTablaEmba);
+									sap.ui.getCore().byId("comboPaginacion").setSelectedKey(this.currentPage);
+									BusyIndicator.hide();
+								}).catch(error => console.log(error));
+						},
+						getDialog: function(){
+							if (!this.oDialog) {
+								this.oDialog = sap.ui.xmlfragment("tasa.com.aprobacionprecios.view.Embarcacion", this);
+								this.getView().addDependent(this.oDialog);
+							}
+							return this.oDialog;
+						},
+						onOpenEmba: function(evt){
+							this.currentInputEmba = evt.getSource().getId();
+							this.getDialog().open();
+						},
+				
+						onCerrarEmba: function(){
+							this.clearFilterEmba();
+							this.getDialog().close();
+							this.getModel("consultaMareas").setProperty("/embarcaciones", "");
+							this.getModel("consultaMareas").setProperty("/TituloEmba", "");
+							sap.ui.getCore().byId("comboPaginacion").setEnabled(false);
+							sap.ui.getCore().byId("goFirstPag").setEnabled(false);
+							sap.ui.getCore().byId("goPreviousPag").setEnabled(false);
+							sap.ui.getCore().byId("comboPaginacion").setEnabled(false);
+							sap.ui.getCore().byId("goLastPag").setEnabled(false);
+							sap.ui.getCore().byId("goNextPag").setEnabled(false);
+							sap.ui.getCore().byId("comboPaginacion").setSelectedKey("1");
+						},
+						buscarEmbarca: function(evt){
+							console.log(evt);
+							var indices = evt.mParameters.listItem.oBindingContexts.consultaMareas.sPath.split("/")[2];
+							console.log(indices);
+						
+							var data = this.getView().getModel("consultaMareas").oData.embarcaciones[indices].CDEMB;
+							if (this.currentInputEmba.includes("embarcacionLow")) {
+								this.byId("embarcacionLow").setValue(data);
+							}else if(this.currentInputEmba.includes("embarcacionHigh")){
+								this.byId("embarcacionHigh").setValue(data);
+							}
+							this.onCerrarEmba();
+							
+						},
+						limpiarFiltro: function(){
+							
+							sap.ui.getCore().byId("idRuc2").setValue("");
+							sap.ui.getCore().byId("idDescripcion").setValue("");
+							sap.ui.getCore().byId("idCuentaProveedor").setValue("");
+							
+						},
+						createColumnConfig: function() {
+							return [
+								{
+									label: 'Marea',
+									property: 'NRMAR' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Nro descarga',
+									property: 'NRDES' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Planta',
+									property: 'DESCR' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Fecha inic. desc',
+									property: 'FIDES' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Hora inic. desc',
+									property: 'HIDES' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Fecha fin desc.',
+									property: 'FFDES' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Hora fin desc.',
+									property: 'HFDES' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Cantidad desc.(Tn)',
+									property: 'CNPDS' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Fecha prod.',
+									property: 'FECCONMOV' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Embarcación',
+									property: 'NMEMB' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Armador comercial',
+									property: 'NAME1' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Pactado',
+									property: 'PRCOM' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Bonificación',
+									property: 'BONIF' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Max',
+									property: 'PRCMX' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Tope',
+									property: 'PRCTP' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Moneda',
+									property: 'WAERS' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Estado',
+									property: 'ESPRC' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Especie',
+									property: 'DSSPC' ,
+									type: EdmType.String,
+									scale: 2
+								},
+								{
+									label: 'Calidad',
+									property: 'DESC_CALIDA' ,
+									type: EdmType.String,
+									scale: 2
+								}
+								];
+						},
+						onExport: function() {
+							var aCols, aProducts, oSettings, oSheet;
+				
+							aCols = this.createColumnConfig();
+							
+							aProducts = this.getView().getModel("AprobacionPrecio").getProperty('/listaAprobacionPrecio');
+				
+							oSettings = {
+								
+								workbook: { 
+									columns: aCols,
+									context: {
+										application: 'Debug Test Application',
+										version: '1.95.0',
+										title: 'Some random title',
+										modifiedBy: 'John Doe',
+										metaSheetName: 'Custom metadata'
+									}
+									
+								},
+								dataSource: aProducts,
+								fileName:"REPORTE APROBACIÓN DE PRECIOS"
+							};
+				
+							oSheet = new Spreadsheet(oSettings);
+							oSheet.build()
+								.then( function() {
+									MessageToast.show('El Archivo ha sido exportado correctamente');
+								})
+								.finally(oSheet.destroy);
 						}
 					
 		});

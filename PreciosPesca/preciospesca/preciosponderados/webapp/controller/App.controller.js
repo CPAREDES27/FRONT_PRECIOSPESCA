@@ -22,6 +22,8 @@ sap.ui.define([
 			fechaIni:"",
 			fechaIni2:""
 		};
+		var exportarExcel=false;
+		var EdmType = exportLibrary.EdmType;
 		return BaseController.extend("tasa.com.preciosponderados.controller.App", {
 			onInit: function () {
 				let ViewModel= new JSONModel(
@@ -40,7 +42,7 @@ sap.ui.define([
 		// 		   location.reload();
 		//    },
 		buscarFecha: function(oEvent){
-			debugger;
+			
 			var dateIni= new Date(oEvent.mParameters.from);
 			var dateIni2 = new Date(oEvent.mParameters.to);
 			console.log(oEvent.mParameters.from);
@@ -85,7 +87,7 @@ sap.ui.define([
 			return number + ""; // siempre devuelve tipo cadena
 		},
 		generateFecha: function(date){
-			debugger;
+	
 			var day=date.getDate();
 			var anio=date.getFullYear();
 			var mes=date.getMonth()+1;
@@ -127,7 +129,7 @@ sap.ui.define([
 			   let idTASACHD = this.byId("idTASACHD").getSelected();
 			   let idCHIMBOTESUR = this.byId("idCHIMBOTESUR").getSelected();
 			   let idPISCONORTE = this.byId("idPISCONORTE").getSelected();
-			   debugger;
+			
 			   var cadena="";
 			   var planta="";
 			   var error=""
@@ -232,7 +234,9 @@ sap.ui.define([
 							body: JSON.stringify(body)
 						})
 						.then(resp => resp.json()).then(data => {
-						   
+						   if(data){
+							exportarExcel=true;
+						   }
 						   console.log(data.total);
 						   console.log(data)
 						   let ViewModel= new JSONModel();
@@ -245,8 +249,10 @@ sap.ui.define([
 						   var currentRows = valor.getProperty("/t_PRCPESCPTA");
 						   var newRows = currentRows.concat(this.createEntry(data.total));
 						   valor.setProperty("/t_PRCPESCPTA", newRows);
+						 
 						   
 						   }
+						   console.log(this.byId("table"));
 						   //this.getModel("reporteCala").setProperty("/items",data.t_PRCPESCPTA);
 						   oGlobalBusyDialog.close();
 						   
@@ -290,6 +296,22 @@ sap.ui.define([
 			   };
    
 			   },
+			   onSearch: function (oEvent) {
+				// add filter for search
+				var aFilters = [];
+				var sQuery = oEvent.getSource().getValue();
+				if (sQuery && sQuery.length > 0) {
+					var filter = new Filter([
+						new Filter("NOMPTA", FilterOperator.Contains, sQuery)
+					]);
+					aFilters.push(filter);
+				}
+	
+				// update list binding
+				var oList = this.byId("table");
+				var oBinding = oList.getBinding("rows");
+				oBinding.filter(aFilters, "Application");
+			},
 			   filterGlobally : function(oEvent) {
 				   var sQuery = oEvent.getParameter("query");
 				   this._oGlobalFilter = null;
@@ -347,6 +369,63 @@ sap.ui.define([
 				   oExport.destroy();
 				 });
 			   },
+			   //Excel
+
+			   createColumnConfig5: function() {
+				return [
+					{
+						label: 'Código de Precio',
+						property: 'NOMPTA' ,
+						type: EdmType.String,
+						scale: 2
+					},
+					{
+						label: 'Zona de Pesca',
+						property: 'PRCPOND' ,
+						type: EdmType.String,
+						scale: 2
+					}
+					
+					];
+			},
+			onExportarExcelData: function() {
+				oGlobalBusyDialog.open();
+				if(!exportarExcel){
+					MessageBox.error("Porfavor, realizar una búsqueda antes de exportar");
+					oGlobalBusyDialog.close();
+					return false;
+				}
+				var aCols, aProducts, oSettings, oSheet;
+	
+				aCols = this.createColumnConfig5();
+				console.log(this.getView().getModel());
+				aProducts = this.getView().getModel().getProperty('/t_PRCPESCPTA');
+	
+				oSettings = {
+					
+					workbook: { 
+						columns: aCols,
+						context: {
+							application: 'Debug Test Application',
+							version: '1.95.0',
+							title: 'Some random title',
+							modifiedBy: 'John Doe',
+							metaSheetName: 'Custom metadata'
+						}
+						
+					},
+					dataSource: aProducts,
+					fileName:"Reporte de precios ponderados"
+				};
+	
+				oSheet = new Spreadsheet(oSettings);
+				oSheet.build()
+					.then( function() {
+						MessageToast.show('El Archivo ha sido exportado correctamente');
+					})
+					.finally(oSheet.destroy);
+					oGlobalBusyDialog.close();
+			},
 			  
 		});
 	});

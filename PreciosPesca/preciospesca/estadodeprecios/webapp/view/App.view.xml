@@ -51,12 +51,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Centro'}],
 																type: 'sap.ui.model.type.Currency',
@@ -91,12 +99,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+														<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Descripcion'}],
@@ -124,8 +140,9 @@
                                                 <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                           <m:Input type="Text" id="idEmbarcacionIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb')"/>			
-											<m:Input type="Text" id="idEmbarcacionFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb2')"/>			
+                                           <m:Input id="embarcacionLow" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
+											<m:Input id="embarcacionHigh" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
+
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">
@@ -196,12 +213,12 @@
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Lista de registros:"/>
 						<m:ToolbarSpacer/>
-						  <m:Button icon="sap-icon://excel-attachment" press="onDataExport" text="Exportar" tooltip="Exportar Excel"/>
+						  <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel"/>
 						<m:ToolbarSeparator/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
 							value="{ui>/globalFilter}"
-							search="filterGlobally"
+							liveChange="onSearch"
 							width="15rem"/>
 					</m:OverflowToolbar>
 				</extension>
@@ -354,7 +371,8 @@
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						
 						<multiLabels>
 							<m:Label visible="false" />
@@ -371,7 +389,8 @@
 						sortProperty="PRCOM"
 						filterProperty="PRCOM"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						
 						<multiLabels>
 							<m:Label visible="false" />

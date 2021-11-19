@@ -213,12 +213,12 @@
 						<m:OverflowToolbar style="Clear">
 							<m:Title id="title" text=""/>
 							<m:ToolbarSpacer/>
-							<m:Button icon="sap-icon://excel-attachment" text="Exportar" tooltip="Exportar Excel" press="onDataExport"/>
+							<m:Button icon="sap-icon://excel-attachment" text="Exportar" tooltip="Exportar Excel" press="onExportarExcelData"/>
 							<m:ToolbarSeparator/>
 							<m:SearchField
 								placeholder="Búsqueda rápida"
 								value="{ui>/globalFilter}"
-								search="filterGlobally"
+								liveChange="onSearch"
 								width="15rem"/>
 						</m:OverflowToolbar>
 					</extension>

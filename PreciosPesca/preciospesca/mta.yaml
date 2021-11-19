@@ -75,10 +75,6 @@ modules:
       - tasacomestadodeprecios.zip
       name: tasacomestadodeprecios
       target-path: resources/
-    - artifacts:
-      - tasacomhorometros.zip
-      name: tasacomhorometros
-      target-path: resources/
 - name: comtasapoliticadeprecios
   type: html5
   path: politicadeprecios
@@ -152,16 +148,6 @@ modules:
 - name: tasacomestadodeprecios
   type: html5
   path: estadodeprecios
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: tasacomhorometros
-  type: html5
-  path: horometros
   build-parameters:
     build-result: dist
     builder: custom

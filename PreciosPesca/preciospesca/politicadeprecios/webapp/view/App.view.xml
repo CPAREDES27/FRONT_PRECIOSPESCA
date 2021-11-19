@@ -158,12 +158,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Centro'}],
 																type: 'sap.ui.model.type.Currency',
@@ -198,12 +206,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+														<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Descripcion'}],
@@ -394,11 +410,11 @@
                         <m:Button type="Information" icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo"/>
 						  <m:Button type="Reject" icon="sap-icon://sys-cancel" press="anularRegistro" tooltip="Anular" text="Anular"/>
 						<m:ToolbarSeparator/>
-                        <m:Button icon="sap-icon://excel-attachment" press="onDataExport" text="Exportar" tooltip="Exportar Excel"/>
+                        <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel"/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
 							value="{ui>/globalFilter}"
-							search="filterGlobally"
+							liveChange="onSearch"
 							width="15rem"/>
 					</m:OverflowToolbar>
 				</extension>

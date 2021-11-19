@@ -1,6 +1,6 @@
 
 <core:FragmentDefinition xmlns:core="sap.ui.core"   xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout">
-    <Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Embarcación" type="Standard" verticalScrolling="true">
+    <Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Buscar Embarcación" type="Standard" verticalScrolling="true">
         <content>
             <form:Form width="1132.71875px" editable="true" visible="true">
                 <form:title/>

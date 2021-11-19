@@ -220,7 +220,7 @@
                                                                     <m:Label text="Calidad" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>CALIDA}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" value="{Acopio>DESC_CALIDA}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                             <form:FormElement visible="true">
@@ -236,7 +236,7 @@
                                                                     <m:Label text="Precio max. compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>PRCMX}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" id="idPrecioCompraMax" value="{Acopio>PRCMX}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                             <form:FormElement visible="true">
@@ -260,7 +260,7 @@
                                                                     <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" id="idEstado" value="{Acopio>ESPRC}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" id="idEstado" value="{Acopio>DESC_ESPRC}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                         </form:formElements>
@@ -496,7 +496,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Estado" />
 						<template>
-							<m:Text text="{dataAcopio>ESPRC}" wrapping="false" />
+							<m:Text text="{dataAcopio>DESC_ESPRC}" wrapping="false" />
 						</template>
 					</Column>
                     <Column

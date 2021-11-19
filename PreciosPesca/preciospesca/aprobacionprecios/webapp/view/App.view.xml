@@ -59,12 +59,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Centro'}],
 																type: 'sap.ui.model.type.Currency',
@@ -99,12 +107,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+														<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Descripcion'}],
@@ -123,8 +139,8 @@
                                             </form:label>
                                             <form:fields>
                                             
-											 <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
-											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
+											 <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
+											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
                                             </form:fields>
                             </form:FormElement>
                             
@@ -133,8 +149,8 @@
                                                 <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                          <m:Input type="Text" id="idEmbarcacionIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb')"/>			
-											<m:Input type="Text" id="idEmbarcacionFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb2')"/>			
+                                          		<m:Input id="embarcacionLow" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
+												<m:Input id="embarcacionHigh" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">
@@ -206,7 +222,7 @@
 						<m:Title id="title" text="Lista de registros:"/>
 						<m:ToolbarSpacer/>
                           <m:Button icon="sap-icon://edit"  text="Editar" press="EditarRow" tooltip="Editar Masivo"/> 
-						  <m:Button icon="sap-icon://excel-attachment" text="Exportar" press="onDataExport" tooltip="Exportar Excel"/>
+						  <m:Button icon="sap-icon://excel-attachment" text="Exportar" press="onExport" tooltip="Exportar Excel"/>
 						<m:ToolbarSeparator/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
@@ -475,7 +491,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Calidad" />
 						<template>
-							<m:Text text="{AprobacionPrecio>CALIDA}" wrapping="false" />
+							<m:Text text="{AprobacionPrecio>DESC_CALIDA}" wrapping="false" />
 						</template>
 					</Column> 
 					<!--Columnas-->

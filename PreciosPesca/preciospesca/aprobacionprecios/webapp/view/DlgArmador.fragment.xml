@@ -1,8 +1,8 @@
 
 <core:FragmentDefinition xmlns:core="sap.ui.core"   xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:layout="sap.ui.layout">
-    <Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Armador" type="Standard" verticalScrolling="true">
+    <Dialog horizontalScrolling="true" showHeader="true" state="None" stretch="false" title="Buscar Armador" type="Standard" verticalScrolling="true">
         <content>
-            <form:Form width="1132.71875px" editable="true" visible="true">
+            <form:Form width="100%" editable="true" visible="true">
                 <form:title/>
                 <form:formContainers>
                     <form:FormContainer visible="true">
@@ -12,7 +12,7 @@
                                     <Label text="Nro. cuenta del proveedor" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Text" showValueHelp="false" id="idCuentaProveedor" enabled="true" visible="true" width="50%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                    <Input type="Text" showValueHelp="false" id="idCuentaProveedor" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -20,7 +20,7 @@
                                     <Label text="Descripción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Text" showValueHelp="false" id="idDescripcion" enabled="true" visible="true" width="50%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                    <Input type="Text" showValueHelp="false" id="idDescripcion" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -28,7 +28,7 @@
                                     <Label text="R.U.C." design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Text" showValueHelp="false" id="idRuc2" enabled="true" visible="true" width="50%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                    <Input type="Text" showValueHelp="false" id="idRuc2" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -36,15 +36,16 @@
                                     <Label text="Cant. de aciertos" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <Input type="Number" showValueHelp="false" id="idAciertosPop" enabled="true" visible="true" width="50%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                    <Input type="Number" showValueHelp="false" id="idAciertosPop" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
-                                    <form:label>
+                                     <form:label>
                                         <Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                     </form:label>
                                     <form:fields>
-                                        <Button text="Buscar" type="Default" icon="sap-icon://search" iconFirst="true" width="50%" enabled="true" visible="true" iconDensityAware="false" press="listaArmador"/>
+                                        <Button text="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false" press="listaArmador"/>
+                                        <Button press="limpiarFiltro" text="Limpiar" type="Emphasized" icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"/>
                                     </form:fields>
                             </form:FormElement>
                         </form:formElements>

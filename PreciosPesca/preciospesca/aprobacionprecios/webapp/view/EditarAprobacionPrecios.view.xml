@@ -38,11 +38,7 @@
                     </form:Form>
                 </m:content>
             </m:Panel>
-            <m:Panel height="auto" width="100%" headerText="Bonificaciones" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
-              
             
-             
-            </m:Panel>
 			<Table
 				id="tableAprobacion"
 				rows="{dataAprobacionPrecios>/items}"
@@ -83,7 +79,8 @@
 						sortProperty="NRDES"
 						filterProperty="NRDES"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="Nro descarga" />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>NRDES}" wrapping="false" />
@@ -110,7 +107,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Fecha/hora inic. desc." />
 						<template>
-							<m:Text text="{dataAprobacionPrecios>FIDES} {Acopio>HIDES}" wrapping="false" />
+							<m:Text text="{dataAprobacionPrecios>FIDES} {dataAprobacionPrecios>HIDES}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
@@ -122,7 +119,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Fecha/hora fin desc." />
 						<template>
-							<m:Text text="{dataAprobacionPrecios>FFDES} {Acopio>HFDES}" wrapping="false" />
+							<m:Text text="{dataAprobacionPrecios>FFDES} {dataAprobacionPrecios>HFDES}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
@@ -131,7 +128,8 @@
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="Cant. desc. (Tn)" />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>CNPDS}" wrapping="false" />
@@ -180,7 +178,8 @@
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="Pactado" />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>PRCOM}" wrapping="false" />
@@ -193,7 +192,8 @@
 						sortProperty="PRCMX"
 						filterProperty="PRCMX"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="Max." />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>PRCMX}" wrapping="false" />
@@ -205,7 +205,8 @@
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="Tope" />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>PRCTP}" wrapping="false" />
@@ -241,7 +242,8 @@
 						sortProperty="PCSPP"
 						filterProperty="PCSPP"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="% Prop." />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>PCSPP}" wrapping="false" />
@@ -265,7 +267,8 @@
 						sortProperty="OBCPP"
 						filterProperty="OBCPP"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="% Def." />
 						<template>
 							<m:Text text="{dataAprobacionPrecios>PCCSG}" wrapping="false" />

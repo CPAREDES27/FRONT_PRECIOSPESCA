@@ -6,7 +6,7 @@
 
 		<semantic:titleHeading>
 			<m:Title
-				text="{i18n>Precios de Acopio}"
+				text="{i18n>Consulta de Precios de Pesca}"
 				level="H2"/>
 		</semantic:titleHeading>
 
@@ -28,7 +28,7 @@
                                                 <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                            <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+                                           <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
 												id="idPlantaIni"
 												width="100%"
 												placeholder="Ingresar Planta..."
@@ -53,12 +53,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+													<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Centro'}],
 																type: 'sap.ui.model.type.Currency',
@@ -93,12 +101,20 @@
 														minScreenWidth="Tablet">
 														<m:Label text="Planta"/>
 													</m:Column>
+														<m:Column
+														hAlign="End"
+														popinDisplay="Inline"
+														demandPopin="true"
+														minScreenWidth="Tablet">
+														<m:Label text="Descripción"/>
+													</m:Column>
 												</m:suggestionColumns>
 												<m:suggestionRows>
 													<m:ColumnListItem>
 													<m:cells>
 														<m:Label text="{Planta>WERKS}"/>
 														<m:Label text="{Planta>CDPTA}"/>
+														<m:Label text="{Planta>DESCR}"/>
 														
 														<m:Label text="{
 																parts:[{path:'Planta'},{path:'Descripcion'}],
@@ -116,8 +132,8 @@
                                                 <m:Label text="Armador Comercial" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                            <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
-											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
+                                            <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
+											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">
@@ -125,8 +141,8 @@
                                                 <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                            <m:Input type="Text" id="idEmbarcacionIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb')"/>			
-											<m:Input type="Text" id="idEmbarcacionFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogEmbarcacion('popEmb2')"/>
+                                            <m:Input id="embarcacionLow" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
+                                            <m:Input id="embarcacionHigh" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">
@@ -134,7 +150,7 @@
                                     <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:DateRangeSelection change="buscarFecha" id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" />
+                                    <m:DateRangeSelection  id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" />
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -142,7 +158,7 @@
                                     <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:ComboBox editable="true" id="idEstado" selectedKey="L" items="{precio>/ZDO_PRECIO}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                    <m:ComboBox editable="true" id="idEstado"  items="{precio>/ZDO_PRECIO}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
                                         <m:items>
                                                         <core:Item text="{precio>descripcion}" enabled="true" key="{precio>id}"/>
                                         </m:items>
@@ -154,7 +170,7 @@
                                     <m:Label text="Estado castigo" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:ComboBox editable="true" id="idEstadoCastigo" selectedKey="L" items="{castigo>/ZESPRC}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                    <m:ComboBox editable="true" id="idEstadoCastigo"  items="{castigo>/ZESPRC}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
                                         <m:items>
                                                         <core:Item text="{castigo>descripcion}" enabled="true" key="{castigo>id}"/>
                                         </m:items>
@@ -214,12 +230,12 @@
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Lista de registros"/>
 						<m:ToolbarSpacer/> 
-						  <m:Button icon="sap-icon://excel-attachment" press="onDataExport" text="Exportar" tooltip="Exportar Excel"/>
+						  <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel"/>
 						<m:ToolbarSeparator/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
 							value="{ui>/globalFilter}"
-							search="filterGlobally"
+							liveChange="onSearch"
 							width="15rem"/>
 					</m:OverflowToolbar>
 				</extension>
@@ -292,7 +308,9 @@
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
+						
 						<m:Label text="Cant. descargada" />
 						<template>
 							<m:Text text="{Acopio>CNPDS}" wrapping="false" />
@@ -304,8 +322,10 @@
 						sortProperty="PRCOM"
 						filterProperty="PRCOM"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Compra" />
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="Compra" 
+						/>
 						<template>
 							<m:Text text="{Acopio>PRCOM}" wrapping="false" />
 						</template>
@@ -316,8 +336,10 @@
 						sortProperty="BONIF"
 						filterProperty="BONIF"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Bonif" />
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="Bonif" 
+						/>
 						<template>
 							<m:Text text="{Acopio>BONIF}" wrapping="false" />
 						</template>
@@ -328,8 +350,10 @@
 						sortProperty="PRVEN"
 						filterProperty="PRVEN"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Venta" />
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="Venta" 
+						/>
 						<template>
 							<m:Text text="{Acopio>PRVEN}" wrapping="false" />
 						</template>
@@ -364,7 +388,8 @@
 						sortProperty="PCSPP"
 						filterProperty="PCSPP"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="% Prop" />
 						<template>
 							<m:Text text="{Acopio>PCSPP}" wrapping="false" />
@@ -376,8 +401,10 @@
 						sortProperty="PCCSG"
 						filterProperty="PCCSG"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="% Def" />
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="% Def" 
+						/>
 						<template>
 							<m:Text text="{Acopio>PCCSG}" wrapping="false" />
 						</template>
@@ -427,7 +454,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Calidad" />
 						<template>
-							<m:Text text="{Acopio>CALIDAD}" wrapping="false" />
+							<m:Text text="{Acopio>DESC_CALIDA}" wrapping="false" />
 						</template>
 					</Column>
 					<Column
@@ -436,7 +463,8 @@
 						sortProperty="JUVEN"
 						filterProperty="JUVEN"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="% Juveniles" />
 						<template>
 							<m:Text text="{Acopio>JUVEN}" wrapping="false" />
@@ -448,7 +476,8 @@
 						sortProperty="TVN"
 						filterProperty="TVN"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="TVN" />
 						<template>
 							<m:Text text="{Acopio>TVN}" wrapping="false" />
@@ -460,7 +489,8 @@
 						sortProperty="TDC"
 						filterProperty="TDC"
 						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+						showSortMenuEntry="true"
+						hAlign="End">
 						<m:Label text="TDC" />
 						<template>
 							<m:Text text="{Acopio>TDC}" wrapping="false" />

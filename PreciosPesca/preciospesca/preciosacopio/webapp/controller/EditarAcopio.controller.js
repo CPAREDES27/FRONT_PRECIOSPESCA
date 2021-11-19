@@ -145,7 +145,7 @@ function (BaseController,Controller,JSONModel,History,MessageBox) {
                                 emphasizedAction: MessageBox.Action.OK,
                                 onClose: function (oAction) { if(oAction=="YES"){
                                     this.limpiar();
-                                    this.getOwnerComponent().getRouter().navTo("PreciosAcopio");
+                                    this.goBackAcopio();
                                 }}.bind(this)
                             }
                         ); 
@@ -158,6 +158,20 @@ function (BaseController,Controller,JSONModel,History,MessageBox) {
             
         },
         guardarAcopio: function(oEvent){
+           var precioCompraMax=this.byId("idPrecioCompraMax").getValue();
+           var txtPrecioCompra= this.byId("txtPrecioCompra").getValue();
+           if(txtPrecioCompra>precioCompraMax){
+               MessageBox.error("El precio de compra supera al tope permitido.");
+               return false;
+
+           }
+           if(txtPrecioCompra<=0){
+            MessageBox.error("El precio de compra debe ser mayor a cero.");
+            return false;
+           }if(txtPrecioCompra==="" || txtPrecioCompra===null){
+            MessageBox.error("El campo 'message.PRECIOCOMPRA' es obligatorio.");
+            return false;
+           }
             oGlobalBusyDialog.open();
             var marea = this.byId("idMarea").getValue().replace(/^(0+)/g, '');
             var cEspecie = this.byId("idcodEspecie").getValue();
@@ -205,7 +219,7 @@ function (BaseController,Controller,JSONModel,History,MessageBox) {
                 bonif: array[0],
                 cdspc: cEspecie,
                 ebelp: "00000",
-                esbon: "N",
+                esbon: "L",
                 fhabo: "00000000",
                 fhrbo: fecha,
                 hrabo: "003301",
@@ -235,18 +249,38 @@ function (BaseController,Controller,JSONModel,History,MessageBox) {
                         body: JSON.stringify(bodySave)
                     })
                     .then(resp => resp.json()).then(data => {
+                        console.log(data);
+                        var cadenita="";
+                        if(data.t_mensaje.length>=0){
+                            
+                            for(var i=0;i<data.t_mensaje.length;i++){
+                                    cadenita+=data.t_mensaje[i].DSMIN+"\n";
+                        }
                         MessageBox.success(
-                            "Los datos fueron guardados correctamente ", {
+                            "Los datos de compra fueron guardados correctamente ", {
                                 icon: MessageBox.Icon.SUCCESS,
                                 title: "Guardado Satisfactorio",
-                                actions: [MessageBox.Action.YES],
+                                actions: [MessageBox.Action.OK],
                                 emphasizedAction: MessageBox.Action.OK,
-                                onClose: function (oAction) { if(oAction=="YES"){
-                                    this.limpiar();
-                                    this.goBackAcopio();
+                                onClose: function (oAction) { if(oAction=="OK"){
+                                    MessageBox.error(
+                                        cadenita, {
+                                            icon: MessageBox.Icon.ERROR,
+                                            title: "Error",
+                                            actions: [MessageBox.Action.OK],
+                                            emphasizedAction: MessageBox.Action.OK,
+                                            onClose: function (oAction) { if(oAction=="OK"){
+                                                this.limpiar();
+                                                this.goBackAcopio();
+                                            }}.bind(this)
+                                        }
+                                    ); 
                                 }}.bind(this)
                             }
                         ); 
+                       
+                            
+                        }
                          oGlobalBusyDialog.close();   
                     }).catch(error => console.log(error)
                     );

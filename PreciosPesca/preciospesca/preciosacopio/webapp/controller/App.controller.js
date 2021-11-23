@@ -262,9 +262,9 @@ sap.ui.define([
 				this.byId("idPlantaIni").setValue("");
 				this.byId("idPlantaFin").setValue("");
 				this.byId("idArmadorIni").setValue("");
+				this.byId("idArmadorFin").setValue("");
 				this.byId("embarcacionLow").setValue("");
 				this.byId("embarcacionHigh").setValue("");
-				this.byId("idEmbarcacionFin").setValue("");
 				this.byId("idFechaIniVigencia").setValue("");
 				
 				JsonFechaIni={

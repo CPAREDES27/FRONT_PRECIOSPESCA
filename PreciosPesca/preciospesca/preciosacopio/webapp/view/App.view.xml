@@ -214,7 +214,7 @@
                 selectionMode="MultiToggle"
 				showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
 				enableColumnFreeze="{ui>/showFreezeMenuEntry}"
-				enableCellFilter="{ui>/enableCellFilter}"
+				enableCellFilter="true"
 				columnSelect="onColumnSelect"
 				cellContextmenu="onProductIdCellContextMenu"
 				ariaLabelledBy="title">

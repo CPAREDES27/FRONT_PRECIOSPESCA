@@ -94,16 +94,14 @@ sap.ui.define([
 			   let radio1 = this.byId("rbgtype").getSelectedButton().getText();
 			   let idAciertos =this.byId("idAciertos").getValue();
 			   let options=[];
-			   let option=[];
+			   let idEstado="";
 			   if(!idAciertos){
 				  MessageBox.error("Debe ingresar cantida de aciertos");
 				  return false;
 			   }
 			   if(radio1 ==="Pendientes de castigo"){
 				   console.log("entró");
-				   option.push({
-					   "wa": "(USCPP NE '' OR USCPP IS NOT NULL) AND ESCSG EQ 'N'"
-				   });
+				   idEstado="PC";
 			   }
 			   if(idPlantaIni || idPlantaFin){
 				   options.push({
@@ -136,13 +134,15 @@ sap.ui.define([
 			   console.log(radio1);
 			   
 				 let body = {
-				   "p_calidad": "TMP-HP34",
-				   "p_flag": "X",
-				   "p_indpr": "C",
-				   "p_option": option,
-				   "p_options": options,
-				   "p_rows": idAciertos,
-				   "p_user": "FGARCIA"
+					"id_estado": idEstado,
+					"num_application": 1,
+					"p_calidad": "TMP-HP34",
+					"p_flag": "X",
+					"p_indpr": "C",
+					"p_option": [],
+					"p_options": options,
+					"p_rows": idAciertos,
+					"p_user": "FGARCIA"
 				   }
 				   var indice=-1;
 				   console.log(body);
@@ -173,13 +173,15 @@ sap.ui.define([
 				   "option": [
 					
 				   ],
-				   "option2": [
-					  {
-				 "wa":"ESEMB = 'O'"
-				 }
-				   ],
+				   "option2": [],
 				   "options": [
-					 
+					 {
+						cantidad: "10",
+						control:"MULTIINPUT",
+						key:"ESEMB",
+						valueHigh: "",
+						valueLow: "O"
+					 }
 				   ],
 				   "options2": [
 					
@@ -205,16 +207,22 @@ sap.ui.define([
 					
 				   ],
 				   "no_data": "",
-				   "option": [
-					 {
-					   "wa":"INPRP = 'P'"
-					   },
-					   {
-					   "wa":"AND ESREG = 'S'"
-					   }
-				   ],
+				   "option": [],
 				   "options": [
-					 
+					{
+                        cantidad: "20",
+                        control:"MULTIINPUT",
+                        key:"INPRP",
+                        valueHigh: "",
+                        valueLow:"P"
+                    },
+					{
+                        cantidad: "20",
+                        control:"MULTIINPUT",
+                        key:"ESREG",
+                        valueHigh: "",
+                        valueLow:"S"
+                    }
 				   ],
 				   "order": "",
 				   "p_user": "FGARCIA",

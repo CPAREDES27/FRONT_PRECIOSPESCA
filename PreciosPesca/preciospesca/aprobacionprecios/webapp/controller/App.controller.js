@@ -298,29 +298,9 @@ sap.ui.define([
 	},
 			listPlanta: function(){
 				var dataPlantas={
-					"delimitador": "|",
-					"fields": [
-					 
-					],
-					"no_data": "",
-					"option": [
-					  {
-						"wa":"INPRP = 'P'"
-						},
-						{
-						"wa":"AND ESREG = 'S'"
-						}
-					],
-					"options": [
-					  
-					],
-					"order": "",
-					"p_user": "FGARCIA",
-					"rowcount": 0,
-					"rowskips": 0,
-					"tabla": "ZV_FLPL"
-				  }
-				  fetch(`${mainUrlServices}General/Read_Table`,
+					"nombreAyuda": "BSQPLANTAS"
+				};
+				  fetch(`${mainUrlServices}General/AyudasBusqueda`,
 				  {
 					  method: 'POST',
 					  body: JSON.stringify(dataPlantas)
@@ -444,18 +424,15 @@ sap.ui.define([
 			   // }
    
 				 let body = {
-				   "p_calidad": "",
-				   "p_flag": "",
-				   "p_indpr": "C",
-				   
-				   "p_option": [
-					 {
-					   wa: "(ESPRC EQ 'N' AND (ESCSG EQ 'L' OR ESCSG EQ '' OR ESCSG EQ ' ' OR ESCSG IS NULL)) AND PRCOM > '0.00'"
-					 }
-				   ],
-				   "p_options": options,
-				   "p_rows": idAciertos,
-				   "p_user": "FGARCIA"
+					"id_estado": "",
+					"num_application": 2,
+					"p_calidad": "",
+					"p_flag": "",
+					"p_indpr": "C",
+					"p_option": [],
+					"p_options": options,
+					"p_rows": idAciertos,
+					"p_user": "FGARCIA"
 				   }
 				   var indice=-1;
 				  fetch(`${mainUrlServices}preciospesca/ConsultarPrecioMar`,

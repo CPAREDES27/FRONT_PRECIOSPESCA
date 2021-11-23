@@ -131,8 +131,6 @@ sap.ui.define([
 			   let idPISCONORTE = this.byId("idPISCONORTE").getSelected();
 
 			   let options=[];
-			
-			   var cadena="";
 			   var planta="";
 			   var error=""
 			   var estado=true;
@@ -307,17 +305,8 @@ sap.ui.define([
 			  
 			   console.log(idMALABRIGO);
 			   let body = {
-						"option": [
-							{
-						   "wa": planta.substring(0,planta.length-4)
-							},
-							{
-						   "wa": cadena
-							}
-						],
-					   "options": [
-						   
-					   ]
+						"option": [],
+					   "options": options
 					}
 					console.log(body);
 					var indice=-1;

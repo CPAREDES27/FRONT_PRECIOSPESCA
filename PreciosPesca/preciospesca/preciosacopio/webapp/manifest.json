@@ -90,6 +90,10 @@
             "Propiedad":{
                 "type": "sap.ui.model.json.JSONModel",
                 "preload":true
+            },
+            "ModelGeneral": {
+                "type": "sap.ui.model.json.JSONModel",
+                "preload": true
             }
             
             

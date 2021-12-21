@@ -221,11 +221,19 @@ sap.ui.define([
 					],
 					"no_data": "",
 					"option": [
-					  {
-						"wa":"INPRP = 'P'"
+						{
+							cantidad: "20",
+							control:"MULTIINPUT",
+							key:"INPRP",
+							valueHigh: "",
+							valueLow:"P"
 						},
 						{
-						"wa":"AND ESREG = 'S'"
+							cantidad: "20",
+							control:"MULTIINPUT",
+							key:"ESREG",
+							valueHigh: "",
+							valueLow:"S"
 						}
 					],
 					"options": [
@@ -265,7 +273,7 @@ sap.ui.define([
 			   let radio1 = this.byId("rbgtype").getSelectedButton().getText();
 			   let idAciertos =this.byId("idAciertos").getValue();
 			   let options=[];
-			   let option=[];
+			   let idEstado="";
 
 			   var fechaIni = this.byId("idFechaIniVigencia").getValue();
 				var error=""
@@ -293,9 +301,7 @@ sap.ui.define([
 			   }
 			   if(radio1 ==="Pendientes de castigo"){
 				   console.log("entró");
-				   option.push({
-					   "wa": "(USCPP EQ '' OR USCPP IS NULL) AND ESCSG NE 'L'"
-				   });
+				   idEstado="PC";
 			   }
 			   if(idPlantaIni || idPlantaFin){
 				   options.push({
@@ -328,13 +334,15 @@ sap.ui.define([
 			   console.log(radio1);
 			   
 				 let body = {
-				   "p_calidad": "TMP-HP34",
-				   "p_flag": "X",
-				   "p_indpr": "C",
-				   "p_option": option,
-				   "p_options": options,
-				   "p_rows": idAciertos,
-				   "p_user": "FGARCIA"
+					"id_estado": idEstado,
+					"num_application": 3,
+					"p_calidad": "TMP-HP34",
+					"p_flag": "X",
+					"p_indpr": "C",
+					"p_option": option,
+					"p_options": options,
+					"p_rows": idAciertos,
+					"p_user": "FGARCIA"
 				   }
 				   var indice=-1;
 				   console.log(body);

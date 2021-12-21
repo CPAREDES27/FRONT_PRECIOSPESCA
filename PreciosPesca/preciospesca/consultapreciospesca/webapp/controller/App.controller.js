@@ -172,29 +172,9 @@ sap.ui.define([
 			listPlanta: function(){
 				oGlobalBusyDialog.open();
 				var dataPlantas={
-					"delimitador": "|",
-					"fields": [
-					 
-					],
-					"no_data": "",
-					"option": [
-					  {
-						"wa":"INPRP = 'P'"
-						},
-						{
-						"wa":"AND ESREG = 'S'"
-						}
-					],
-					"options": [
-					  
-					],
-					"order": "",
-					"p_user": "FGARCIA",
-					"rowcount": 0,
-					"rowskips": 0,
-					"tabla": "ZV_FLPL"
-				  }
-				  fetch(`${mainUrlServices}General/Read_Table`,
+					"nombreAyuda": "BSQPLANTAS"
+				};
+				  fetch(`${mainUrlServices}General/AyudasBusqueda`,
 				  {
 					  method: 'POST',
 					  body: JSON.stringify(dataPlantas)

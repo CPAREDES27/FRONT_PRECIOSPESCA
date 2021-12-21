@@ -289,29 +289,9 @@ sap.ui.define([
 			},
 			listPlanta: function(){
 				var dataPlantas={
-					"delimitador": "|",
-					"fields": [
-					 
-					],
-					"no_data": "",
-					"option": [
-					  {
-						"wa":"INPRP = 'P'"
-						},
-						{
-						"wa":"AND ESREG = 'S'"
-						}
-					],
-					"options": [
-					  
-					],
-					"order": "",
-					"p_user": "FGARCIA",
-					"rowcount": 0,
-					"rowskips": 0,
-					"tabla": "ZV_FLPL"
-				  }
-				  fetch(`${mainUrlServices}General/Read_Table`,
+					"nombreAyuda": "BSQPLANTAS"
+				};
+				  fetch(`${mainUrlServices}General/AyudasBusqueda`,
 				  {
 					  method: 'POST',
 					  body: JSON.stringify(dataPlantas)
@@ -477,13 +457,7 @@ sap.ui.define([
 							valueLow:fechaIniVigencia
 						});
 				}
-				var conPrecio="";
 				console.log(idEstado);
-				if(idEstado=="C"){
-					conPrecio="(PRCOM IS NOT NULL AND PRCOM > 0)"
-				}else if(idEstado=="S"){
-					conPrecio="(PRCOM IS NULL OR PRCOM = 0)"
-				}
 				if(idAciertos){
 					idAciertos=idAciertos;
 				}else if(idAciertos==""){
@@ -492,15 +466,12 @@ sap.ui.define([
 			  
 	
 				  let body = {
+					"id_estado": idEstado,
+					"num_application": 4,
 					"p_calidad": "",
 					"p_flag": "",
 					"p_indpr": "C",
-					
-					"p_option": [
-					   {
-						   "wa":conPrecio
-					   }
-					],
+					"p_option": [],
 					"p_options": options,
 					"p_rows": idAciertos,
 					"p_user": "FGARCIA"

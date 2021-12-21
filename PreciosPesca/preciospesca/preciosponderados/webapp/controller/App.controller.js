@@ -129,8 +129,8 @@ sap.ui.define([
 			   let idTASACHD = this.byId("idTASACHD").getSelected();
 			   let idCHIMBOTESUR = this.byId("idCHIMBOTESUR").getSelected();
 			   let idPISCONORTE = this.byId("idPISCONORTE").getSelected();
-			
-			   var cadena="";
+
+			   let options=[];
 			   var planta="";
 			   var error=""
 			   var estado=true;
@@ -151,47 +151,132 @@ sap.ui.define([
 			   var fechaIniVigencia= this.castFechas(feccc[0]);
 			   var fechaIniVigencia2= this.castFechas(feccc[1]);
 			   console.log(fechaIniVigencia+" "+fechaIniVigencia2);
+
 			   if(idMALABRIGO){
-				   planta ="CDPTA = "+"'"+"0005"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0005"
+				   });
 			   }
 			   if(idCALLAO){
-				   planta +="CDPTA = "+"'"+"0012"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0012"
+				   });
 			   }
 			   if(idSAMANCO){
-				   planta +="CDPTA = "+"'"+"0009"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0009"
+				   });
 			   }
 			   if(idSUPE){
-				   planta +="CDPTA = "+"'"+"0010"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0010"
+				   });
 			   }
 			   if(idVEGUETA){
-				   planta +="CDPTA = "+"'"+"0011"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0011"
+				   });
 			   }
 			   if(idILO){
-				   planta +="CDPTA = "+"'"+"0019"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0019"
+				   });
 			   }
 			   if(idPISCOSUR){
-				   planta +="CDPTA = "+"'"+"0015"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0015"
+				   });
 			   }
 			   if(idATICO){
-				   planta +="CDPTA = "+"'"+"0016"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0016"
+				   });
 			   }
 			   if(idMATARANI){
-				   planta +="CDPTA = "+"'"+"0018"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0018"
+				   });
 			   }
 			   if(idCHIMBOTE){
-				   planta +="CDPTA = "+"'"+"0119"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0119"
+				   });
 			   }
 			   if(idTASAARTILLERO){
-				   planta +="CDPTA = "+"'"+"0125"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0125"
+				   });
 			   }
 			   if(idTASACHD){
-				   planta +="CDPTA = "+"'"+"0021"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0021"
+				   });
 			   }
 			   if(idCHIMBOTESUR){
-				   planta +="CDPTA = "+"'"+"0007"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0007"
+				   });
 			   }
 			   if(idPISCONORTE){
-				   planta +="CDPTA = "+"'"+"0014"+"'"+ " OR ";
+				   options.push({
+					cantidad: "10",
+					control:"MULTICOMBOBOX",
+					key:"CDPTA",
+					valueHigh: "",
+					valueLow: "0014"
+				   });
 			   }
 			   
    
@@ -203,7 +288,13 @@ sap.ui.define([
 			   console.log(planta.substring(0,planta.length-4));
 			   console.log(JsonFechaIni);
 			   if(fechaIniVigencia || fechaIniVigencia2){
-				   cadena=" AND FECCONMOV BETWEEN "+"'"+fechaIniVigencia+"'"+ " AND "+"'"+fechaIniVigencia2+"'";
+				   options.push({
+						cantidad: "10",
+						control:"MULTIINPUT",
+						key:"FECCONMOV",
+						valueHigh: fechaIniVigencia2,
+						valueLow: fechaIniVigencia
+					});
 			   }else{
 				oGlobalBusyDialog.close();
 				   MessageBox.error("Debe ingresar una fecha de producción inicial");
@@ -214,17 +305,8 @@ sap.ui.define([
 			  
 			   console.log(idMALABRIGO);
 			   let body = {
-						"option": [
-							{
-						   "wa": planta.substring(0,planta.length-4)
-							},
-							{
-						   "wa": cadena
-							}
-						],
-					   "options": [
-						   
-					   ]
+						"option": [],
+					   "options": options
 					}
 					console.log(body);
 					var indice=-1;

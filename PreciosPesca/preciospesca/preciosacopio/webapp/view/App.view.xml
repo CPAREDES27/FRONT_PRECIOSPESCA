@@ -138,8 +138,8 @@
                                                 <m:Label text="Embarcacions" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-											<m:Input id="embarcacionLow" value="{embarcacion}" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onSearchHelp"/>
-                                            <m:Input id="embarcacionHigh" value="{embarcacion}" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onSearchHelp"/>
+											<m:Input id="embarcacionLow" value="{/help/CDEMB}" showValueHelp="true"  valueHelpRequest="onSearchHelp"/>
+                                            <m:Input id="embarcacionHigh" value="{/help/CDEMB2}" showValueHelp="true"  valueHelpRequest="onSearchHelp"/>
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">

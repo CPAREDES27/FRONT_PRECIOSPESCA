@@ -1429,18 +1429,20 @@ sap.ui.define([
 						.finally(oSheet.destroy);
 						oGlobalBusyDialog.close();
 				},
+
+
 				onSearchHelp:function(oEvent){
-					let that = this,
-					sIdControl = oEvent.getSource().getId(),
-					oModel = this.getModel("ModelGeneral"),
-					nameComponent="ayudaembarcaciones",
-					idComponent="ayudaembarcaciones",
-					urlComponent=HOST+"/10f4c59e-35e6-4d6a-88ef-e0267faac0ab.AyudasBusqueda.ayudaembarcaciones-1.0.0",
-					oView = this.getView();
-					oModel.setProperty("/idControl",sIdControl);
+					let sIdInput = oEvent.getSource().getId(),
+					oModel = this.getModel(),
+					nameComponent="busqembarcaciones",
+					idComponent="busqembarcaciones",
+					urlComponent=HOST+"/9acc820a-22dc-4d66-8d69-bed5b2789d3c.AyudasBusqueda.busqembarcaciones-1.0.0",
+					oView = this.getView(),
+					oInput = this.getView().byId(sIdInput);
+					oModel.setProperty("/input",oInput);
 		
-					if(!that.DialogComponent){
-						that.DialogComponent = new sap.m.Dialog({
+					if(!this.DialogComponent){
+						this.DialogComponent = new sap.m.Dialog({
 							title:"Búsqueda de embarcaciones",
 							icon:"sap-icon://search",
 							state:"Information",
@@ -1449,22 +1451,22 @@ sap.ui.define([
 								text:"Cerrar",
 								type:"Reject",
 								press:function(oEvent){
-									that.onCloseDialog(oEvent);
-								}.bind(that)
+									this.onCloseDialog(oEvent);
+								}.bind(this)
 							})
 						});
-						oView.addDependent(that.DialogComponent);
-						oModel.setProperty("/idDialogComp",that.DialogComponent.getId());
+						oView.addDependent(this.DialogComponent);
+						oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
 					}
 		
 					// let comCreateOk = function(oEvent){
-					// 	that.oGlobalBusyDialog.close();
+					// 	this.oGlobalBusyDialog.close();
 					// };
 		
 					
-					if(that.DialogComponent.getContent().length===0){
-						that.oGlobalBusyDialog = new sap.m.BusyDialog();
-						that.oGlobalBusyDialog.open();
+					if(this.DialogComponent.getContent().length===0){
+						this.oGlobalBusyDialog = new sap.m.BusyDialog();
+						this.oGlobalBusyDialog.open();
 						let oComponent = new sap.ui.core.ComponentContainer({
 							id:idComponent,
 							name:nameComponent,
@@ -1474,17 +1476,17 @@ sap.ui.define([
 							propagateModel:true,
 							// componentCreated:comCreateOk,
 							componentCreated:function(evt){
-								that.compCreatedFinished(evt);
-							}.bind(that),
+								this.compCreatedFinished(evt);
+							}.bind(this),
 							height:'100%',
 							// manifest:true,
 							async:false
 						});
 		
-						that.DialogComponent.addContent(oComponent);
+						this.DialogComponent.addContent(oComponent);
 					}
 					
-					that.DialogComponent.open();
+					this.DialogComponent.open();
 				},
 				compCreatedFinished:function(oComponent){
 					// this.DialogComponent.addContent(oComponent);

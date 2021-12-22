@@ -1459,14 +1459,13 @@ sap.ui.define([
 						oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
 					}
 		
-					// let comCreateOk = function(oEvent){
-					// 	this.oGlobalBusyDialog.close();
-					// };
+					let comCreateOk = function(oEvent){
+						BusyIndicator.hide();
+					};
 		
 					
 					if(this.DialogComponent.getContent().length===0){
-						this.oGlobalBusyDialog = new sap.m.BusyDialog();
-						this.oGlobalBusyDialog.open();
+						BusyIndicator.show(0);
 						let oComponent = new sap.ui.core.ComponentContainer({
 							id:idComponent,
 							name:nameComponent,
@@ -1474,10 +1473,7 @@ sap.ui.define([
 							settings:{},
 							componentData:{},
 							propagateModel:true,
-							// componentCreated:comCreateOk,
-							componentCreated:function(evt){
-								this.compCreatedFinished(evt);
-							}.bind(this),
+							componentCreated:comCreateOk,
 							height:'100%',
 							// manifest:true,
 							async:false
@@ -1487,11 +1483,6 @@ sap.ui.define([
 					}
 					
 					this.DialogComponent.open();
-				},
-				compCreatedFinished:function(oComponent){
-					// this.DialogComponent.addContent(oComponent);
-					// this.DialogComponent.open();
-					this.oGlobalBusyDialog.close();
 				},
 				onCloseDialog:function(oEvent){
 					oEvent.getSource().getParent().close();

@@ -1382,74 +1382,62 @@ sap.ui.define([
 						.finally(oSheet.destroy);
 				},
 				
-		onSearchHelp:function(oEvent){
-			let that = this,
-			sIdControl = oEvent.getSource().getId(),
-			oModel = this.getModel("ModelGeneral"),
-			nameComponent="ayudaembarcaciones",
-			idComponent="ayudaembarcaciones",
-			urlComponent=HOST+"/10f4c59e-35e6-4d6a-88ef-e0267faac0ab.AyudasBusqueda.ayudaembarcaciones-1.0.0",
-			oView = this.getView();
-			oModel.setProperty("/idControl",sIdControl);
-
-			if(!that.DialogComponent){
-				that.DialogComponent = new sap.m.Dialog({
-					title:"Búsqueda de embarcaciones",
-					icon:"sap-icon://search",
-					state:"Information",
-					endButton:new sap.m.Button({
-						icon:"sap-icon://decline",
-						text:"Cerrar",
-						type:"Reject",
-						press:function(oEvent){
-							that.onCloseDialog(oEvent);
-						}.bind(that)
-					})
-				});
-				oView.addDependent(that.DialogComponent);
-				oModel.setProperty("/idDialogComp",that.DialogComponent.getId());
-			}
-
-			// let comCreateOk = function(oEvent){
-			// 	that.oGlobalBusyDialog.close();
-			// };
-
-			
-			if(that.DialogComponent.getContent().length===0){
-				that.oGlobalBusyDialog = new sap.m.BusyDialog();
-				that.oGlobalBusyDialog.open();
-				let oComponent = new sap.ui.core.ComponentContainer({
-					id:idComponent,
-					name:nameComponent,
-					url:urlComponent,
-					settings:{},
-					componentData:{},
-					propagateModel:true,
-					// componentCreated:comCreateOk,
-					componentCreated:function(evt){
-						that.compCreatedFinished(evt);
-					}.bind(that),
-					height:'100%',
-					// manifest:true,
-					async:false
-				});
-
-				that.DialogComponent.addContent(oComponent);
-			}
-			
-			that.DialogComponent.open();
-		},
-
+				onSearchHelp:function(oEvent){
+					let sIdInput = oEvent.getSource().getId(),
+					oModel = this.getModel(),
+					nameComponent="busqembarcaciones",
+					idComponent="busqembarcaciones",
+					urlComponent=HOST+"/9acc820a-22dc-4d66-8d69-bed5b2789d3c.AyudasBusqueda.busqembarcaciones-1.0.0",
+					oView = this.getView(),
+					oInput = this.getView().byId(sIdInput);
+					oModel.setProperty("/input",oInput);
 		
-		compCreatedFinished:function(oComponent){
-			// this.DialogComponent.addContent(oComponent);
-			// this.DialogComponent.open();
-			this.oGlobalBusyDialog.close();
-		},
-
-		onCloseDialog:function(oEvent){
-			oEvent.getSource().getParent().close();
-		}
+					if(!this.DialogComponent){
+						this.DialogComponent = new sap.m.Dialog({
+							title:"Búsqueda de embarcaciones",
+							icon:"sap-icon://search",
+							state:"Information",
+							endButton:new sap.m.Button({
+								icon:"sap-icon://decline",
+								text:"Cerrar",
+								type:"Reject",
+								press:function(oEvent){
+									this.onCloseDialog(oEvent);
+								}.bind(this)
+							})
+						});
+						oView.addDependent(this.DialogComponent);
+						oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
+					}
+		
+					let comCreateOk = function(oEvent){
+						BusyIndicator.hide();
+					};
+		
+					
+					if(this.DialogComponent.getContent().length===0){
+						BusyIndicator.show(0);
+						let oComponent = new sap.ui.core.ComponentContainer({
+							id:idComponent,
+							name:nameComponent,
+							url:urlComponent,
+							settings:{},
+							componentData:{},
+							propagateModel:true,
+							componentCreated:comCreateOk,
+							height:'100%',
+							// manifest:true,
+							async:false
+						});
+		
+						this.DialogComponent.addContent(oComponent);
+					}
+					
+					this.DialogComponent.open();
+				},
+				onCloseDialog:function(oEvent){
+					oEvent.getSource().getParent().close();
+				}
 			
 		});
 	});

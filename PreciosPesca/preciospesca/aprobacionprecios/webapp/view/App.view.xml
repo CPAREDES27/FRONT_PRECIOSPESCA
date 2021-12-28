@@ -149,8 +149,8 @@
                                                 <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                          		<m:Input id="embarcacionLow" value="{/help/CDEMB}"  showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="showSearchHelp"/>
-												<m:Input id="embarcacionHigh" value="{/help/CDEMB}" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="showSearchHelp"/>
+                                          		<m:Input id="embarcacionLow" value="{/help/CDEMB}"  showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
+												<m:Input id="embarcacionHigh" value="{/help/CDEMB}" showValueHelp="true" width="auto" valueStateText="Invalid entry" valueHelpRequest="onOpenEmba"/>
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">

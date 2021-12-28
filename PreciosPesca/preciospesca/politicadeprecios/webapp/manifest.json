@@ -113,7 +113,7 @@
             "routes": [
                 {
                     "name": "RouteApp",
-                    "pattern": "RouteApp",
+                    "pattern": "",
                     "target": [
                         "TargetApp"
                     ]
@@ -130,8 +130,7 @@
                 "TargetApp": {
                     "viewType": "XML",
                     "transition": "slide",
-                    "clearControlAggregation": false,
-                    "viewId": "App",
+                    "viewId": "Main",
                     "viewName": "App"
                 },
                 "NuevoPoliticaPrecio": {

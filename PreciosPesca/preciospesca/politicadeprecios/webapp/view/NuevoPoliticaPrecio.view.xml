@@ -1,4 +1,6 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="com.tasa.politicadeprecios.controller.NuevoPoliticaPrecio" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+<Shell>
+<App>
     <Page showHeader="true" title="Nuevo Precio de Pesca" showFooter="true" showNavButton="false">
         <content>
         <Panel height="auto" id="formEvento" width="100%" headerText="Datos Generales" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
@@ -322,7 +324,7 @@
                 <content>
                     <ToolbarSpacer width=""/>
                     <Button text="Guardar" id="btnGuardar" press="guardar" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                    <Button text="Cancelar" press="regresarMain" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <Button text="Cancelar" press="cancelarNuevo" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                 </content>
             </OverflowToolbar>
         </footer>
@@ -330,4 +332,7 @@
         <subHeader/>
         <customHeader/>
     </Page>
+</App>
+</Shell>
+    
 </mvc:View>

@@ -336,7 +336,7 @@
                 <m:content>
                     <m:ToolbarSpacer width=""/>
                     <m:Button text="Guardar" type="Emphasized" press="editar" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
-                    <m:Button text="Cancel" press="BackToAprobacion" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <m:Button text="Cancel" press="cancelarEdicion" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                 </m:content>
             </m:OverflowToolbar>
         </m:footer>

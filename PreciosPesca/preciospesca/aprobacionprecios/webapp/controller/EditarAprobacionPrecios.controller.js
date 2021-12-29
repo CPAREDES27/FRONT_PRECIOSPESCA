@@ -130,6 +130,10 @@ sap.ui.define([
 			BackToAprobacion: function(){
 				this.getRouter().navTo("RouteApp");
                 location.reload();
+			},
+			cancelarEdicion: function() {
+				this.limpiar();
+                this.getRouter().navTo("RouteApp");
 			}
 		});
 	});

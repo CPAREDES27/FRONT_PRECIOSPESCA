@@ -135,7 +135,7 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "App",
+                    "viewId": "Main",
                     "viewName": "App"
                 },
                 "EditarAprobacionPrecios": {

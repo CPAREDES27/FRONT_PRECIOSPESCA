@@ -129,6 +129,7 @@ sap.ui.define([
 			   let idTASACHD = this.byId("idTASACHD").getSelected();
 			   let idCHIMBOTESUR = this.byId("idCHIMBOTESUR").getSelected();
 			   let idPISCONORTE = this.byId("idPISCONORTE").getSelected();
+			   let plantasPresent = false;
 
 			   let options=[];
 			   var planta="";
@@ -279,8 +280,8 @@ sap.ui.define([
 				   });
 			   }
 			   
-   
-			   if(planta==""){
+			   const numPlantas = options.filter(o => o.key === "CDPTA").length;
+			   if(numPlantas == 0){
 				oGlobalBusyDialog.close();
 				MessageBox.error("Debe escoger al menos una planta");
 				return false;

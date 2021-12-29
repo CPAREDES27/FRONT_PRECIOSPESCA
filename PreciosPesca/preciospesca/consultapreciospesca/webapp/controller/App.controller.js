@@ -193,8 +193,8 @@ sap.ui.define([
 				this.byId("idPlantaFin").setValue("");
 				this.byId("idArmadorIni").setValue("");
 				this.byId("idArmadorFin").setValue("");
-				this.byId("embarcacionLow").setValue("");
-				this.byId("embarcacionHigh").setValue("");
+				this.byId("inputId0_R").setValue("");
+				this.byId("inputId1_R").setValue("");
 				this.byId("idFechaIniVigencia").setValue("");
 				this.byId("idEstado").setValue("");
 				this.byId("idEstadoCastigo").setValue("");
@@ -270,8 +270,8 @@ sap.ui.define([
 				var idPlantaFin = this.byId("idPlantaFin").getValue();
 				var idArmadorIni = this.byId("idArmadorIni").getValue();
 				var idArmadorFin = this.byId("idArmadorFin").getValue();
-				var idEmbarcacionIni = this.byId("embarcacionLow").getValue();
-				var idEmbarcacionFin = this.byId("embarcacionHigh").getValue();
+				var idEmbarcacionIni = this.byId("inputId0_R").getValue();
+				var idEmbarcacionFin = this.byId("inputId1_R").getValue();
 				var idEstado = this.byId("idEstado").getSelectedKey();
 				var idEstadoCastigo= this.byId("idEstadoCastigo").getSelectedKey();
 				var idFechaZarpe=this.byId("idFechaIniVigencia").getValue();
@@ -464,9 +464,9 @@ sap.ui.define([
 				console.log(indices);
 				var data = this.getView().getModel("Embarcacion").oData.listaEmbarcacion[indices].CDEMB;
 				if(this.popEmb==="popEmb"){
-					this.byId("embarcacionLow").setValue(data);
+					this.byId("inputId0_R").setValue(data);
 				}else if(this.popEmb==="popEmb2"){
-					this.byId("embarcacionHigh").setValue(data);
+					this.byId("inputId1_R").setValue(data);
 				}
 				this._onCloseDialogEmbarcacion();
 				
@@ -918,10 +918,10 @@ sap.ui.define([
 					var objeto = evt.getParameter("rowContext").getObject();
 					if (objeto) {
 						var cdemb = objeto.CDEMB;
-						if (this.currentInputEmba.includes("embarcacionLow")) {
-							this.byId("embarcacionLow").setValue(cdemb);
-						}else if(this.currentInputEmba.includes("embarcacionHigh")){
-							this.byId("embarcacionHigh").setValue(cdemb);
+						if (this.currentInputEmba.includes("inputId0_R")) {
+							this.byId("inputId0_R").setValue(cdemb);
+						}else if(this.currentInputEmba.includes("inputId1_R")){
+							this.byId("inputId1_R").setValue(cdemb);
 						}
 						this.getDialog().close();
 					}
@@ -1176,10 +1176,10 @@ sap.ui.define([
 					console.log(indices);
 				
 					var data = this.getView().getModel("consultaMareas").oData.embarcaciones[indices].CDEMB;
-					if (this.currentInputEmba.includes("embarcacionLow")) {
-						this.byId("embarcacionLow").setValue(data);
-					}else if(this.currentInputEmba.includes("embarcacionHigh")){
-						this.byId("embarcacionHigh").setValue(data);
+					if (this.currentInputEmba.includes("inputId0_R")) {
+						this.byId("inputId0_R").setValue(data);
+					}else if(this.currentInputEmba.includes("inputId1_R")){
+						this.byId("inputId1_R").setValue(data);
 					}
 					this.onCerrarEmba();
 					

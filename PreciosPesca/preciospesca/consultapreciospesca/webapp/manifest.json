@@ -71,6 +71,10 @@
                     "bundleName": "tasa.com.consultapreciospesca.i18n.i18n"
                 }
             },
+            "":{
+                "type": "sap.ui.model.json.JSONModel",
+                "preload":true
+            },
             "Acopio":{
                 "type": "sap.ui.model.json.JSONModel",
                 "preload":true

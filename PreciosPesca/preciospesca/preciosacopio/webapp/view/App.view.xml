@@ -138,8 +138,8 @@
                                                 <m:Label text="Embarcaciones" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-											<m:Input id="embarcacionLow" placeholder="Seleccione embarcación" showValueHelp="true"  valueHelpRequest="onSearchHelp"/>
-                                            <m:Input id="embarcacionHigh" placeholder="Seleccione embarcación"  showValueHelp="true"  valueHelpRequest="onSearchHelp"/>
+											<m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true"  valueHelpRequest="onSearchHelp"/>
+											<m:Input id="inputId1_R" placeholder="Seleccione embarcación" showValueHelp="true"  valueHelpRequest="onSearchHelp"/>
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">

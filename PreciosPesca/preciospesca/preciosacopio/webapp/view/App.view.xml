@@ -333,7 +333,16 @@
 						hAlign="End">
 						<m:Label text="Cant. desc. (Tn)" />
 						<template>
-							<m:Text text="{Acopio>CNPDS}" wrapping="false" />
+							<!--<m:Text text="{Acopio>CNPDS}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>CNPDS', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                     <Column
@@ -382,7 +391,15 @@
 						hAlign="End">
 						<m:Label text="Pactado" />
 						<template>
-							<m:Text text="{Acopio>PRCOM}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PRCOM}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PRCOM', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                     <Column
@@ -396,7 +413,15 @@
 						<m:Label text="Bonif." 
 						/>
 						<template>
-							<m:Text text="{Acopio>BONIF}" wrapping="false" />
+							<!--<m:Text text="{Acopio>BONIF}" wrapping="false" />-->
+								<m:Text text="{path:'Acopio>BONIF', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                     <Column
@@ -410,7 +435,15 @@
 						<m:Label text="Max." 
 						/>
 						<template>
-							<m:Text text="{Acopio>PRCMX}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PRCMX}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PRCMX', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                     <Column
@@ -424,7 +457,15 @@
 						<m:Label text="Tope"
 						 />
 						<template>
-							<m:Text text="{Acopio>PRCTP}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PRCTP}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PRCTP', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                     <Column

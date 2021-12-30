@@ -1328,8 +1328,9 @@ sap.ui.define([
 					{
 						label: 'Cantidad desc.(Tn)',
 						property: 'CNPDS',
-						type: EdmType.String,
-						scale: 2
+						type: EdmType.Number,
+						scale: 3,
+						delimiter: true
 					},
 					{
 						label: 'Fecha prod.',
@@ -1352,26 +1353,30 @@ sap.ui.define([
 					{
 						label: 'Pactado',
 						property: 'PRCOM',
-						type: EdmType.String,
-						scale: 2
+						type: EdmType.Number,
+						scale: 2,
+						delimiter: true
 					},
 					{
 						label: 'Bonificación',
 						property: 'BONIF',
-						type: EdmType.String,
-						scale: 2
+						type: EdmType.Number,
+						scale: 2,
+						delimiter: true
 					},
 					{
 						label: 'Max',
 						property: 'PRCMX',
-						type: EdmType.String,
-						scale: 2
+						type: EdmType.Number,
+						scale: 2,
+						delimiter: true
 					},
 					{
 						label: 'Tope',
 						property: 'PRCTP',
-						type: EdmType.String,
-						scale: 2
+						type: EdmType.Number,
+						scale: 2,
+						delimiter: true
 					},
 					{
 						label: 'Moneda',

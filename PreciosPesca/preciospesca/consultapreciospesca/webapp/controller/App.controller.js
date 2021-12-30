@@ -1232,26 +1232,30 @@ sap.ui.define([
 						{
 							label: 'Cant. descargada',
 							property: 'CNPDS' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 3,
+							delimiter: true
 						},
 						{
 							label: 'Compra',
 							property: 'PRCOM' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 2,
+							delimiter: true
 						},
 						{
 							label: 'Bonificación',
 							property: 'BONIF' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 2,
+							delimiter: true
 						},
 						{
 							label: 'Venta',
 							property: 'PRVEN' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 2,
+							delimiter: true
 						},
 						{
 							label: 'Moneda',
@@ -1268,14 +1272,16 @@ sap.ui.define([
 						{
 							label: '% Prop',
 							property: 'PCSPP' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 2,
+							delimiter: true
 						},
 						{
 							label: '% Def',
 							property: 'PCCSG' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 2,
+							delimiter: true
 						},
 						{
 							label: 'Estado',
@@ -1304,20 +1310,23 @@ sap.ui.define([
 						{
 							label: '% Juveniles',
 							property: 'JUVEN' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 3,
+							delimiter: true
 						},
 						{
 							label: 'TVN',
 							property: 'TVN' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 3,
+							delimiter: true
 						},
 						{
 							label: 'TDC',
 							property: 'TDC' ,
-							type: EdmType.String,
-							scale: 2
+							type: EdmType.Number,
+							scale: 3,
+							delimiter: true
 						},
 						{
 							label: 'Obs. calidad',

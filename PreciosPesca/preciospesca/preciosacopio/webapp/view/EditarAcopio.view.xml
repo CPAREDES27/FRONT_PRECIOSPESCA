@@ -190,7 +190,16 @@
                                                                     <m:Label text="Cant. descarga" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>CNPDS}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" value="{path:'Acopio>CNPDS', type:'sap.ui.model.type.Float',
+                                                                                                formatOptions:{
+                                                                                                    minIntegerDigits:1,
+                                                                                                    minFractionDigits:3,
+                                                                                                    maxFractionDigits:3,
+                                                                                                    groupingEnabled:true,
+                                                                                                    groupingSeparator: ',',
+                                                                                                    decimalSeparator: '.'
+                                                                                                }}" 
+                                                                    showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                     <m:Text text="Tn" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:fields>
                                                             </form:FormElement>
@@ -389,6 +398,7 @@
 						<m:Label text="Cant. desc. (Tn)" />
 						<template>
 							<m:Text text="{dataAcopio>CNPDS}" wrapping="false" />
+                            
 						</template>
 					</Column>
                     <Column

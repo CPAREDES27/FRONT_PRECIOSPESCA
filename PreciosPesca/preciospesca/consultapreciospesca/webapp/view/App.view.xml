@@ -243,7 +243,7 @@
                
                 	<Column
 						id="WERKS"
-						width="11rem"
+						width="5rem"
 						sortProperty="WERKS"
 						filterProperty="WERKS"
 						showFilterMenuEntry="true"
@@ -255,7 +255,7 @@
 					</Column>
                     <Column
 						id="MREMB"
-						width="11rem"
+						width="8rem"
 						sortProperty="MREMB"
 						filterProperty="MREMB"
 						showFilterMenuEntry="true"
@@ -267,7 +267,7 @@
 					</Column>
                     <Column
 						id="NMEMB"
-						width="11rem"
+						width="8rem"
 						sortProperty="NMEMB"
 						filterProperty="NMEMB"
 						showFilterMenuEntry="true"
@@ -279,7 +279,7 @@
 					</Column>
 					<Column
 						id="NAME1"
-						width="11rem"
+						width="14rem"
 						sortProperty="NAME1"
 						filterProperty="NAME1"
 						showFilterMenuEntry="true"
@@ -292,7 +292,7 @@
 					
 					<Column
 						id="FECCONMOV"
-						width="11rem"
+						width="7rem"
 						sortProperty="FECCONMOV"
 						filterProperty="FECCONMOV"
 						showFilterMenuEntry="true"
@@ -304,7 +304,7 @@
 					</Column>
                     <Column
 						id="CNPDS"
-						width="11rem"
+						width="9rem"
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
@@ -313,12 +313,20 @@
 						
 						<m:Label text="Cant. descargada" />
 						<template>
-							<m:Text text="{Acopio>CNPDS}" wrapping="false" />
+							<m:Text text="{path:'Acopio>CNPDS', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                    <Column
 						id="PRCOM"
-						width="11rem"
+						width="5rem"
 						sortProperty="PRCOM"
 						filterProperty="PRCOM"
 						showFilterMenuEntry="true"
@@ -327,12 +335,20 @@
 						<m:Label text="Compra" 
 						/>
 						<template>
-							<m:Text text="{Acopio>PRCOM}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PRCOM}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PRCOM', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					 <Column
 						id="BONIF"
-						width="11rem"
+						width="4rem"
 						sortProperty="BONIF"
 						filterProperty="BONIF"
 						showFilterMenuEntry="true"
@@ -341,12 +357,20 @@
 						<m:Label text="Bonif" 
 						/>
 						<template>
-							<m:Text text="{Acopio>BONIF}" wrapping="false" />
+							<!--<m:Text text="{Acopio>BONIF}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>BONIF', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					 <Column
 						id="PRVEN"
-						width="11rem"
+						width="4rem"
 						sortProperty="PRVEN"
 						filterProperty="PRVEN"
 						showFilterMenuEntry="true"
@@ -355,12 +379,20 @@
 						<m:Label text="Venta" 
 						/>
 						<template>
-							<m:Text text="{Acopio>PRVEN}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PRVEN}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PRVEN', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					 <Column
 						id="DESC_WAERS"
-						width="11rem"
+						width="13rem"
 						sortProperty="DESC_WAERS"
 						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
@@ -372,7 +404,7 @@
 					</Column>
 					 <Column
 						id="DESC_ESPRC"
-						width="11rem"
+						width="7rem"
 						sortProperty="DESC_ESPRC"
 						filterProperty="DESC_ESPRC"
 						showFilterMenuEntry="true"
@@ -384,7 +416,7 @@
 					</Column>
 					<Column
 						id="PCSPP"
-						width="11rem"
+						width="5rem"
 						sortProperty="PCSPP"
 						filterProperty="PCSPP"
 						showFilterMenuEntry="true"
@@ -392,12 +424,20 @@
 						hAlign="End">
 						<m:Label text="% Prop" />
 						<template>
-							<m:Text text="{Acopio>PCSPP}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PCSPP}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PCSPP', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column
 						id="PCCSG"
-						width="11rem"
+						width="4rem"
 						sortProperty="PCCSG"
 						filterProperty="PCCSG"
 						showFilterMenuEntry="true"
@@ -406,12 +446,20 @@
 						<m:Label text="% Def" 
 						/>
 						<template>
-							<m:Text text="{Acopio>PCCSG}" wrapping="false" />
+							<!--<m:Text text="{Acopio>PCCSG}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PCCSG', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column
 						id="DESC_ESCSG"
-						width="11rem"
+						width="9rem"
 						sortProperty="DESC_ESCSG"
 						filterProperty="DESC_ESCSG"
 						showFilterMenuEntry="true"
@@ -423,7 +471,7 @@
 					</Column>
 					<Column
 						id="OBCDF"
-						width="11rem"
+						width="9rem"
 						sortProperty="OBCDF"
 						filterProperty="OBCDF"
 						showFilterMenuEntry="true"
@@ -435,7 +483,7 @@
 					</Column>
 					<Column
 						id="OBCPP"
-						width="11rem"
+						width="9rem"
 						sortProperty="OBCPP"
 						filterProperty="OBCPP"
 						showFilterMenuEntry="true"
@@ -447,7 +495,7 @@
 					</Column>
 					<Column
 						id="CALIDAD"
-						width="11rem"
+						width="9rem"
 						sortProperty="CALIDAD"
 						filterProperty="CALIDAD"
 						showFilterMenuEntry="true"
@@ -459,7 +507,7 @@
 					</Column>
 					<Column
 						id="JUVEN"
-						width="11rem"
+						width="5rem"
 						sortProperty="JUVEN"
 						filterProperty="JUVEN"
 						showFilterMenuEntry="true"
@@ -467,12 +515,21 @@
 						hAlign="End">
 						<m:Label text="% Juveniles" />
 						<template>
-							<m:Text text="{Acopio>JUVEN}" wrapping="false" />
+							<!--<m:Text text="{Acopio>JUVEN}" wrapping="false" />-->
+								<m:Text text="{path:'Acopio>JUVEN', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column
 						id="TVN"
-						width="11rem"
+						width="4rem"
 						sortProperty="TVN"
 						filterProperty="TVN"
 						showFilterMenuEntry="true"
@@ -480,12 +537,21 @@
 						hAlign="End">
 						<m:Label text="TVN" />
 						<template>
-							<m:Text text="{Acopio>TVN}" wrapping="false" />
+							<!--<m:Text text="{Acopio>TVN}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>TVN', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column
 						id="TDC"
-						width="11rem"
+						width="4rem"
 						sortProperty="TDC"
 						filterProperty="TDC"
 						showFilterMenuEntry="true"
@@ -493,7 +559,15 @@
 						hAlign="End">
 						<m:Label text="TDC" />
 						<template>
-							<m:Text text="{Acopio>TDC}" wrapping="false" />
+								<m:Text text="{path:'Acopio>TDC', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
 					<Column
@@ -510,7 +584,7 @@
 					</Column>
 					<Column
 						id="EBELN"
-						width="11rem"
+						width="8rem"
 						sortProperty="EBELN"
 						filterProperty="EBELN"
 						showFilterMenuEntry="true"
@@ -522,31 +596,31 @@
 					</Column>
 					<Column
 						id="BELNR"
-						width="11rem"
+						width="9rem"
 						sortProperty="BELNR"
 						filterProperty="BELNR"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
 						<m:Label text="Factura" />
 						<template>
-							<m:Text text="{Acopio>BELNR}" wrapping="false" />
+							<m:Text text="{Acopio>XBLNR}" wrapping="false" />
 						</template>
 					</Column>
 					<Column
 						id="DOCFI"
-						width="11rem"
+						width="8rem"
 						sortProperty="DOCFI"
 						filterProperty="DOCFI"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
 						<m:Label text="Doc. Fi" />
 						<template>
-							<m:Text text="{Acopio>DOCFI}" wrapping="false" />
+							<m:Text text="{Acopio>BELNR}" wrapping="false" />
 						</template>
 					</Column>
 					<Column
 						id="DOCFI2"
-						width="11rem"
+						width="8rem"
 						sortProperty="DOCFI2"
 						filterProperty="DOCFI2"
 						showFilterMenuEntry="true"

@@ -152,8 +152,10 @@ sap.ui.define([
                         }
                         );
                         oGlobalBusyDialog.close();
-                    }).catch(error => console.log(error)
-                    );
+                    }).catch(error => {
+                        console.log(error);
+                        oGlobalBusyDialog.close();
+                    });
             },
             sendArray: function (oEvent) {
 
@@ -288,8 +290,10 @@ sap.ui.define([
 
                         }
                         oGlobalBusyDialog.close();
-                    }).catch(error => console.log(error)
-                    );
+                    }).catch(error => {
+                        console.log(error);
+                        oGlobalBusyDialog.close();
+                    });
 
             },
             limpiar: function () {

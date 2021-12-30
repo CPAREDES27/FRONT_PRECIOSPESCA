@@ -618,6 +618,7 @@ sap.ui.define([
 			   var fechaFin=this.byId("idFechaFinVigencia").getValue();
 			   var error=""
 			   var estado=true;
+			 /*  
 			   var num = this.byId("cboLitoral").getSelectedKeys();
 			   console.log(num);
 			   if(num.length>1){
@@ -642,6 +643,7 @@ sap.ui.define([
 						});
 					});
 				}
+				*/
 			   if(!fechaIni){
 				error="Debe ingresar una fecha de inicio de vigencia\n";
 				estado=false;
@@ -701,6 +703,18 @@ sap.ui.define([
 			   var num = this.byId("cboLitoral").getSelectedKeys();
 			   console.log(num);
 			   
+			   if (num.length > 0){
+					num.forEach(numZonaLit=>{
+						options.push({
+							cantidad: "10",
+							control:"MULTICOMBOBOX",
+							key:"CDZLT",
+							valueHigh: "",
+							valueLow: numZonaLit
+					   });
+					})
+			   }
+			   /*
 			   if(num!='' || num!=""){
 				   for(var i=0;i<num.length;i++){
 					   options.push({
@@ -711,7 +725,7 @@ sap.ui.define([
 							valueLow: num[i]
 					   });
 				   }
-			   }
+			   } */
 			   if(estadoPrecio){
 					   options.push({
 						   cantidad: "10",
@@ -914,8 +928,10 @@ sap.ui.define([
 						this.byId("title").setText("Lista de registros: No se encontraron resultados");
 					   }
 						oGlobalBusyDialog.close();
-				   }).catch(error => MessageBox.error("El servicio no está disponible  " )
-				   );
+				   }).catch(error => {
+					   MessageBox.error("El servicio no está disponible  ");
+					   oGlobalBusyDialog.close();
+				});
 				   
 
 		   },

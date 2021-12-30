@@ -537,7 +537,7 @@
             <m:OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
                 <m:content>
                     <m:ToolbarSpacer width=""/>
-                    <m:Button text="GuardarMasivo" id="btnGuardarMasivo" press="guardarAcopioMasivo" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <m:Button text="Guardar Masivo" id="btnGuardarMasivo" press="guardarAcopioMasivo" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                     <m:Button text="Guardar" id="btnGuardar" press="guardarAcopio" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                     <m:Button text="Cancel" press="goBackAcopio" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
                 </m:content>

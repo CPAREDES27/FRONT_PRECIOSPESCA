@@ -12,10 +12,11 @@ sap.ui.define([
 
 	function (BaseController,Controller,JSONModel,History,Link,MessagePopover, MessageItem, MessageToast,MessageBox) {
 		"use strict";
-		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
+		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
+		var oGlobalBusyDialog = new sap.m.BusyDialog();
 		return BaseController.extend("tasa.com.aprobacionprecios.controller.App", {
 			onInit: function () {
-            
+				var oGlobalBusyDialog = new sap.m.BusyDialog();
 				this.router = this.getOwnerComponent().getRouter(this);
 				this.router.getRoute("EditarAprobacionPrecios").attachPatternMatched(this._onPatternMatche, this);
 				let ViewModel= new JSONModel(
@@ -77,11 +78,12 @@ sap.ui.define([
 					);
 			},
 			editar: function(){
-				
+				oGlobalBusyDialog.open();
 				let estadoPrecio = this.byId("idEstado").getSelectedKey();
 				if(!estadoPrecio)
 				{
 					MessageBox.error("Debe ingresar un estado de precio");
+					oGlobalBusyDialog.close();
 					return true;
 				}
 				console.log(estadoPrecio)
@@ -118,10 +120,12 @@ sap.ui.define([
                                     this.BackToAprobacion();
                                 }}.bind(this)
                             }
-                        ); 
-                       
-                    }).catch(error => console.log(error)
-                    );
+                        );
+						oGlobalBusyDialog.close();
+                    }).catch(error => {
+						console.log(error);
+						oGlobalBusyDialog.close();
+					});
 				
 			},
 			limpiar: function(){

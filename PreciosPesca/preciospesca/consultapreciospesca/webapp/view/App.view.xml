@@ -138,7 +138,7 @@
                                         </form:FormElement>
                             <form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Embarcacion" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Embarcación" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                             <m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true"  valueHelpRequest="onSearchHelp"/>

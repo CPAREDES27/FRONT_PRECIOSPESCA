@@ -34,7 +34,8 @@ sap.ui.define([
 					this.setModel(ViewModel,"precio");
 					this.setModel(ViewModel,"reporteCala")
 					
-					
+				//	this.byId("idFlexBox").addStyleClass("classTable");
+
 			},
 
 		// 	goBackMain: function () {
@@ -324,17 +325,27 @@ sap.ui.define([
 						   console.log(data)
 						   let ViewModel= new JSONModel();
 						   var dataPrecio = data;
+						   for(var i=0; i<dataPrecio.t_PRCPESCPTA.length;i++){
+
+							 dataPrecio.t_PRCPESCPTA[i].estado=true;
+						   }
+						   console.log(dataPrecio);
+
 						   ViewModel.setData(dataPrecio);
+
 						   this.getView().setModel(ViewModel);
 						   var valor= this.getView().getModel();
 						   console.log(valor.oData);
 						   if(data.t_PRCPESCPTA.length>0){
-						   var currentRows = valor.getProperty("/t_PRCPESCPTA");
-						   var newRows = currentRows.concat(this.createEntry(data.total));
-						   valor.setProperty("/t_PRCPESCPTA", newRows);
-						 
-						   
+								var currentRows = valor.getProperty("/t_PRCPESCPTA");
+								var newRows = currentRows.concat(this.createEntry(data.total));
+								valor.setProperty("/t_PRCPESCPTA", newRows);
+
+
 						   }
+						   //	this.byId("table").addStyleClass("classTable", "","cell",[3,4]);
+
+						   console.log(dataPrecio);
 						   console.log(this.byId("table"));
 						   //this.getModel("reporteCala").setProperty("/items",data.t_PRCPESCPTA);
 						   oGlobalBusyDialog.close();
@@ -374,7 +385,9 @@ sap.ui.define([
    
 				   NOMPTA: "Total",
    
-				   PRCPOND: data
+				   PRCPOND: data,
+
+				   estado: false
    
 			   };
    
@@ -465,8 +478,10 @@ sap.ui.define([
 					{
 						label: 'Zona de Pesca',
 						property: 'PRCPOND' ,
-						type: EdmType.String,
-						scale: 2
+						type: EdmType.Number,
+						scale: 5,
+						delimiter: true
+
 					}
 					
 					];

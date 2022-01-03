@@ -1,1 +1,12 @@
 /* Enter your custom styles here */
+.classTable2 tr:nth-child(2){
+    background-color: #BAEE9A; 
+  } 
+
+  .classTable {
+ 
+    background-color: #BAEE9A !important; 
+  } 
+  .classTable3 {
+    background-color: red !important; 
+  } 

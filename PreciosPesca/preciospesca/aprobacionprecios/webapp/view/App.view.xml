@@ -305,7 +305,16 @@
 						hAlign="End">
 						<m:Label text="Cant. desc. (Tn)" />
 						<template>
-							<m:Text text="{AprobacionPrecio>CNPDS}" wrapping="false" />
+							<!--<m:Text text="{AprobacionPrecio>CNPDS}" wrapping="false" />-->
+							<m:Text text="{path:'AprobacionPrecio>CNPDS', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
 						</template>
 					</Column>
                     <Column

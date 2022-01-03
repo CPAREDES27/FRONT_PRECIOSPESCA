@@ -379,7 +379,16 @@
                             <m:Label text="Cant. Descarga" />
                         </multiLabels>
 						<template>
-							<m:Text text="{estadoPrecio>cnpds} {estadoPrecio>tcant}" wrapping="false" />
+							<!--<m:Text text="{estadoPrecio>cnpds} {estadoPrecio>tcant}" wrapping="false" />-->
+								<m:Text text="{path:'estadoPrecio>cnpds',  type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}{estadoPrecio>tcant}" wrapping="false"/>
 							
 						</template>
 					</Column>
@@ -429,7 +438,7 @@
                             <m:Label text="Doc. Contable" />
                         </multiLabels>
 						<template>
-							<m:Text text="{estadoPrecio>lifnr}" wrapping="false" />
+							<m:Text text="{estadoPrecio>belnr}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
@@ -445,7 +454,7 @@
                             <m:Label text="Factura" />
                         </multiLabels>
 						<template>
-							<m:Text text="{estadoPrecio>nrdes}" wrapping="false" />
+							<m:Text text="{estadoPrecio>xblnr}" wrapping="false" />
 						</template>
 					</Column>
 					<!--Columnas-->

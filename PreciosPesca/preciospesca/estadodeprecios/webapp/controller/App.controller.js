@@ -265,6 +265,8 @@ sap.ui.define([
 						   body: JSON.stringify(body)
 					   })
 					   .then(resp => resp.json()).then(data => {
+
+							console.log(data);
 						   var dataPrecio = data;
 						   for(var i=0;i<dataPrecio.t_prepes.length;i++){
 							dataPrecio.t_prepes[i].prcom = parseFloat(dataPrecio.t_prepes[i].prcom).toFixed(2);
@@ -1072,8 +1074,9 @@ sap.ui.define([
 								{
 									label: 'Cant. Descarga',
 									property: 'cnpds' ,
-									type: EdmType.String,
-									scale: 2
+									type: EdmType.Number,
+									scale: 3,
+									delimiter: true
 								},
 								{
 									label: 'Precio compra',

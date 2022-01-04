@@ -12,7 +12,7 @@ sap.ui.define([
     "sap/ui/core/Core",
     "sap/ui/model/FilterOperator",
     "sap/ui/core/util/ExportTypeCSV",
-    "sap/ui/core/util/Export",
+    "sap/ui/core/util/Export"
 
 ],
     /**
@@ -20,9 +20,10 @@ sap.ui.define([
      */
     function (BaseController, Controller, JSONModel, History, Link, MessagePopover, MessageItem, MessageToast, MessageBox, ValidateException, Core, FilterOperator, ExportTypeCSV, Export) {
         "use strict";
-        const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
+        //const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
         var oGlobalBusyDialog = new sap.m.BusyDialog();
         var anioActual = new Date();
+        var usuario="";
         return BaseController.extend("com.tasa.politicadeprecios.controller.NuevoPoliticaPrecio", {
             onInit: function () {
                 let ViewModel = new JSONModel(
@@ -43,7 +44,30 @@ sap.ui.define([
                 this.loadPuertos();
                 oGlobalBusyDialog.close();
 
-            },
+            	this._getCurrentUser();
+
+		},
+		_getCurrentUser: async function(){
+				let oUshell = sap.ushell,
+				oUser={};
+				if(oUshell){
+					let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+					let sEmail = oUserInfo.getEmail().toUpperCase(),
+					sName = sEmail.split("@")[0],
+					sDominio= sEmail.split("@")[1];
+					if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+						oUser = {
+							name:sName
+						}
+					}else{
+					oUser = {
+					name: "FGARCIA"
+					}
+				}
+					
+				this.usuario=oUser.name;
+				console.log(this.usuario);
+		},
             multiInputPuerto: function (oEvent) {
                 var valor = this.byId("idPuerto").getValue();
                 var data = this.getView().getModel("Puerto");
@@ -110,12 +134,12 @@ sap.ui.define([
 
                     ],
                     "order": "",
-                    "p_user": "FGARCIA",
+                    "p_user": this.usuario,
                     "rowcount": 0,
                     "rowskips": 0,
                     "tabla": "ZV_FLPU"
                 }
-                fetch(`${mainUrlServices}General/Read_Table`,
+                fetch(`${ this.onLocation()}General/Read_Table`,
                     {
                         method: 'POST',
                         body: JSON.stringify(body)
@@ -458,10 +482,10 @@ sap.ui.define([
                 const bodyGuardar = {
                     "p_campo": campo,
                     "p_indtr": "C",
-                    "p_user": "FGARCIA",
+                    "p_user": this.usuario,
                     "str_ppc": [
                         {
-                            "atcrn": "FGARCIA",
+                            "atcrn": this.usuario,
                             "cdemp": idArmador,
                             "cdppc": "",
                             "cdpta": idPlanta,
@@ -484,7 +508,7 @@ sap.ui.define([
                 }
 
 
-                fetch(`${mainUrlServices}preciospesca/Mant`,
+                fetch(`${ this.onLocation()}preciospesca/Mant`,
                     {
                         method: 'POST',
                         body: JSON.stringify(bodyGuardar)
@@ -700,7 +724,7 @@ sap.ui.define([
 
                     ]
                 }
-                fetch(`${mainUrlServices}dominios/Listar`,
+                fetch(`${ this.onLocation()}dominios/Listar`,
                     {
                         method: 'POST',
                         body: JSON.stringify(bodyDominio)
@@ -768,7 +792,7 @@ sap.ui.define([
                 var body = {
                     "codigo": "100"
                 }
-                fetch(`${mainUrlServices}General/Armador`,
+                fetch(`${ this.onLocation()}General/Armador`,
                     {
                         method: 'POST',
                         body: JSON.stringify(body)

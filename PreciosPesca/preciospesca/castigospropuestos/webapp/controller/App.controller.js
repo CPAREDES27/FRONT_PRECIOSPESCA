@@ -14,13 +14,14 @@ sap.ui.define([
 	 */
 	function (BaseController,Controller,JSONModel,History,MessageBox,Filter,FilterOperator,Export,ExportTypeCSV) {
 		"use strict";
-		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
+		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		var JsonFechaIni={
 			fechaIni:"",
 			fechaIni2:""
 		};
 		var popEmb="";
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
+		var usuario="";
 		return BaseController.extend("tasa.com.castigospropuestos.controller.App", {
 			onInit: function () {
 				let ViewModel= new JSONModel(
@@ -33,6 +34,29 @@ sap.ui.define([
 					this.listPlanta();
 					this.loadIndicadorP();
 				
+					this._getCurrentUser();
+
+			},
+			_getCurrentUser: async function(){
+							let oUshell = sap.ushell,
+							oUser={};
+							if(oUshell){
+								let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+								let sEmail = oUserInfo.getEmail().toUpperCase(),
+								sName = sEmail.split("@")[0],
+								sDominio= sEmail.split("@")[1];
+								if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+								oUser = {
+									name:sName
+								}
+							}else{
+								oUser = {
+									name: "FGARCIA"
+								}
+							}
+				
+							this.usuario=oUser.name;
+							console.log(this.usuario);
 			},
 			listaEmbarcacion: function(){
 				oGlobalBusyDialog.open();
@@ -122,7 +146,7 @@ sap.ui.define([
 					"p_user": "BUSQEMB"
 				  }
 				  console.log(body);
-				fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+				fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -152,7 +176,7 @@ sap.ui.define([
 					  }
 					]
 				}
-				fetch(`${mainUrlServices}dominios/Listar/`,
+				fetch(`${ this.onLocation()}dominios/Listar/`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -240,12 +264,12 @@ sap.ui.define([
 					  
 					],
 					"order": "",
-					"p_user": "FGARCIA",
+					"p_user": this.usuario,
 					"rowcount": 0,
 					"rowskips": 0,
 					"tabla": "ZV_FLPL"
 				  }
-				  fetch(`${mainUrlServices}General/Read_Table`,
+				  fetch(`${ this.onLocation()}General/Read_Table`,
 				  {
 					  method: 'POST',
 					  body: JSON.stringify(dataPlantas)
@@ -342,11 +366,11 @@ sap.ui.define([
 					"p_option": option,
 					"p_options": options,
 					"p_rows": idAciertos,
-					"p_user": "FGARCIA"
+					"p_user": this.usuario
 				   }
 				   var indice=-1;
 				   console.log(body);
-				  fetch(`${mainUrlServices}preciospesca/ConsultarPrecioMar`,
+				  fetch(`${ this.onLocation()}preciospesca/ConsultarPrecioMar`,
 					   {
 						   method: 'POST',
 						   body: JSON.stringify(body)

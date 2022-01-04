@@ -9,14 +9,14 @@ sap.ui.define([
     'sap/ui/export/library',
 	'sap/ui/export/Spreadsheet',
     "sap/ui/core/util/ExportTypeCSV",
-    "sap/ui/core/util/Export",
+    "sap/ui/core/util/Export"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
 	 function (BaseController,Controller,JSONModel,History,MessageBox,Filter,FilterOperator,exportLibrary, Spreadsheet,ExportTypeCSV,Export) {
 		"use strict";
-		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
+		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
 		var JsonFechaIni={
 			fechaIni:"",
@@ -24,6 +24,7 @@ sap.ui.define([
 		};
 		var exportarExcel=false;
 		var EdmType = exportLibrary.EdmType;
+		var usuario="";
 		return BaseController.extend("tasa.com.preciosponderados.controller.App", {
 			onInit: function () {
 				let ViewModel= new JSONModel(
@@ -34,9 +35,31 @@ sap.ui.define([
 					this.setModel(ViewModel,"precio");
 					this.setModel(ViewModel,"reporteCala")
 					
-				//	this.byId("idFlexBox").addStyleClass("classTable");
+					
+					this._getCurrentUser();
 
-			},
+				},
+				_getCurrentUser: async function(){
+						let oUshell = sap.ushell,
+						oUser={};
+						if(oUshell){
+							let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+							let sEmail = oUserInfo.getEmail().toUpperCase(),
+							sName = sEmail.split("@")[0],
+							sDominio= sEmail.split("@")[1];
+							if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+								oUser = {
+									name:sName
+								}
+							}else{
+							oUser = {
+							name: "FGARCIA"
+							}
+						}
+							
+						this.usuario=oUser.name;
+						console.log(this.usuario);
+				},
 
 		// 	goBackMain: function () {
 		// 		   this.getRouter().navTo("RouteApp");
@@ -312,7 +335,7 @@ sap.ui.define([
 					}
 					console.log(body);
 					var indice=-1;
-				   fetch(`${mainUrlServices}preciospesca/ObtenerPrecioPond`,
+				   fetch(`${this.onLocation().onLocation()}preciospesca/ObtenerPrecioPond`,
 						{
 							method: 'POST',
 							body: JSON.stringify(body)

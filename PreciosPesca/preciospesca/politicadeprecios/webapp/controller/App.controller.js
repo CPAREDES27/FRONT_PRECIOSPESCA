@@ -24,7 +24,7 @@ sap.ui.define([
 	 function (BaseController,Controller,JSONModel,History,Link, MessageItem, MessageToast,MessageBox,exportLibrary, Spreadsheet, ODataModel,Filter,FilterOperator,ExportTypeCSV,Export,Token,Popup,utilitarios) {
 		"use strict";
 
-		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
+		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
 		var popUp="";
 		var EdmType = exportLibrary.EdmType;
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
@@ -40,6 +40,7 @@ sap.ui.define([
                 fechaFin2:""
             };
 			var contador=0;
+			var usuario="";
 		return BaseController.extend("com.tasa.politicadeprecios.controller.App", {
 			onInit: function () {
 				let ViewModel= new JSONModel(
@@ -64,7 +65,30 @@ sap.ui.define([
 			var oModel = new JSONModel();
 		
 			this.getView().setModel(oModel);
-			},
+			this._getCurrentUser();
+
+		},
+		_getCurrentUser: async function(){
+				let oUshell = sap.ushell,
+				oUser={};
+				if(oUshell){
+					let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+					let sEmail = oUserInfo.getEmail().toUpperCase(),
+					sName = sEmail.split("@")[0],
+					sDominio= sEmail.split("@")[1];
+					if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+						oUser = {
+							name:sName
+						}
+					}else{
+					oUser = {
+					name: "FGARCIA"
+					}
+				}
+					
+				this.usuario=oUser.name;
+				console.log(this.usuario);
+		},
 			
 			listaArmador: function(){
 				oGlobalBusyDialog.open();
@@ -112,12 +136,12 @@ sap.ui.define([
 					  
 					],
 					"order": "",
-					"p_user": "FGARCIA",
+					"p_user": this.usuario,
 					"rowcount": idAciertos,
 					"rowskips": 0,
 					"tabla": "LFA1"
 				  }
-				  fetch(`${mainUrlServices}General/Read_table/`,
+				  fetch(`${ this.onLocation()}General/Read_table/`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -153,12 +177,12 @@ sap.ui.define([
 					  
 					],
 					"order": "",
-					"p_user": "FGARCIA",
+					"p_user": this.usuario,
 					"rowcount": 0,
 					"rowskips": 0,
 					"tabla": "ZV_FLPU"
 				  };
-				  fetch(`${mainUrlServices}General/Read_Table`,
+				  fetch(`${ this.onLocation()}General/Read_Table`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -180,7 +204,7 @@ sap.ui.define([
 				var dataPlantas={
 					"nombreAyuda": "BSQPLANTAS"
 				};
-				  fetch(`${mainUrlServices}General/AyudasBusqueda`,
+				  fetch(`${ this.onLocation()}General/AyudasBusqueda`,
 				  {
 					  method: 'POST',
 					  body: JSON.stringify(dataPlantas)
@@ -221,7 +245,7 @@ sap.ui.define([
   
 					  ]
 				  }
-					  fetch(`${mainUrlServices}dominios/Listar`,
+					  fetch(`${ this.onLocation()}dominios/Listar`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(bodyDominio)
@@ -337,13 +361,13 @@ sap.ui.define([
                 var bodyGuardar={
 					"p_campo":"",
 					"p_indtr":"A",
-					"p_user":"FGARCIA",
+					"p_user":this.usuario,
 					"str_ppc":options
 				 };
               
                 console.log(bodyGuardar);
              
-                 fetch(`${mainUrlServices}preciospesca/Mant`,
+                 fetch(`${ this.onLocation()}preciospesca/Mant`,
                     {
                         method: 'POST',
                         body: JSON.stringify(bodyGuardar)
@@ -478,11 +502,11 @@ sap.ui.define([
 				  let body = {
 					  "option": option,
 					  "options": options,
-					  "p_user": "FGARCIA"
+					  "p_user": this.usuario
 				  }
 				  console.log(body);
 				  var indice=-1;
-				 fetch(`${mainUrlServices}preciospesca/Leer`,
+				 fetch(`${ this.onLocation()}preciospesca/Leer`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -892,11 +916,11 @@ sap.ui.define([
 			   let body = {
 				   "option": option,
 				   "options": options,
-				   "p_user": "FGARCIA"
+				   "p_user": this.usuario
 			   }
 			   console.log(body);
 			   var indice=-1;
-			  fetch(`${mainUrlServices}preciospesca/Leer`,
+			  fetch(`${ this.onLocation()}preciospesca/Leer`,
 				   {
 					   method: 'POST',
 					   body: JSON.stringify(body)

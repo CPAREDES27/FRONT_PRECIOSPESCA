@@ -18,7 +18,7 @@ sap.ui.define([
 	 function (BaseController,Controller,JSONModel,History,MessageBox,ExportTypeCSV,Export,Filter,FilterOperator,BusyIndicator,exportLibrary, Spreadsheet) {
 		"use strict";
 		const HOST = "https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com";
-		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
+		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		var JsonFechaIni={
 			fechaIni:"",
 			fechaIni2:""
@@ -27,6 +27,7 @@ sap.ui.define([
 		var popEmb="";
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
 		var popUp="";
+		var usuario="";
 		return BaseController.extend("tasa.com.aprobacionprecios.controller.App", {
 			onInit: function () {
 				let ViewModel= new JSONModel(
@@ -46,6 +47,29 @@ sap.ui.define([
 					this.listPlanta();
 					this.loadIndicadorP();
 					this.byId("idAciertos").setValue("200");
+					this._getCurrentUser();
+
+			},
+			_getCurrentUser: async function(oViewModel){
+						let oUshell = sap.ushell,
+						oUser={};
+						if(oUshell){
+							let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+							let sEmail = oUserInfo.getEmail().toUpperCase(),
+							sName = sEmail.split("@")[0],
+							sDominio= sEmail.split("@")[1];
+							if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+							oUser = {
+								name:sName
+							}
+						}else{
+							oUser = {
+								name: "FGARCIA"
+							}
+						}
+			
+						this.usuario=oUser.name;
+						console.log(this.usuario);
 			},
 			loadIndicadorP: function(){
 				oGlobalBusyDialog.open();
@@ -58,7 +82,7 @@ sap.ui.define([
 					  }
 					]
 				}
-				fetch(`${mainUrlServices}dominios/Listar/`,
+				fetch(`${ this.onLocation()}dominios/Listar/`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -162,7 +186,7 @@ sap.ui.define([
 					"p_user": "BUSQEMB"
 				  }
 				  console.log(body);
-				fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+				fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 					  {
 						  method: 'POST',
 						  body: JSON.stringify(body)
@@ -271,12 +295,12 @@ sap.ui.define([
 			  
 			],
 			"order": "",
-			"p_user": "FGARCIA",
+			"p_user": this.usuario,
 			"rowcount": idAciertos,
 			"rowskips": 0,
 			"tabla": "LFA1"
 		  }
-		  fetch(`${mainUrlServices}General/Read_table/`,
+		  fetch(`${ this.onLocation()}General/Read_table/`,
 			  {
 				  method: 'POST',
 				  body: JSON.stringify(body)
@@ -301,7 +325,7 @@ sap.ui.define([
 				var dataPlantas={
 					"nombreAyuda": "BSQPLANTAS"
 				};
-				  fetch(`${mainUrlServices}General/AyudasBusqueda`,
+				  fetch(`${ this.onLocation()}General/AyudasBusqueda`,
 				  {
 					  method: 'POST',
 					  body: JSON.stringify(dataPlantas)
@@ -433,10 +457,10 @@ sap.ui.define([
 					"p_option": [],
 					"p_options": options,
 					"p_rows": idAciertos,
-					"p_user": "FGARCIA"
+					"p_user": this.usuario
 				   }
 				   var indice=-1;
-				  fetch(`${mainUrlServices}preciospesca/ConsultarPrecioMar`,
+				  fetch(`${ this.onLocation()}preciospesca/ConsultarPrecioMar`,
 					   {
 						   method: 'POST',
 						   body: JSON.stringify(body)
@@ -872,7 +896,7 @@ sap.ui.define([
 								//"p_pag": "1" //por defecto la primera parte
 							};
 				
-							fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+							fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 								{
 									method: 'POST',
 									body: JSON.stringify(body)
@@ -974,7 +998,7 @@ sap.ui.define([
 								"p_pag": this.currentPage
 							};
 				
-							fetch(`${mainUrlServices}embarcacion/ConsultarEmbarcacion/`,
+							fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 								{
 									method: 'POST',
 									body: JSON.stringify(body)

@@ -7,8 +7,9 @@ sap.ui.define([
 ],
     function (BaseController, Controller, JSONModel, History, MessageBox) {
         "use strict";
-        const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
+        //const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
         var oGlobalBusyDialog = new sap.m.BusyDialog();
+        var usuario="";
         return BaseController.extend("tasa.com.preciosacopio.controller.EditarAcopio", {
             _addColumnId: "addLineItem",
             onInit: function () {
@@ -18,7 +19,30 @@ sap.ui.define([
                 let ViewModel = new JSONModel({});
                 this.setModel(ViewModel, "dataAcopio")
 
-            },
+            	this._getCurrentUser();
+
+		},
+		_getCurrentUser: async function(){
+				let oUshell = sap.ushell,
+				oUser={};
+				if(oUshell){
+					let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+					let sEmail = oUserInfo.getEmail().toUpperCase(),
+					sName = sEmail.split("@")[0],
+					sDominio= sEmail.split("@")[1];
+					if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+						oUser = {
+							name:sName
+						}
+					}else{
+					oUser = {
+					name: "FGARCIA"
+					}
+				}
+					
+				this.usuario=oUser.name;
+				console.log(this.usuario);
+		},
             _onPatternMatche: function (oEvent) {
                 this.byId("idPanelInfo").setVisible(true);
                 this.byId("tablePrecio").setVisible(true);
@@ -115,7 +139,7 @@ sap.ui.define([
                         nrdes: arrayAcopio.items[i].NRDES,
                         nrmar: arrayAcopio.items[i].NRMAR.replace(/^(0+)/g, ''),
                         usabo: "",
-                        usbon: "FGARCIA"
+                        usbon: this.usuario
                     });
                 }
                 console.log(cadena_str_bpm);
@@ -126,12 +150,12 @@ sap.ui.define([
                     "p_nrdes": "",
                     "p_nrmar": "0",
                     "p_tcons": "A",
-                    "p_user": "FGARCIA",
+                    "p_user": this.usuario,
                     "str_act": cadena_str_ppc,
                     "str_bpm": cadena_str_bpm
                 }
                 console.log(bodySave);
-                fetch(`${mainUrlServices}preciospesca/AgregarBono`,
+                fetch(`${ this.onLocation()}preciospesca/AgregarBono`,
                     {
                         method: 'POST',
                         body: JSON.stringify(bodySave)
@@ -233,7 +257,7 @@ sap.ui.define([
                     nrdes: idNroDescarga,
                     nrmar: marea,
                     usabo: "",
-                    usbon: "FGARCIA"
+                    usbon: this.usuario
                 });
 
 
@@ -242,12 +266,12 @@ sap.ui.define([
                     "p_nrdes": "",
                     "p_nrmar": "0",
                     "p_tcons": "A",
-                    "p_user": "FGARCIA",
+                    "p_user": this.usuario,
                     "str_act": cadena_str_ppc,
                     "str_bpm": cadena_str_bpm
                 }
                 console.log(bodySave);
-                fetch(`${mainUrlServices}preciospesca/AgregarBono`,
+                fetch(`${ this.onLocation()}preciospesca/AgregarBono`,
                     {
                         method: 'POST',
                         body: JSON.stringify(bodySave)

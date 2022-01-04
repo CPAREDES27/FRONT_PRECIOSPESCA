@@ -12,8 +12,9 @@ sap.ui.define([
 
 	function (BaseController,Controller,JSONModel,History,Link,MessagePopover, MessageItem, MessageToast,MessageBox) {
 		"use strict";
-		const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
+		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
+		var usuario="";
 		return BaseController.extend("tasa.com.aprobacionprecios.controller.App", {
 			onInit: function () {
 				var oGlobalBusyDialog = new sap.m.BusyDialog();
@@ -26,6 +27,29 @@ sap.ui.define([
 				this.loadPrecios();
 				this.byId("txtTipoPrecio").setValue("COMPRA");
 				this.setModel(ViewModel,"dataAprobacionPrecios")
+				this._getCurrentUser();
+
+			},
+			_getCurrentUser: async function(oViewModel){
+						let oUshell = sap.ushell,
+						oUser={};
+						if(oUshell){
+							let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+							let sEmail = oUserInfo.getEmail().toUpperCase(),
+							sName = sEmail.split("@")[0],
+							sDominio= sEmail.split("@")[1];
+							if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+							oUser = {
+								name:sName
+							}
+						}else{
+							oUser = {
+								name: "FGARCIA"
+							}
+						}
+			
+						this.usuario=oUser.name;
+						console.log(this.usuario);
 			},
 			_onPatternMatche: function(oEvent){
 				
@@ -63,7 +87,7 @@ sap.ui.define([
 						}
 					]
 				}
-					fetch(`${mainUrlServices}dominios/Listar`,
+					fetch(`${ this.onLocation()}dominios/Listar`,
 					{
 						method: 'POST',
 						body: JSON.stringify(bodyDominio)
@@ -99,11 +123,11 @@ sap.ui.define([
 					});
 				}
 				var body={
-					"p_user":"FGARCIA",
+					"p_user":this.usuario,
 					"str_set": cadena_str_set
 				};
 
-				fetch(`${mainUrlServices}General/Update_Camp_Table`,
+				fetch(`${ this.onLocation()}General/Update_Camp_Table`,
                     {
                         method: 'POST',
                         body: JSON.stringify(body)

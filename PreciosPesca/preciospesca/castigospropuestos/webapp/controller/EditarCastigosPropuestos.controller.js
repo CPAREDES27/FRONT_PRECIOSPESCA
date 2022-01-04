@@ -14,7 +14,9 @@ sap.ui.define([
 	 */
 	function (BaseController,Controller,JSONModel,History,Link,MessagePopover, MessageItem, MessageToast,MessageBox) {
 		"use strict";
-        const mainUrlServices = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
+
+        var usuario="";
+        //const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		return BaseController.extend("tasa.com.castigospropuestos.controller.EditarCastigosPropuestos", {
 			onInit: function () {
             this.router = this.getOwnerComponent().getRouter(this);
@@ -22,7 +24,30 @@ sap.ui.define([
             let ViewModel= new JSONModel({});
             this.setModel(ViewModel,"dataCastigo")
            
-            },
+            this._getCurrentUser();
+
+        },
+        _getCurrentUser: async function(){
+                        let oUshell = sap.ushell,
+                        oUser={};
+                        if(oUshell){
+                            let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+                            let sEmail = oUserInfo.getEmail().toUpperCase(),
+                            sName = sEmail.split("@")[0],
+                            sDominio= sEmail.split("@")[1];
+                            if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+                            oUser = {
+                                name:sName
+                            }
+                        }else{
+                            oUser = {
+                                name: "FGARCIA"
+                            }
+                        }
+            
+                        this.usuario=oUser.name;
+                        console.log(this.usuario);
+        },
             _onPatternMatched: function(oEvent){
                 
                 this.byId("idPanelInfo").setVisible(true);
@@ -100,7 +125,7 @@ sap.ui.define([
                 var idcodEspecie = this.byId("idcodEspecie").getValue();
                 var cadena_str_set=[];
 				var body={
-                    "p_user": "FGARCIA",
+                    "p_user": this.usuario,
                     "str_set": [
                       {
                         "cmopt": "NRMAR = "+idMarea+" AND CDSPC = '"+idcodEspecie+"'",
@@ -116,7 +141,7 @@ sap.ui.define([
                 };
 
                 console.log(body);
-				fetch(`${mainUrlServices}General/Update_Camp_Table`,
+				fetch(`${ this.onLocation()}General/Update_Camp_Table`,
                     {
                         method: 'POST',
                         body: JSON.stringify(body)
@@ -159,11 +184,11 @@ sap.ui.define([
                     });
 				}
                 var body={
-                    "p_user": "FGARCIA",
+                    "p_user": this.usuario,
                     "str_set": cadena_str_set
                 };
                 console.log(body);
-                fetch(`${mainUrlServices}General/Update_Camp_Table`,
+                fetch(`${ this.onLocation()}General/Update_Camp_Table`,
                 {
                     method: 'POST',
                     body: JSON.stringify(body)

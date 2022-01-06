@@ -627,7 +627,7 @@ sap.ui.define([
 			   var idPuertoIni=this.byId("idPuertoIni").getValue();
 			   var idPuertoFin=this.byId("idPuertoFin").getValue();
 			   var idPlantaIni=this.byId("idPlantaIni").getValue();
-			   var idPlantaFin=this.byId("idPlantaFin").getValue();
+			   //var idPlantaFin=this.byId("idPlantaFin").getValue();
 			   var arrayPuerto=[];
 			   var arrayPlanta=[];
 		
@@ -642,32 +642,7 @@ sap.ui.define([
 			   var fechaFin=this.byId("idFechaFinVigencia").getValue();
 			   var error=""
 			   var estado=true;
-			 /*  
-			   var num = this.byId("cboLitoral").getSelectedKeys();
-			   console.log(num);
-			   if(num.length>1){
-				num.forEach(motivo => {
-					options.push({
-						cantidad: "10",
-						control: "MULTICOMBOBOX",
-						key: "CDZLT",
-						valueHigh: "",
-						valueLow: motivo
-					});
-				});
-				}
-				else if(num.length<=1){
-					num.forEach(motivo => {
-						options.push({
-							cantidad: "10",
-							control: "MULTICOMBOBOX",
-							key: "CDZLT",
-							valueHigh: "",
-							valueLow: motivo
-						});
-					});
-				}
-				*/
+			 
 			   if(!fechaIni){
 				error="Debe ingresar una fecha de inicio de vigencia\n";
 				estado=false;
@@ -795,33 +770,33 @@ sap.ui.define([
 						});
 						}	
 			  
-			   if(idPlantaIni && !idPlantaFin){
+			   if(idPlantaIni){
 				options.push({
 					cantidad: "10",
-					control:"MULTIINPUT",
+					control:"INPUT",
 					key:"WERKS",
-					valueHigh: idPlantaIni,
+					valueHigh: "",
 					valueLow: idPlantaIni
 				});
 				}
-				if(idPlantaFin && !idPlantaIni){
-					options.push({
-						cantidad: "10",
-						control:"MULTIINPUT",
-						key:"CDPTA",
-						valueHigh: idPlantaFin,
-						valueLow: idPlantaFin
-					});
-					}
-					if(idPlantaFin && idPlantaIni){
-						options.push({
-							cantidad: "10",
-							control:"MULTIINPUT",
-							key:"CDPTA",
-							valueHigh: idPlantaFin,
-							valueLow: idPlantaIni
-						});
-						}	
+				// if(idPlantaFin && !idPlantaIni){
+				// 	options.push({
+				// 		cantidad: "10",
+				// 		control:"MULTIINPUT",
+				// 		key:"CDPTA",
+				// 		valueHigh: idPlantaFin,
+				// 		valueLow: idPlantaFin
+				// 	});
+				// 	}
+				// 	if(idPlantaFin && idPlantaIni){
+				// 		options.push({
+				// 			cantidad: "10",
+				// 			control:"MULTIINPUT",
+				// 			key:"CDPTA",
+				// 			valueHigh: idPlantaFin,
+				// 			valueLow: idPlantaIni
+				// 		});
+				// 		}	
 			   
 
 

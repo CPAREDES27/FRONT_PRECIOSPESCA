@@ -139,8 +139,8 @@
                     "viewType": "XML",
                     "transition": "slide",
                     "clearControlAggregation": false,
-                    "viewId": "App",
-                    "viewName": "App"
+                    "viewId": "Apps",
+                    "viewName": "Apps"
                 },
                 "EditarAcopio": {
                     "viewName": "EditarAcopio",

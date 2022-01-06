@@ -181,7 +181,7 @@
 													</m:ColumnListItem>
 												</m:suggestionRows>
 											</m:Input>
-											<m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+											<!-- <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
 												id="idPlantaFin"
 												width="100%"
 												placeholder="Ingresar Planta..."
@@ -229,12 +229,12 @@
 													</m:cells>
 													</m:ColumnListItem>
 												</m:suggestionRows>
-											</m:Input>
+											</m:Input> -->
                                             </form:fields>
                                         </form:FormElement>
 										<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Armador Comercial" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Armador Empresa" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                             <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			

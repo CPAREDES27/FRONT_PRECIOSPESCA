@@ -291,7 +291,7 @@ sap.ui.define([
 				oGlobalBusyDialog.open();
 				let options=[];
 				var idPlantaIni=this.byId("idPlantaIni").getValue();
-				var idPlantaFin = this.byId("idPlantaFin").getValue();
+				// var idPlantaFin = this.byId("idPlantaFin").getValue();
 				var idArmadorIni = this.byId("idArmadorIni").getValue();
 				var idArmadorFin = this.byId("idArmadorFin").getValue();
 				var idEmbarcacionIni = this.byId("inputId0_R").getValue();
@@ -338,33 +338,42 @@ sap.ui.define([
 						valueLow:idEstadoCastigo
 					});
 				}
-				if(idPlantaIni && !idPlantaFin){
+				if(idPlantaIni){
 					options.push({
 						cantidad: "10",
-						control:"MULTIINPUT",
+						control:"INPUT",
 						key:"WERKS",
-						valueHigh: idPlantaIni,
+						valueHigh: "",
 						valueLow:idPlantaIni
 					});
 				}
-				if(!idPlantaIni && idPlantaFin){
-					options.push({
-						cantidad: "10",
-						control:"MULTIINPUT",
-						key:"WERKS",
-						valueHigh: idPlantaFin,
-						valueLow:idPlantaFin
-					});
-				}
-				if(idPlantaIni && idPlantaFin){
-					options.push({
-						cantidad: "10",
-						control:"MULTIINPUT",
-						key:"WERKS",
-						valueHigh: idPlantaFin,
-						valueLow:idPlantaIni
-					});
-				}
+				// if(idPlantaIni && !idPlantaFin){
+				// 	options.push({
+				// 		cantidad: "10",
+				// 		control:"MULTIINPUT",
+				// 		key:"WERKS",
+				// 		valueHigh: idPlantaIni,
+				// 		valueLow:idPlantaIni
+				// 	});
+				// }
+				// if(!idPlantaIni && idPlantaFin){
+				// 	options.push({
+				// 		cantidad: "10",
+				// 		control:"MULTIINPUT",
+				// 		key:"WERKS",
+				// 		valueHigh: idPlantaFin,
+				// 		valueLow:idPlantaFin
+				// 	});
+				// }
+				// if(idPlantaIni && idPlantaFin){
+				// 	options.push({
+				// 		cantidad: "10",
+				// 		control:"MULTIINPUT",
+				// 		key:"WERKS",
+				// 		valueHigh: idPlantaFin,
+				// 		valueLow:idPlantaIni
+				// 	});
+				// }
 			if(idArmadorIni && !idArmadorFin){
 					options.push({
 						cantidad: "10",

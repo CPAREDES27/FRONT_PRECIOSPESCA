@@ -88,7 +88,7 @@
                                                 <form:formContainers>
                                                     <form:FormContainer visible="true">
                                                         <form:formElements>
-                                                            <form:FormElement visible="true">
+                                                            <form:FormElement visible="false">
                                                                 <form:label>
                                                                     <m:Label text="Marea" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
@@ -112,6 +112,15 @@
                                                                     <m:Input type="Text" value="{Acopio>NMEMB}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
+                                                            <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Matrícula" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Text" value="{Acopio>MREMB}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>
+                                                            
                                                         </form:formElements>
                                                         <form:title/>
                                                     </form:FormContainer>
@@ -134,7 +143,7 @@
                                                 <form:formContainers>
                                                     <form:FormContainer visible="true">
                                                         <form:formElements>
-                                                            <form:FormElement visible="true">
+                                                            <form:FormElement visible="false">
                                                                 <form:label>
                                                                     <m:Label text="Nro. descarga" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
@@ -159,7 +168,7 @@
                                                                     <m:Text text="{DSSPC}"  width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:fields>
                                                             </form:FormElement>
-                                                            <form:FormElement visible="true">
+                                                            <form:FormElement visible="false">
                                                                 <form:label>
                                                                     <m:Label text="Fecha/hora inic. desc." design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
@@ -168,7 +177,7 @@
                                                                     <m:Input type="Text" value="{Acopio>HIDES}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
-                                                            <form:FormElement visible="true">
+                                                            <form:FormElement visible="false">
                                                                 <form:label>
                                                                     <m:Label text="Fecha/hora fin desc." design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>

@@ -301,6 +301,34 @@ sap.ui.define([
 				return this.getView().getModel(sName);
 			},
 
+			onSelectionChange:function(oEvent){
+				let oTable = oEvent.getSource(),
+				aSelectedIndices = oTable.getSelectedIndices(),
+				iRowIndex = oEvent.getParameter("rowIndex"),
+				oRowContex = oEvent.getParameter("rowContext").getObject(),
+				sStatus = oRowContex.DESC_CALIDA; 
+				
+				if(sStatus===""){
+					new sap.m.MessageToast.show("Error en selección: No es posible editar porque no tiene registrado una calidad", {
+						duration: 3000,                  // default
+						width: "20em",                   // default
+						my: "center center",            
+						at: "center center"
+					});
+					let index = aSelectedIndices.indexOf(iRowIndex);
+					if(index !== -1){
+						aSelectedIndices.splice(index,1);
+						if(aSelectedIndices.length === 0){
+							oTable.setSelectedIndex(-1);
+						}else{
+							aSelectedIndices.forEach(indice=>{
+								oTable.addSelectionInterval(indice,indice)
+							})
+						}
+					}
+				}
+			},
+
 			/**
 			 * Convenience method for setting the view model.
 			 * @public

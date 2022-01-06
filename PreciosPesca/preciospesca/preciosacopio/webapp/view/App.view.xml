@@ -208,7 +208,10 @@
             <!-- <ScrollContainer horizontal="true" vertical="true" width="100%" height="194.375px" visible="true"> -->
              <Table
 				id="table"
-				rows="{path:'Acopio>/listaPrecio'}"
+				rows="{
+					path:'Acopio>/listaPrecio'
+				}"
+				rowSelectionChange="onSelectionChange"
 				visibleRowCount="7"
                 selectionMode="MultiToggle"
 				showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
@@ -233,11 +236,8 @@
 					</m:OverflowToolbar>
 				</extension>
 				<columns>
-					
-				   
-
-				<!--Se quita la columna editar temporalmente por pruebas-->
-                <!-- <Column
+					<!--Se quita la columna editar temporalmente por pruebas-->
+                	<!-- <Column
 						id="edit"
 						width="11rem"
 						sortProperty="edit"
@@ -525,6 +525,10 @@
 
                     </m:OverflowToolbar>
 				</footer>
+				<rowSettingsTemplate>
+					<RowSettings highlight="{=${Acopio>DESC_CALIDA}===''?'Error':'Success'}" />
+				</rowSettingsTemplate>
+				
 			</Table>
 
 		</semantic:content>

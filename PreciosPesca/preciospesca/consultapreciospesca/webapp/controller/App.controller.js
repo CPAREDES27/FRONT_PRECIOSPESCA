@@ -51,6 +51,42 @@ sap.ui.define([
 					this._getCurrentUser();
 
 		},
+		onAfterRendering: async function(){
+			this._getCurrentUser();
+
+			this.objetoHelp =  this._getHelpSearch();
+			this.parameter= this.objetoHelp[0].parameter;
+			this.url= this.objetoHelp[0].url;
+			console.log(this.parameter)
+			console.log(this.url)
+			this.callConstantes();
+		},
+
+		callConstantes: function(){
+			oGlobalBusyDialog.open();
+			var body={
+				"nombreConsulta": "CONSGENCONST",
+				"p_user": this.userOperation,
+				"parametro1": this.parameter,
+				"parametro2": "",
+				"parametro3": "",
+				"parametro4": "",
+				"parametro5": ""
+			}
+			fetch(`${this.onLocation()}General/ConsultaGeneral/`,
+				  {
+					  method: 'POST',
+					  body: JSON.stringify(body)
+				  })
+				  .then(resp => resp.json()).then(data => {
+					
+					console.log(data.data);
+					this.HOST_HELP=this.url+data.data[0].LOW;
+					console.log(this.HOST_HELP);
+						oGlobalBusyDialog.close();
+				  }).catch(error => console.log(error)
+			);
+		},
 		_getCurrentUser: async function(){
 								let oUshell = sap.ushell,
 								oUser={};
@@ -1429,7 +1465,7 @@ sap.ui.define([
 					oModel = this.getModel(),
 					nameComponent="busqembarcaciones",
 					idComponent="busqembarcaciones",
-					urlComponent=HOST+"/9acc820a-22dc-4d66-8d69-bed5b2789d3c.AyudasBusqueda.busqembarcaciones-1.0.0",
+					urlComponent=this.HOST_HELP+".AyudasBusqueda.busqembarcaciones-1.0.0",
 					oView = this.getView(),
 					oInput = this.getView().byId(sIdInput);
 					oModel.setProperty("/input",oInput);

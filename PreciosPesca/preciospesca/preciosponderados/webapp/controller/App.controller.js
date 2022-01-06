@@ -335,7 +335,7 @@ sap.ui.define([
 					}
 					console.log(body);
 					var indice=-1;
-				   fetch(`${this.onLocation().onLocation()}preciospesca/ObtenerPrecioPond`,
+				   fetch(`${this.onLocation()}preciospesca/ObtenerPrecioPond`,
 						{
 							method: 'POST',
 							body: JSON.stringify(body)

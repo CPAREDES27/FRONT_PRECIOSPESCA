@@ -54,7 +54,7 @@ sap.ui.define([
 				this.listPlanta();
 				this.loadIndicadorP();
 				this.byId("idAciertos").setValue("200");
-				this._getCurrentUser();
+				
 
 		},
 		onAfterRendering: async function(){

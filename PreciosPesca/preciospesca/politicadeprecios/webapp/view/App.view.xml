@@ -237,8 +237,12 @@
                                                 <m:Label text="Armador Empresa" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                            <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
-											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			
+                                            <m:Input id="idArmadorIni_R" 
+											showValueHelp="true"
+											valueHelpRequest="onShowSearchTrip"/>	
+											<m:Input id="idArmadorFin_R" 
+											showValueHelp="true"
+											valueHelpRequest="onShowSearchTrip"/>
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement visible="true">

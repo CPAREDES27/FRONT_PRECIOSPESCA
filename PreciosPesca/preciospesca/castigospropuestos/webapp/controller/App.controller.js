@@ -296,6 +296,7 @@ sap.ui.define([
 			   let idEmbarcacionFin =this.byId("idEmbarcacionFin").getValue();
 			   let radio1 = this.byId("rbgtype").getSelectedButton().getText();
 			   let idAciertos =this.byId("idAciertos").getValue();
+			   let option=[];
 			   let options=[];
 			   let idEstado="";
 

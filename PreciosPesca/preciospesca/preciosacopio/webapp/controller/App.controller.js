@@ -57,26 +57,62 @@ sap.ui.define([
 				this._getCurrentUser();
 
 		},
-		_getCurrentUser: async function(){
-				let oUshell = sap.ushell,
-				oUser={};
-				if(oUshell){
-					let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
-					let sEmail = oUserInfo.getEmail().toUpperCase(),
-					sName = sEmail.split("@")[0],
-					sDominio= sEmail.split("@")[1];
-					if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
-						oUser = {
-							name:sName
-						}
-					}else{
-					oUser = {
-					name: "FGARCIA"
-					}
-				}
+		onAfterRendering: async function(){
+			this._getCurrentUser();
+
+			this.objetoHelp =  this._getHelpSearch();
+			this.parameter= this.objetoHelp[0].parameter;
+			this.url= this.objetoHelp[0].url;
+			console.log(this.parameter)
+			console.log(this.url)
+			this.callConstantes();
+		},
+
+		callConstantes: function(){
+			oGlobalBusyDialog.open();
+			var body={
+				"nombreConsulta": "CONSGENCONST",
+				"p_user": this.userOperation,
+				"parametro1": this.parameter,
+				"parametro2": "",
+				"parametro3": "",
+				"parametro4": "",
+				"parametro5": ""
+			}
+			fetch(`${this.onLocation()}General/ConsultaGeneral/`,
+				  {
+					  method: 'POST',
+					  body: JSON.stringify(body)
+				  })
+				  .then(resp => resp.json()).then(data => {
 					
-				this.usuario=oUser.name;
-				console.log(this.usuario);
+					console.log(data.data);
+					this.HOST_HELP=this.url+data.data[0].LOW;
+					console.log(this.HOST_HELP);
+						oGlobalBusyDialog.close();
+				  }).catch(error => console.log(error)
+			);
+		},
+		_getCurrentUser: async function(){
+								let oUshell = sap.ushell,
+								oUser={};
+								if(oUshell){
+									let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+									let sEmail = oUserInfo.getEmail().toUpperCase(),
+									sName = sEmail.split("@")[0],
+									sDominio= sEmail.split("@")[1];
+									if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+									oUser = {
+										name:sName
+									}
+								}else{
+									oUser = {
+										name: "FGARCIA"
+									}
+								}
+					
+								this.usuario=oUser.name;
+								console.log(this.usuario);
 		},
 			loadIndicadorP: function () {
 				oGlobalBusyDialog.open();
@@ -1511,7 +1547,7 @@ sap.ui.define([
 				oModel = this.getModel(),
 				nameComponent="busqembarcaciones",
 				idComponent="busqembarcaciones",
-				urlComponent=HOST+"/9acc820a-22dc-4d66-8d69-bed5b2789d3c.AyudasBusqueda.busqembarcaciones-1.0.0",
+				urlComponent=this.HOST_HELP+".AyudasBusqueda.busqembarcaciones-1.0.0",
 				oView = this.getView(),
 				oInput = this.getView().byId(sIdInput);
 				oModel.setProperty("/input",oInput);

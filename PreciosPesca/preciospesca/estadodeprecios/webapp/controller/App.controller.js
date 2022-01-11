@@ -43,31 +43,65 @@ sap.ui.define([
 					
 					this.loadIndicadorP();
 					this.byId("idAciertos").setValue("200");
-					this._getCurrentUser();
 
+				},
+				onAfterRendering: async function(){
+					this._getCurrentUser();
+		
+					this.objetoHelp =  this._getHelpSearch();
+					this.parameter= this.objetoHelp[0].parameter;
+					this.url= this.objetoHelp[0].url;
+					console.log(this.parameter)
+					console.log(this.url)
+					this.callConstantes();
+				},
+		
+				callConstantes: function(){
+					oGlobalBusyDialog.open();
+					var body={
+						"nombreConsulta": "CONSGENCONST",
+						"p_user": this.usuario,
+						"parametro1": this.parameter,
+						"parametro2": "",
+						"parametro3": "",
+						"parametro4": "",
+						"parametro5": ""
+					}
+					fetch(`${this.onLocation()}General/ConsultaGeneral/`,
+						  {
+							  method: 'POST',
+							  body: JSON.stringify(body)
+						  })
+						  .then(resp => resp.json()).then(data => {
+							
+							console.log(data.data);
+							this.HOST_HELP=this.url+data.data[0].LOW;
+							console.log(this.HOST_HELP);
+								oGlobalBusyDialog.close();
+						  }).catch(error => console.log(error)
+					);
 				},
 				_getCurrentUser: async function(){
-						let oUshell = sap.ushell,
-						oUser={};
-						if(oUshell){
-							let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
-							let sEmail = oUserInfo.getEmail().toUpperCase(),
-							sName = sEmail.split("@")[0],
-							sDominio= sEmail.split("@")[1];
-							if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
-								oUser = {
-									name:sName
-								}
-							}else{
-							oUser = {
-							name: "FGARCIA"
-							}
-						}
+										let oUshell = sap.ushell,
+										oUser={};
+										if(oUshell){
+											let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
+											let sEmail = oUserInfo.getEmail().toUpperCase(),
+											sName = sEmail.split("@")[0],
+											sDominio= sEmail.split("@")[1];
+											if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+											oUser = {
+												name:sName
+											}
+										}else{
+											oUser = {
+												name: "FGARCIA"
+											}
+										}
 							
-						this.usuario=oUser.name;
-						console.log(this.usuario);
+										this.usuario=oUser.name;
+										console.log(this.usuario);
 				},
-
 			goBackMain: function () {
 				   this.getRouter().navTo("RouteApp");
 				   location.reload();

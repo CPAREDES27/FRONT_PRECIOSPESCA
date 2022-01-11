@@ -48,46 +48,16 @@ modules:
       name: comtasapoliticadeprecios
       target-path: resources/
     - artifacts:
-      - tasacompreciosponderados.zip
-      name: tasacompreciosponderados
-      target-path: resources/
-    - artifacts:
       - tasacompreciosacopio.zip
       name: tasacompreciosacopio
-      target-path: resources/
-    - artifacts:
-      - tasacomaprobacionprecios.zip
-      name: tasacomaprobacionprecios
-      target-path: resources/
-    - artifacts:
-      - tasacomcastigospropuestos.zip
-      name: tasacomcastigospropuestos
-      target-path: resources/
-    - artifacts:
-      - tasacomaprobacioncastigospropuestos.zip
-      name: tasacomaprobacioncastigospropuestos
       target-path: resources/
     - artifacts:
       - tasacomconsultapreciospesca.zip
       name: tasacomconsultapreciospesca
       target-path: resources/
-    - artifacts:
-      - tasacomestadodeprecios.zip
-      name: tasacomestadodeprecios
-      target-path: resources/
 - name: comtasapoliticadeprecios
   type: html5
   path: politicadeprecios
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: tasacompreciosponderados
-  type: html5
-  path: preciosponderados
   build-parameters:
     build-result: dist
     builder: custom
@@ -105,49 +75,9 @@ modules:
     - npm install
     - npm run build:cf
     supported-platforms: []
-- name: tasacomaprobacionprecios
-  type: html5
-  path: aprobacionprecios
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: tasacomcastigospropuestos
-  type: html5
-  path: castigospropuestos
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: tasacomaprobacioncastigospropuestos
-  type: html5
-  path: aprobacioncastigospropuestos
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
 - name: tasacomconsultapreciospesca
   type: html5
   path: consultapreciospesca
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-- name: tasacomestadodeprecios
-  type: html5
-  path: estadodeprecios
   build-parameters:
     build-result: dist
     builder: custom

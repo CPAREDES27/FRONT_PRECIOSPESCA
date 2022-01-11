@@ -16,12 +16,14 @@ sap.ui.define([
     "sap/ui/core/util/Export",
 	'sap/m/Token',
 	'sap/ui/core/Popup',
-	"../model/utilitarios"
+	"../model/utilitarios",
+	"sap/ui/core/Fragment",
+	"sap/ui/core/BusyIndicator",
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	 function (BaseController,Controller,JSONModel,History,Link, MessageItem, MessageToast,MessageBox,exportLibrary, Spreadsheet, ODataModel,Filter,FilterOperator,ExportTypeCSV,Export,Token,Popup,utilitarios) {
+	 function (BaseController,Controller,JSONModel,History,Link, MessageItem, MessageToast,MessageBox,exportLibrary, Spreadsheet, ODataModel,Filter,FilterOperator,ExportTypeCSV,Export,Token,Popup,utilitarios,Fragment,BusyIndicator) {
 		"use strict";
 
 		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
@@ -67,6 +69,42 @@ sap.ui.define([
 			this.getView().setModel(oModel);
 			this._getCurrentUser();
 
+		},
+		onAfterRendering: async function(){
+			this._getCurrentUser();
+
+			this.objetoHelp =  this._getHelpSearch();
+			this.parameter= this.objetoHelp[0].parameter;
+			this.url= this.objetoHelp[0].url;
+			console.log(this.parameter)
+			console.log(this.url)
+			this.callConstantes();
+		},
+
+		callConstantes: function(){
+			oGlobalBusyDialog.open();
+			var body={
+				"nombreConsulta": "CONSGENCONST",
+				"p_user": this.userOperation,
+				"parametro1": this.parameter,
+				"parametro2": "",
+				"parametro3": "",
+				"parametro4": "",
+				"parametro5": ""
+			}
+			fetch(`${this.onLocation()}General/ConsultaGeneral/`,
+				  {
+					  method: 'POST',
+					  body: JSON.stringify(body)
+				  })
+				  .then(resp => resp.json()).then(data => {
+					
+					console.log(data.data);
+					this.HOST_HELP=this.url+data.data[0].LOW;
+					console.log(this.HOST_HELP);
+						oGlobalBusyDialog.close();
+				  }).catch(error => console.log(error)
+			);
 		},
 		_getCurrentUser: async function(){
 				let oUshell = sap.ushell,
@@ -596,8 +634,8 @@ sap.ui.define([
 				this.byId("idPuertoFin").setValue("");
 				this.byId("idPlantaIni").setValue("");
 				this.byId("idPlantaFin").setValue("");
-				this.byId("idArmadorIni").setValue("");
-				this.byId("idArmadorFin").setValue("");
+				this.byId("idArmadorIni_R").setValue("");
+				this.byId("idArmadorFin_R").setValue("");
 				this.byId("idEspecieIni").setValue("");
 				this.byId("idEspecieFin").setValue("");
 				this.byId("idFechaIniVigencia").setValue("");
@@ -631,8 +669,8 @@ sap.ui.define([
 			   var arrayPuerto=[];
 			   var arrayPlanta=[];
 		
-			   let idArmadorIni= this.byId("idArmadorIni").getValue();
-			   let idArmadorFin= this.byId("idArmadorFin").getValue();
+			   let idArmadorIni= this.byId("idArmadorIni_R").getValue();
+			   let idArmadorFin= this.byId("idArmadorFin_R").getValue();
 			   let idEspecieIni= this.byId("idEspecieIni").getValue();
 			   let idEspecieFin= this.byId("idEspecieFin").getValue();
 			   let estadoPrecio= this.byId("cbEstadoPrecio").getSelectedKey();
@@ -1206,9 +1244,9 @@ sap.ui.define([
 				console.log(indices);
 				var data = this.getView().getModel("Armador").oData.listaArmador[indices].LIFNR;
 				if(this.popUp==="popOne"){
-					this.byId("idArmadorIni").setValue(data);
+					this.byId("idArmadorIni_R").setValue(data);
 				}else if(this.popUp==="popTwo"){
-					this.byId("idArmadorFin").setValue(data);
+					this.byId("idArmadorFin_R").setValue(data);
 				}
 				
 				this._onCloseDialogArmador();	
@@ -1331,7 +1369,52 @@ sap.ui.define([
 						MessageToast.show('El Archivo ha sido exportado correctamente');
 					})
 					.finally(oSheet.destroy);
-			}
+			},
+			onShowSearchTrip: async function(oEvent){
+				let sIdInput = oEvent.getSource().getId(),
+				oView = this.getView(),
+				oModel = this.getModel(),
+				sUrl =this.HOST_HELP+".AyudasBusqueda.busqarmadores-1.0.0",
+				nameComponent = "busqarmadores",
+				idComponent = "busqarmadores",
+				oInput = this.getView().byId(sIdInput);
+				oModel.setProperty("/input",oInput);
+	
+				if(!this.DialogComponent){
+					this.DialogComponent = await Fragment.load({
+						name:"com.tasa.politicadeprecios.view.fragments.BusqArmadores",
+						controller:this
+					});
+					oView.addDependent(this.DialogComponent);
+				}
+				oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
+				
+				let compCreateOk = function(){
+					BusyIndicator.hide()
+				}
+				if(this.DialogComponent.getContent().length===0){
+					BusyIndicator.show(0);
+					const oContainer = new sap.ui.core.ComponentContainer({
+						id: idComponent,
+						name: nameComponent,
+						url: sUrl,
+						settings: {},
+						componentData: {},
+						propagateModel: true,
+						componentCreated: compCreateOk,
+						height: '100%',
+						// manifest: true,
+						async: false
+					});
+					this.DialogComponent.addContent(oContainer);
+				}
+	
+				this.DialogComponent.open();
+			},
+			onCloseDialog:function(oEvent){
+				
+				oEvent.getSource().getParent().close();
+			},
 			
 		});
 	});

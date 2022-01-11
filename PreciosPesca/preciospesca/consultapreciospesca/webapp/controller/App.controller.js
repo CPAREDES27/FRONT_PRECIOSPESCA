@@ -10,12 +10,13 @@ sap.ui.define([
 	"sap/ui/core/BusyIndicator",
 	"sap/m/MessageBox",
 	'sap/ui/export/library',
-	'sap/ui/export/Spreadsheet'
+	'sap/ui/export/Spreadsheet',
+	"sap/ui/core/Fragment"
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	 function (BaseController,Controller,JSONModel,History,ExportTypeCSV,Export,Filter,FilterOperator,BusyIndicator,MessageBox,exportLibrary, Spreadsheet) {
+	 function (BaseController,Controller,JSONModel,History,ExportTypeCSV,Export,Filter,FilterOperator,BusyIndicator,MessageBox,exportLibrary, Spreadsheet,Fragment) {
 		"use strict";
 		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		const HOST = "https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com";
@@ -251,8 +252,8 @@ sap.ui.define([
 			limpiarFiltros: function(){
 				this.byId("idPlantaIni").setValue("");
 				this.byId("idPlantaFin").setValue("");
-				this.byId("idArmadorIni").setValue("");
-				this.byId("idArmadorFin").setValue("");
+				this.byId("idArmadorIni_R").setValue("");
+				this.byId("idArmadorFin_R").setValue("");
 				this.byId("inputId0_R").setValue("");
 				this.byId("inputId1_R").setValue("");
 				this.byId("idFechaIniVigencia").setValue("");
@@ -328,8 +329,8 @@ sap.ui.define([
 				let options=[];
 				var idPlantaIni=this.byId("idPlantaIni").getValue();
 				// var idPlantaFin = this.byId("idPlantaFin").getValue();
-				var idArmadorIni = this.byId("idArmadorIni").getValue();
-				var idArmadorFin = this.byId("idArmadorFin").getValue();
+				var idArmadorIni = this.byId("idArmadorIni_R").getValue();
+				var idArmadorFin = this.byId("idArmadorFin_R").getValue();
 				var idEmbarcacionIni = this.byId("inputId0_R").getValue();
 				var idEmbarcacionFin = this.byId("inputId1_R").getValue();
 				var idEstado = this.byId("idEstado").getSelectedKey();
@@ -729,9 +730,9 @@ sap.ui.define([
 					console.log(indices);
 					var data = this.getView().getModel("Armador").oData.listaArmador[indices].LIFNR;
 					if(this.popUp==="popOne"){
-						this.byId("idArmadorIni").setValue(data);
+						this.byId("idArmadorIni_R").setValue(data);
 					}else if(this.popUp==="popTwo"){
-						this.byId("idArmadorFin").setValue(data);
+						this.byId("idArmadorFin_R").setValue(data);
 					}
 					
 					this._onCloseDialogArmador();	
@@ -1515,7 +1516,89 @@ sap.ui.define([
 				},
 				onCloseDialog:function(oEvent){
 					oEvent.getSource().getParent().close();
-				}
+				},
+				onShowSearchTrip: async function(oEvent){
+					let sIdInput = oEvent.getSource().getId(),
+					oView = this.getView(),
+					oModel = this.getModel(),
+					sUrl =this.HOST_HELP+".AyudasBusqueda.busqarmadores-1.0.0",
+					nameComponent = "busqarmadores",
+					idComponent = "busqarmadores",
+					oInput = this.getView().byId(sIdInput);
+					oModel.setProperty("/input",oInput);
+		
+					if(!this.DialogComponent){
+						this.DialogComponent = await Fragment.load({
+							name:"tasa.com.consultapreciospesca.view.fragments.BusqArmadores",
+							controller:this
+						});
+						oView.addDependent(this.DialogComponent);
+					}
+					oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
+					
+					let compCreateOk = function(){
+						BusyIndicator.hide()
+					}
+					if(this.DialogComponent.getContent().length===0){
+						BusyIndicator.show(0);
+						const oContainer = new sap.ui.core.ComponentContainer({
+							id: idComponent,
+							name: nameComponent,
+							url: sUrl,
+							settings: {},
+							componentData: {},
+							propagateModel: true,
+							componentCreated: compCreateOk,
+							height: '100%',
+							// manifest: true,
+							async: false
+						});
+						this.DialogComponent.addContent(oContainer);
+					}
+		
+					this.DialogComponent.open();
+				},
+				onShowEmbarcaciones: async function(oEvent){
+					let sIdInput = oEvent.getSource().getId(),
+					oView = this.getView(),
+					oModel = this.getModel(),
+					sUrl =this.HOST_HELP+".AyudasBusqueda.busqembarcaciones-1.0.0",
+					nameComponent = "busqembarcaciones",
+					idComponent = "busqembarcaciones",
+					oInput = this.getView().byId(sIdInput);
+					oModel.setProperty("/input",oInput);
+		
+					if(!this.DialogComponents){
+						this.DialogComponents = await Fragment.load({
+							name:"tasa.com.consultapreciospesca.view.fragments.BusqEmbarcaciones",
+							controller:this
+						});
+						oView.addDependent(this.DialogComponents);
+					}
+					oModel.setProperty("/idDialogComp",this.DialogComponents.getId());
+					
+					let compCreateOk = function(){
+						BusyIndicator.hide()
+					}
+					if(this.DialogComponents.getContent().length===0){
+						BusyIndicator.show(0);
+						const oContainer = new sap.ui.core.ComponentContainer({
+							id: idComponent,
+							name: nameComponent,
+							url: sUrl,
+							settings: {},
+							componentData: {},
+							propagateModel: true,
+							componentCreated: compCreateOk,
+							height: '100%',
+							// manifest: true,
+							async: false
+						});
+						this.DialogComponents.addContent(oContainer);
+					}
+		
+					this.DialogComponents.open();
+				},
 			
 		});
 	});

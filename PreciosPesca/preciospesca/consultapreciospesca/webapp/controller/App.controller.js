@@ -1521,7 +1521,7 @@ sap.ui.define([
 					let sIdInput = oEvent.getSource().getId(),
 					oView = this.getView(),
 					oModel = this.getModel(),
-					sUrl ="https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com/9acc820a-22dc-4d66-8d69-bed5b2789d3c.AyudasBusqueda.busqarmadores-1.0.0",
+					sUrl =this.HOST_HELP+".AyudasBusqueda.busqarmadores-1.0.0",
 					nameComponent = "busqarmadores",
 					idComponent = "busqarmadores",
 					oInput = this.getView().byId(sIdInput);
@@ -1562,7 +1562,7 @@ sap.ui.define([
 					let sIdInput = oEvent.getSource().getId(),
 					oView = this.getView(),
 					oModel = this.getModel(),
-					sUrl ="https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com/9acc820a-22dc-4d66-8d69-bed5b2789d3c.AyudasBusqueda.busqembarcaciones-1.0.0",
+					sUrl =this.HOST_HELP+".AyudasBusqueda.busqembarcaciones-1.0.0",
 					nameComponent = "busqembarcaciones",
 					idComponent = "busqembarcaciones",
 					oInput = this.getView().byId(sIdInput);

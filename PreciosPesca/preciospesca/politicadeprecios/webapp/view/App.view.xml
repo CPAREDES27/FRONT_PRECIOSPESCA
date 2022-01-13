@@ -366,7 +366,7 @@
                                             <form:fields>
                                                 <m:Button text="Buscar" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
                                                    press="loadTablaPrecios"/>
-                                                   <m:Button text="Limpiar" tooltip="Limpiar" type="Emphasized" icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+                                                   <m:Button text="Limpiar" tooltip="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
                                                    press="limpiarFiltros"/>
                                             </form:fields>
                                         </form:FormElement>

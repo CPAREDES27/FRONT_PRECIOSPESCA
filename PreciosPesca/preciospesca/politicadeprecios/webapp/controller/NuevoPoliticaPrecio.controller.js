@@ -564,7 +564,7 @@ sap.ui.define([
                     ); oGlobalBusyDialog.close();
             },
             limpiar: function () {
-                this.byId("metodo").setValue("");
+                this.byId("metodo").setSelectedKey("");
                 this.byId("litoral").setValue("");
                 this.byId("idPuerto").setValue("");
                 this.byId("idPlanta").setValue("");
@@ -581,6 +581,7 @@ sap.ui.define([
                 this.byId("idPuertoForm").setVisible(false);
                 this.byId("idPlantaForm").setVisible(false);
                 this.byId("idArmadorForm").setVisible(false);
+                this.byId("idArmadorIni").setDescription("");
             },
             regresarMain: function (event) {
                 this.limpiar();
@@ -781,33 +782,89 @@ sap.ui.define([
                 var indices = evt.mParameters.listItem.oBindingContexts.Armador.sPath.split("/")[2];
                 console.log(indices);
                 var data = this.getView().getModel("Armador").oData.listaArmador[indices].LIFNR;
+                var nombre = this.getView().getModel("Armador").oData.listaArmador[indices].NAME1;
 
                 this.byId("idArmadorIni").setValue(data);
-
+                this.byId("idArmadorIni").setDescription(nombre);
 
                 this._onCloseDialogArmador();
             },
             listaArmador: function () {
                 oGlobalBusyDialog.open();
-                var body = {
-                    "codigo": "100"
-                }
-                fetch(`${ this.onLocation()}General/Armador`,
-                    {
-                        method: 'POST',
-                        body: JSON.stringify(body)
-                    })
-                    .then(resp => resp.json()).then(data => {
-                        var dataPuerto = data.data;
-                        console.log(dataPuerto);
-                        console.log(this.getView().getModel("Armador").setProperty("/listaArmador", dataPuerto));
-
+                var idCuentaProveedor=sap.ui.getCore().byId("idCuentaProveedor").getValue();
+                var idDescripcion=sap.ui.getCore().byId("idDescripcion").getValue();
+                var idRuc2= sap.ui.getCore().byId("idRuc2").getValue();
+                var idAciertosPop=sap.ui.getCore().byId("idAciertosPop").getValue();
+                var aOptions=[];
+                if(idCuentaProveedor){
+					aOptions.push(
+						{
+							cantidad: "10",
+							control: "INPUT",
+							key: "LIFNR",
+							valueHigh: "",
+							valueLow: idCuentaProveedor
+						}
+					)
+				}
+				if(idDescripcion){
+					aOptions.push(
+						{
+							cantidad: "10",
+							control: "INPUT",
+							key: "NAME1",
+							valueHigh: "",
+							valueLow: idDescripcion
+						}
+					)
+				}
+				if(idRuc2){
+					aOptions.push(
+						{
+							cantidad: "10",
+							control: "INPUT",
+							key: "STCD1",
+							valueHigh: "",
+							valueLow: idRuc2
+						}
+					)
+				}
+                var body={
+                    "delimitador": "|",
+                    "fields": [
+                      
+                    ],
+                    "no_data": "",
+                    "option": [
+                     
+                    ],
+                    "options": aOptions,
+                    "order": "",
+                    "p_user": this.userOperation,
+                    "rowcount": idAciertosPop,
+                    "rowskips": 0,
+                    "tabla": "LFA1"
+                  }
+                  fetch(`${this.onLocation()}General/Read_table/`,
+                      {
+                          method: 'POST',
+                          body: JSON.stringify(body)
+                      })
+                      .then(resp => resp.json()).then(data => {
+                        var dataPuerto=data.data;
+                        console.log(data);
+                        console.log(this.getView().getModel("Armador").setProperty("/listaArmador",dataPuerto));
+                        sap.ui.getCore().byId("idListaArmador").setText("Lista de registros: "+dataPuerto.length);
+                        if(dataPuerto.length<=0){
+                            sap.ui.getCore().byId("idListaArmador").setText("Lista de registros: No se encontraron resultados");
+                        }
                         oGlobalBusyDialog.close();
-
-
-
-                    }).catch(error => console.log(error)
-                    );
+                      }).catch(function(error){
+                            if(error){
+                                MessageBox.error(error.message);
+                                oGlobalBusyDialog.close();
+                            }
+                      });
             },
 
 

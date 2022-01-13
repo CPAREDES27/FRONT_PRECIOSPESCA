@@ -167,7 +167,7 @@
                                             <Label text="Armador" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                         </form:label>
                                         <form:fields>
-                                            <Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador"/>	
+                                            <Input type="Text" id="idArmadorIni" description="" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="true" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador"/>	
                                         </form:fields>
                                     </form:FormElement>
                                     <form:FormElement visible="true">

@@ -67,7 +67,7 @@ sap.ui.define([
 			var oModel = new JSONModel();
 		
 			this.getView().setModel(oModel);
-			this._getCurrentUser();
+		
 
 		},
 		onAfterRendering: async function(){

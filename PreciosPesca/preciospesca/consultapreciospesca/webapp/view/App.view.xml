@@ -86,9 +86,11 @@
                                             <form:fields>
 											<m:Input id="idArmadorIni_R" 
 											showValueHelp="true"
+											valueHelpOnly="true"
 											valueHelpRequest="onShowSearchTrip"/>	
 											<m:Input id="idArmadorFin_R" 
 											showValueHelp="true"
+											valueHelpOnly="true"
 											valueHelpRequest="onShowSearchTrip"/>
                                             <!-- <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			
 											<m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			 -->
@@ -108,7 +110,7 @@
                                     <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:DateRangeSelection  id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" />
+                                    <m:DateRangeSelection  id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" valueState="{consultaMareas>/valueStateFechaInicioVigencia}" change="refreshFechaInicio()" />
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">
@@ -257,7 +259,10 @@
 						showSortMenuEntry="true">
 						<m:Label text="Fecha prod" />
 						<template>
-							<m:Text text="{Acopio>FECCONMOV}" wrapping="false" />
+							<m:Text text="{
+								path: 'Acopio>FECCONMOV',
+								formatter: '.formatter.formatDate'
+								}" wrapping="false" />
 						</template>
 					</Column>
                     <Column

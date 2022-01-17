@@ -18,7 +18,7 @@ sap.ui.define([
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (BaseController, Controller, JSONModel, History, MessageToast, MessageBox, ExportTypeCSV, Export, Filter, FilterOperator, formatter, exportLibrary, Spreadsheet, BusyIndicator,Fragment) {
+	function (BaseController, Controller, JSONModel, History, MessageToast, MessageBox, ExportTypeCSV, Export, Filter, FilterOperator, formatter, exportLibrary, Spreadsheet, BusyIndicator, Fragment) {
 		"use strict";
 		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/'
 		var oGlobalBusyDialog = new sap.m.BusyDialog();
@@ -30,7 +30,7 @@ sap.ui.define([
 		var popEmb = "";
 		var exportarExcel = false;
 		var EdmType = exportLibrary.EdmType;
-		var usuario="";
+		var usuario = "";
 		const HOST = "https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com";
 		return BaseController.extend("tasa.com.preciosacopio.controller.App", {
 			//formatter: formatter,
@@ -54,66 +54,66 @@ sap.ui.define([
 				this.listPlanta();
 				this.loadIndicadorP();
 				this.byId("idAciertos").setValue("200");
-				
 
-		},
-		onAfterRendering: async function(){
-			this._getCurrentUser();
 
-			this.objetoHelp =  this._getHelpSearch();
-			this.parameter= this.objetoHelp[0].parameter;
-			this.url= this.objetoHelp[0].url;
-			console.log(this.parameter)
-			console.log(this.url)
-			this.callConstantes();
-		},
+			},
+			onAfterRendering: async function () {
+				this._getCurrentUser();
 
-		callConstantes: function(){
-			oGlobalBusyDialog.open();
-			var body={
-				"nombreConsulta": "CONSGENCONST",
-				"p_user": this.userOperation,
-				"parametro1": this.parameter,
-				"parametro2": "",
-				"parametro3": "",
-				"parametro4": "",
-				"parametro5": ""
-			}
-			fetch(`${this.onLocation()}General/ConsultaGeneral/`,
-				  {
-					  method: 'POST',
-					  body: JSON.stringify(body)
-				  })
-				  .then(resp => resp.json()).then(data => {
-					
-					console.log(data.data);
-					this.HOST_HELP=this.url+data.data[0].LOW;
-					console.log(this.HOST_HELP);
+				this.objetoHelp = this._getHelpSearch();
+				this.parameter = this.objetoHelp[0].parameter;
+				this.url = this.objetoHelp[0].url;
+				console.log(this.parameter)
+				console.log(this.url)
+				this.callConstantes();
+			},
+
+			callConstantes: function () {
+				oGlobalBusyDialog.open();
+				var body = {
+					"nombreConsulta": "CONSGENCONST",
+					"p_user": this.userOperation,
+					"parametro1": this.parameter,
+					"parametro2": "",
+					"parametro3": "",
+					"parametro4": "",
+					"parametro5": ""
+				}
+				fetch(`${this.onLocation()}General/ConsultaGeneral/`,
+					{
+						method: 'POST',
+						body: JSON.stringify(body)
+					})
+					.then(resp => resp.json()).then(data => {
+
+						console.log(data.data);
+						this.HOST_HELP = this.url + data.data[0].LOW;
+						console.log(this.HOST_HELP);
 						oGlobalBusyDialog.close();
-				  }).catch(error => console.log(error)
-			);
-		},
-		_getCurrentUser: async function(){
-								let oUshell = sap.ushell,
-								oUser={};
-								if(oUshell){
-									let  oUserInfo =await sap.ushell.Container.getServiceAsync("UserInfo");
-									let sEmail = oUserInfo.getEmail().toUpperCase(),
-									sName = sEmail.split("@")[0],
-									sDominio= sEmail.split("@")[1];
-									if(sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
-									oUser = {
-										name:sName
-									}
-								}else{
-									oUser = {
-										name: "FGARCIA"
-									}
-								}
-					
-								this.usuario=oUser.name;
-								console.log(this.usuario);
-		},
+					}).catch(error => console.log(error)
+					);
+			},
+			_getCurrentUser: async function () {
+				let oUshell = sap.ushell,
+					oUser = {};
+				if (oUshell) {
+					let oUserInfo = await sap.ushell.Container.getServiceAsync("UserInfo");
+					let sEmail = oUserInfo.getEmail().toUpperCase(),
+						sName = sEmail.split("@")[0],
+						sDominio = sEmail.split("@")[1];
+					if (sDominio === "XTERNAL.BIZ") sName = "FGARCIA";
+					oUser = {
+						name: sName
+					}
+				} else {
+					oUser = {
+						name: "FGARCIA"
+					}
+				}
+
+				this.usuario = oUser.name;
+				console.log(this.usuario);
+			},
 			loadIndicadorP: function () {
 				oGlobalBusyDialog.open();
 				var ZINPRP = null;
@@ -125,7 +125,7 @@ sap.ui.define([
 						}
 					]
 				}
-				fetch(`${ this.onLocation()}dominios/Listar/`,
+				fetch(`${this.onLocation()}dominios/Listar/`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -229,7 +229,7 @@ sap.ui.define([
 					"p_user": "BUSQEMB"
 				}
 				console.log(body);
-				fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
+				fetch(`${this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -298,7 +298,7 @@ sap.ui.define([
 					"rowskips": 0,
 					"tabla": "LFA1"
 				}
-				fetch(`${ this.onLocation()}General/Read_table/`,
+				fetch(`${this.onLocation()}General/Read_table/`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -337,32 +337,43 @@ sap.ui.define([
 				return this.getView().getModel(sName);
 			},
 
-			onSelectionChange:function(oEvent){
+			onSelectionChange: function (oEvent) {
 				let oTable = oEvent.getSource(),
-				aSelectedIndices = oTable.getSelectedIndices(),
-				iRowIndex = oEvent.getParameter("rowIndex"),
-				oRowContex = oEvent.getParameter("rowContext").getObject(),
-				sStatus = oRowContex.DESC_CALIDA; 
-				
-				if(sStatus===""){
-					new sap.m.MessageToast.show("Error en selección: No es posible editar porque no tiene registrado una calidad", {
-						duration: 3000,                  // default
-						width: "20em",                   // default
-						my: "center center",            
-						at: "center center"
-					});
-					let index = aSelectedIndices.indexOf(iRowIndex);
-					if(index !== -1){
-						aSelectedIndices.splice(index,1);
-						if(aSelectedIndices.length === 0){
-							oTable.setSelectedIndex(-1);
-						}else{
-							aSelectedIndices.forEach(indice=>{
-								oTable.addSelectionInterval(indice,indice)
-							})
+					aSelectedIndices = oTable.getSelectedIndices(),
+					iRowIndex = oEvent.getParameter("rowIndex"),
+					oRowContex = oEvent.getParameter("rowContext").getObject(),
+					sStatus = oRowContex.DESC_CALIDA,
+					allSelected = oEvent.getParameter("selectAll");
+
+				if (allSelected) {
+					let listaPrecios = oEvent.getParameter("rowContext").getModel("/listaPrecio").getData().listaPrecio;
+					let listaPreciosStatus = listaPrecios.filter(p => p.DESC_CALIDA === "");
+					if (listaPreciosStatus.length > 0) {
+						MessageBox.error("Error en selección: No es posible editar porque no tienen registrados una calidad");
+						oTable.clearSelection();
+					}
+				} else {
+					if (sStatus === "" && aSelectedIndices.length > 0) {
+						new sap.m.MessageToast.show("Error en selección: No es posible editar porque no tiene registrado una calidad", {
+							duration: 3000,                  // default
+							width: "20em",                   // default
+							my: "center center",
+							at: "center center"
+						});
+						let index = aSelectedIndices.indexOf(iRowIndex);
+						if (index !== -1) {
+							aSelectedIndices.splice(index, 1);
+							if (aSelectedIndices.length === 0) {
+								oTable.setSelectedIndex(-1);
+							} else {
+								aSelectedIndices.forEach(indice => {
+									oTable.addSelectionInterval(indice, indice)
+								})
+							}
 						}
 					}
 				}
+
 			},
 
 			/**
@@ -379,7 +390,7 @@ sap.ui.define([
 				var dataPlantas = {
 					"nombreAyuda": "BSQPLANTAS"
 				};
-				fetch(`${ this.onLocation()}General/AyudasBusqueda`,
+				fetch(`${this.onLocation()}General/AyudasBusqueda`,
 					{
 						method: 'POST',
 						body: JSON.stringify(dataPlantas)
@@ -411,7 +422,7 @@ sap.ui.define([
 
 					]
 				}
-				fetch(`${ this.onLocation()}dominios/Listar`,
+				fetch(`${this.onLocation()}dominios/Listar`,
 					{
 						method: 'POST',
 						body: JSON.stringify(bodyDominio)
@@ -492,7 +503,8 @@ sap.ui.define([
 				var error = ""
 				var estado = true;
 				if (!fechaIni) {
-					error = "Debe ingresar una fecha de inicio de vigencia\n";
+					error = "Debe ingresar un rango de fecha de producción\n";
+					this.getModel("consultaMareas").setProperty("/valueStateFechaInicioVigencia", "Error");
 					estado = false;
 				}
 
@@ -574,7 +586,7 @@ sap.ui.define([
 				}
 				console.log(body);
 
-				fetch(`${ this.onLocation()}preciospesca/ConsultarPrecioMar`,
+				fetch(`${this.onLocation()}preciospesca/ConsultarPrecioMar`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -1016,7 +1028,7 @@ sap.ui.define([
 					],
 					"p_user": "BUSQEMB"
 				}
-				fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
+				fetch(`${this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -1112,6 +1124,10 @@ sap.ui.define([
 				}
 			},
 
+			refreshFechaInicio: function () {
+				this.getModel("consultaMareas").setProperty("/valueStateFechaInicioVigencia", "None");
+			},
+
 			onSearchEmbarcacion: function (evt) {
 				BusyIndicator.show(0);
 				var idEmbarcacion = sap.ui.getCore().byId("idEmba").getValue();
@@ -1203,7 +1219,7 @@ sap.ui.define([
 					//"p_pag": "1" //por defecto la primera parte
 				};
 
-				fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
+				fetch(`${this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -1305,7 +1321,7 @@ sap.ui.define([
 					"p_pag": this.currentPage
 				};
 
-				fetch(`${ this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
+				fetch(`${this.onLocation()}embarcacion/ConsultarEmbarcacion/`,
 					{
 						method: 'POST',
 						body: JSON.stringify(body)
@@ -1542,86 +1558,86 @@ sap.ui.define([
 			},
 
 
-			onSearchHelp:function(oEvent){
+			onSearchHelp: function (oEvent) {
 				let sIdInput = oEvent.getSource().getId(),
-				oModel = this.getModel(),
-				nameComponent="busqembarcaciones",
-				idComponent="busqembarcaciones",
-				urlComponent=this.HOST_HELP+".AyudasBusqueda.busqembarcaciones-1.0.0",
-				oView = this.getView(),
-				oInput = this.getView().byId(sIdInput);
-				oModel.setProperty("/input",oInput);
-	
-				if(!this.DialogComponent){
+					oModel = this.getModel(),
+					nameComponent = "busqembarcaciones",
+					idComponent = "busqembarcaciones",
+					urlComponent = this.HOST_HELP + ".AyudasBusqueda.busqembarcaciones-1.0.0",
+					oView = this.getView(),
+					oInput = this.getView().byId(sIdInput);
+				oModel.setProperty("/input", oInput);
+
+				if (!this.DialogComponent) {
 					this.DialogComponent = new sap.m.Dialog({
-						title:"Búsqueda de embarcaciones",
-						icon:"sap-icon://search",
-						state:"Information",
-						endButton:new sap.m.Button({
-							icon:"sap-icon://decline",
-							text:"Cerrar",
-							type:"Reject",
-							press:function(oEvent){
+						title: "Búsqueda de embarcaciones",
+						icon: "sap-icon://search",
+						state: "Information",
+						endButton: new sap.m.Button({
+							icon: "sap-icon://decline",
+							text: "Cerrar",
+							type: "Reject",
+							press: function (oEvent) {
 								this.onCloseDialog(oEvent);
 							}.bind(this)
 						})
 					});
 					oView.addDependent(this.DialogComponent);
-					oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
+					oModel.setProperty("/idDialogComp", this.DialogComponent.getId());
 				}
-	
-				let comCreateOk = function(oEvent){
+
+				let comCreateOk = function (oEvent) {
 					BusyIndicator.hide();
 				};
-	
-				
-				if(this.DialogComponent.getContent().length===0){
+
+
+				if (this.DialogComponent.getContent().length === 0) {
 					BusyIndicator.show(0);
 					let oComponent = new sap.ui.core.ComponentContainer({
-						id:idComponent,
-						name:nameComponent,
-						url:urlComponent,
-						settings:{},
-						componentData:{},
-						propagateModel:true,
-						componentCreated:comCreateOk,
-						height:'100%',
+						id: idComponent,
+						name: nameComponent,
+						url: urlComponent,
+						settings: {},
+						componentData: {},
+						propagateModel: true,
+						componentCreated: comCreateOk,
+						height: '100%',
 						// manifest:true,
-						async:false
+						async: false
 					});
-	
+
 					this.DialogComponent.addContent(oComponent);
 				}
-				
+
 				this.DialogComponent.open();
 			},
-			onCloseDialog:function(oEvent){
-				
+			onCloseDialog: function (oEvent) {
+
 				oEvent.getSource().getParent().close();
 			},
-			onShowSearchTrip: async function(oEvent){
+			onShowSearchTrip: async function (oEvent) {
 				let sIdInput = oEvent.getSource().getId(),
-				oView = this.getView(),
-				oModel = this.getModel(),
-				sUrl =this.HOST_HELP+".AyudasBusqueda.busqarmadores-1.0.0",
-				nameComponent = "busqarmadores",
-				idComponent = "busqarmadores",
-				oInput = this.getView().byId(sIdInput);
-				oModel.setProperty("/input",oInput);
-	
-				if(!this.DialogComponent){
+					oView = this.getView(),
+					oModel = this.getModel(),
+					sUrl = this.HOST_HELP + ".AyudasBusqueda.busqarmadores-1.0.0",
+					nameComponent = "busqarmadores",
+					idComponent = "busqarmadores",
+					oInput = this.getView().byId(sIdInput);
+				oModel.setProperty("/input", oInput);
+
+				if (!this.DialogComponent) {
 					this.DialogComponent = await Fragment.load({
-						name:"tasa.com.preciosacopio.view.fragments.BusqArmadores",
-						controller:this
+						name: "tasa.com.preciosacopio.view.fragments.BusqArmadores",
+						controller: this
 					});
 					oView.addDependent(this.DialogComponent);
 				}
-				oModel.setProperty("/idDialogComp",this.DialogComponent.getId());
-				
-				let compCreateOk = function(){
+				oModel.setProperty("/idDialogComp", this.DialogComponent.getId());
+
+				let compCreateOk = function () {
 					BusyIndicator.hide()
 				}
-				if(this.DialogComponent.getContent().length===0){
+				if (this.DialogComponent.getContent().length === 0) {
 					BusyIndicator.show(0);
 					const oContainer = new sap.ui.core.ComponentContainer({
 						id: idComponent,
@@ -1637,32 +1653,32 @@ sap.ui.define([
 					});
 					this.DialogComponent.addContent(oContainer);
 				}
-	
+
 				this.DialogComponent.open();
 			},
-			onShowEmbarcaciones: async function(oEvent){
+			onShowEmbarcaciones: async function (oEvent) {
 				let sIdInput = oEvent.getSource().getId(),
-				oView = this.getView(),
-				oModel = this.getModel(),
-				sUrl =this.HOST_HELP+".AyudasBusqueda.busqembarcaciones-1.0.0",
-				nameComponent = "busqembarcaciones",
-				idComponent = "busqembarcaciones",
-				oInput = this.getView().byId(sIdInput);
-				oModel.setProperty("/input",oInput);
-	
-				if(!this.DialogComponents){
+					oView = this.getView(),
+					oModel = this.getModel(),
+					sUrl = this.HOST_HELP + ".AyudasBusqueda.busqembarcaciones-1.0.0",
+					nameComponent = "busqembarcaciones",
+					idComponent = "busqembarcaciones",
+					oInput = this.getView().byId(sIdInput);
+				oModel.setProperty("/input", oInput);
+
+				if (!this.DialogComponents) {
 					this.DialogComponents = await Fragment.load({
-						name:"tasa.com.preciosacopio.view.fragments.BusqEmbarcaciones",
-						controller:this
+						name: "tasa.com.preciosacopio.view.fragments.BusqEmbarcaciones",
+						controller: this
 					});
 					oView.addDependent(this.DialogComponents);
 				}
-				oModel.setProperty("/idDialogComp",this.DialogComponents.getId());
-				
-				let compCreateOk = function(){
+				oModel.setProperty("/idDialogComp", this.DialogComponents.getId());
+
+				let compCreateOk = function () {
 					BusyIndicator.hide()
 				}
-				if(this.DialogComponents.getContent().length===0){
+				if (this.DialogComponents.getContent().length === 0) {
 					BusyIndicator.show(0);
 					const oContainer = new sap.ui.core.ComponentContainer({
 						id: idComponent,
@@ -1678,7 +1694,7 @@ sap.ui.define([
 					});
 					this.DialogComponents.addContent(oContainer);
 				}
-	
+
 				this.DialogComponents.open();
 			},
 		});

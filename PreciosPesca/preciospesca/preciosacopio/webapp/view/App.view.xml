@@ -153,7 +153,7 @@
                                     <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-									<m:DateRangeSelection  id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" />
+									<m:DateRangeSelection  id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" valueState="{consultaMareas>/valueStateFechaInicioVigencia}" change="refreshFechaInicio()" />
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">

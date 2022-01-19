@@ -1,16 +1,12 @@
 sap.ui.define([
-	
-], function () {
-	"use strict";
+    "sap/ui/base/ManagedObject"
+], function (
+    ManagedObject
+) {
+    "use strict";
 
-	return {
-
-		disabledItems: function(param){
-            var table = this.byId("table");
-            
-            console.log("entra");
-        },
-		formatDate: function (date) {
+    return {
+        formatDate: function (date) {
             var fecha = null;
 
             if (date) {
@@ -37,6 +33,5 @@ sap.ui.define([
             return hora;
 
         }
-
-	};
+    }
 });

@@ -19,11 +19,13 @@ sap.ui.define([
 	"../model/utilitarios",
 	"sap/ui/core/Fragment",
 	"sap/ui/core/BusyIndicator",
+	"../model/formatter"
+
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
 	 */
-	function (BaseController, Controller, JSONModel, History, Link, MessageItem, MessageToast, MessageBox, exportLibrary, Spreadsheet, ODataModel, Filter, FilterOperator, ExportTypeCSV, Export, Token, Popup, utilitarios, Fragment, BusyIndicator) {
+	function (BaseController, Controller, JSONModel, History, Link, MessageItem, MessageToast, MessageBox, exportLibrary, Spreadsheet, ODataModel, Filter, FilterOperator, ExportTypeCSV, Export, Token, Popup, utilitarios, Fragment, BusyIndicator, formatter) {
 		"use strict";
 
 		//const this.onLocation() = 'https://cf-nodejs-qas.cfapps.us10.hana.ondemand.com/api/';
@@ -44,6 +46,7 @@ sap.ui.define([
 		var contador = 0;
 		var usuario = "";
 		return BaseController.extend("com.tasa.politicadeprecios.controller.App", {
+			formatter: formatter,
 			onInit: function () {
 				let ViewModel = new JSONModel(
 					{}
@@ -434,15 +437,47 @@ sap.ui.define([
 				let planta2 = this.byId("txtPlanta2").getValue();
 				let armador = this.byId("txtArmador").getValue();
 				let armador2 = this.byId("txtArmador2").getValue();
-				let fechaIni = this.byId("idFechaInicioVig").getValue();
-				let fechaIni2 = this.byId("idFechaInicioVig2").getValue();
-				let fechaFin = this.byId("idFechaFinVig").getValue();
-				let fechaFin2 = this.byId("idFechaFinVig2").getValue();
+			//	let fechaIni = this.byId("idFechaInicioVig").getValue();
+			//	let fechaIni2 = this.byId("idFechaInicioVig2").getValue();
+			//	let fechaFin = this.byId("idFechaFinVig").getValue();
+			//	let fechaFin2 = this.byId("idFechaFinVig2").getValue();
 				let especie = this.byId("idEspecie").getValue();
 				let especie2 = this.byId("idEspecie2").getValue();
 				let estadoPrecio = this.byId("cbEstadoPrecio").getSelectedKey();
 				//#region
 
+				var fechaInicio=this.byId("fechaInicio").getValue();
+				var fechaFin=this.byId("fechaFin").getValue();
+
+				if(fechaInicio){
+					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
+					fechaEstado = true;
+
+				}
+
+				if(fechaFin){
+					fechaFin = fechaFin.split("/")[2].concat(fechaFin.split("/")[1], fechaFin.split("/")[0]);
+					fechaEstado = true;
+
+				}
+				
+
+				if(!idPlantaIni && !idArmadorIni && !idArmadorFin && !idEmbarcacionIni && !idEmbarcacionFin
+					 && !idEstado && !idEstadoCastigo && !fechaInicio && !fechaFin ){
+						var msj="Por favor ingrese un dato de selección";
+				
+						MessageBox.error(msj);
+						oGlobalBusyDialog.close();
+						return false;
+				}
+				/*
+				if(fechaInicio && !fechaFin){
+					fechaFin= fechaInicio;
+				}
+				if(fechaFin && !fechaInicio){
+					fechaInicio= fechaFin;
+				}
+*/
 				var cadena = "";
 				var num = this.byId("cboLitoral").getSelectedKeys();
 				console.log(num);
@@ -634,13 +669,20 @@ sap.ui.define([
 				this.byId("idPuertoIni").setValue("");
 				this.byId("idPuertoFin").setValue("");
 				this.byId("idPlantaIni").setValue("");
-				this.byId("idPlantaFin").setValue("");
+				//this.byId("idPlantaFin").setValue("");
 				this.byId("idArmadorIni_R").setValue("");
 				this.byId("idArmadorFin_R").setValue("");
 				this.byId("idEspecieIni").setValue("");
 				this.byId("idEspecieFin").setValue("");
-				this.byId("idFechaIniVigencia").setValue("");
-				this.byId("idFechaFinVigencia").setValue("");
+				//this.byId("idFechaIniVigencia").setValue("");
+				//this.byId("idFechaFinVigencia").setValue("");
+
+				this.byId("fechaInicio").setValue("");
+				this.byId("fechaFin").setValue("");
+
+				//limpiar grilla
+				this.getModel("precio").setProperty("/zdoTipoMareaDom", []);
+				this.byId("title").setText("Lista de registros: 0");
 				JsonFechaFin = {
 					fechaFin: "",
 					fechaFin2: ""
@@ -677,8 +719,8 @@ sap.ui.define([
 				let estadoPrecio = this.byId("cbEstadoPrecio").getSelectedKey();
 
 
-				var fechaIni = this.byId("idFechaIniVigencia").getValue();
-				var fechaFin = this.byId("idFechaFinVigencia").getValue();
+				//var fechaIni = this.byId("idFechaIniVigencia").getValue();
+				//var fechaFin = this.byId("idFechaFinVigencia").getValue();
 				var error = ""
 				var estado = true;
 
@@ -687,7 +729,36 @@ sap.ui.define([
 				var fechaFinVigencia = "";
 				var fechaFinVigencia2 = "";
 
-				/*
+				var fechaInicio=this.byId("fechaInicio").getValue();
+				var fechaFin=this.byId("fechaFin").getValue();
+
+				if(fechaInicio){
+					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
+
+				}
+
+				if(fechaFin){
+					fechaFin = fechaFin.split("/")[2].concat(fechaFin.split("/")[1], fechaFin.split("/")[0]);
+
+				}
+				
+
+				if(!idPuertoIni && !idPuertoFin && !idPlantaIni && !idArmadorIni && !idArmadorFin && !idEspecieIni &&
+					 !idEspecieFin  && !fechaInicio && !fechaFin ){
+						var msj="Por favor ingrese un dato de selección";
+				
+						MessageBox.error(msj);
+						oGlobalBusyDialog.close();
+						return false;
+				}
+/*
+				if(fechaInicio && !fechaFin){
+					fechaFin= fechaInicio;
+				}
+				if(fechaFin && !fechaInicio){
+					fechaInicio= fechaFin;
+				}
+				
 				if (!fechaIni) {
 					error = "Debe ingresar una fecha de inicio de vigencia\n";
 					estado = false;
@@ -701,6 +772,7 @@ sap.ui.define([
 					oGlobalBusyDialog.close()
 					return false;
 				}
+				/*
 				if (fechaIni) {
 					var feccc = [];
 					feccc = fechaIni.trim().split("-");
@@ -711,6 +783,7 @@ sap.ui.define([
 					fechaIniVigencia2 = this.castFechas(feccc[1]);
 					console.log(fechaIniVigencia + " " + fechaIniVigencia2);
 				}
+				
 				if (fechaFin) {
 					var feccc2 = [];
 					feccc2 = fechaFin.trim().split("-");
@@ -720,7 +793,7 @@ sap.ui.define([
 					fechaFinVigencia = this.castFechas(feccc2[0]);
 					fechaFinVigencia2 = this.castFechas(feccc2[1]);
 					console.log(fechaFinVigencia + " " + fechaFinVigencia2);
-				}
+				}*/
 
 				//region
 				// var JsonFechaIni={
@@ -917,22 +990,22 @@ sap.ui.define([
 
 				//   }
 
-				if (fechaIniVigencia || fechaIniVigencia2) {
+				if (fechaInicio || fechaInicio) {
 					options.push({
 						cantidad: "10",
 						control: "MULTIINPUT",
 						key: "FIVIG",
-						valueHigh: fechaIniVigencia2,
-						valueLow: fechaIniVigencia
+						valueHigh: fechaFin,
+						valueLow: fechaInicio
 					});
 				}
-				if (fechaFinVigencia || fechaFinVigencia2) {
+				if (fechaFin || fechaFin) {
 					options.push({
 						cantidad: "10",
 						control: "MULTIINPUT",
 						key: "FFVIG",
-						valueHigh: fechaFinVigencia2,
-						valueLow: fechaFinVigencia
+						valueHigh: fechaFin,
+						valueLow: fechaInicio
 					});
 				}
 
@@ -973,9 +1046,7 @@ sap.ui.define([
 
 						//this.getModel("reporteCala").setProperty("/items", data.str_ppc);
 						//this.getModel("reporteCala").refresh();
-						if (dataPrecio.str_ppc.length === 0) {
-							this.byId("title").setText("Lista de registros: No se encontraron resultados");
-						}
+						
 						oGlobalBusyDialog.close();
 					}).catch(error => {
 						MessageBox.error("El servicio no está disponible  ");
@@ -1391,7 +1462,9 @@ sap.ui.define([
 					idComponent = "busqarmadores",
 					oInput = this.getView().byId(sIdInput);
 				oModel.setProperty("/input", oInput);
-
+				oModel.setProperty("/user",{
+                    name:this.usuario
+                });
 				if (!this.DialogComponent) {
 					this.DialogComponent = await Fragment.load({
 						name: "com.tasa.politicadeprecios.view.fragments.BusqArmadores",

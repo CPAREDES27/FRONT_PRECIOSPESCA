@@ -257,9 +257,11 @@ sap.ui.define([
 				this.byId("idArmadorFin_R").setValue("");
 				this.byId("inputId0_R").setValue("");
 				this.byId("inputId1_R").setValue("");
-				this.byId("idFechaIniVigencia").setValue("");
-				this.byId("idEstado").setSelectedKey("");
-				this.byId("idEstadoCastigo").setSelectedKey("");
+				//this.byId("idFechaIniVigencia").setValue("");
+				this.byId("idEstado").setSelectedKey(null);
+				this.byId("idEstadoCastigo").setSelectedKey(null);
+				this.byId("fechaInicio").setValue("");
+				this.byId("fechaFin").setValue("");
 
 				//limpiar grilla
 				this.getModel("Acopio").setProperty("/listaPrecio", []);
@@ -341,7 +343,7 @@ sap.ui.define([
 				var idEmbarcacionFin = this.byId("inputId1_R").getValue();
 				var idEstado = this.byId("idEstado").getSelectedKey();
 				var idEstadoCastigo = this.byId("idEstadoCastigo").getSelectedKey();
-				var idFechaZarpe = this.byId("idFechaIniVigencia").getValue();
+				//var idFechaZarpe = this.byId("idFechaIniVigencia").getValue();
 				var idFechaIni = "";
 				var idFechaF = "";
 				var fechaEstado = true;
@@ -351,16 +353,38 @@ sap.ui.define([
 					otrosEstado = true;
 				}
 
-				if (!idFechaZarpe) {
-					idFechaIni = "";
-					idFechaF = "";
-					fechaEstado = false;
-				} else {
+			
+				
+				var fechaInicio=this.byId("fechaInicio").getValue();
+				var fechaFin=this.byId("fechaFin").getValue();
+
+				if(fechaInicio){
+					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
 					fechaEstado = true;
-					idFechaIni = this.byId("idFechaIniVigencia").mProperties.dateValue;
-					idFechaF = this.byId("idFechaIniVigencia").mProperties.secondDateValue;
-					var idFechaIni = this.castFecha(idFechaIni);
-					var idFechaF = this.castFecha(idFechaF);
+
+				}
+
+				if(fechaFin){
+					fechaFin = fechaFin.split("/")[2].concat(fechaFin.split("/")[1], fechaFin.split("/")[0]);
+					fechaEstado = true;
+
+				}
+				
+
+				if(!idPlantaIni && !idArmadorIni && !idArmadorFin && !idEmbarcacionIni && !idEmbarcacionFin
+					 && !idEstado && !idEstadoCastigo && !fechaInicio && !fechaFin ){
+						var msj="Por favor ingrese un dato de selección";
+				
+						MessageBox.error(msj);
+						oGlobalBusyDialog.close();
+						return false;
+				}
+
+				if(fechaInicio && !fechaFin){
+					fechaFin= fechaInicio;
+				}
+				if(fechaFin && !fechaInicio){
+					fechaInicio= fechaFin;
 				}
 
 
@@ -473,13 +497,13 @@ sap.ui.define([
 							valueLow: idEmbarcacionIni
 						});
 					}
-					if (idFechaIni || idFechaF) {
+					if (fechaInicio || fechaFin) {
 						options.push({
 							cantidad: "10",
 							control: "MULTIINPUT",
 							key: "FECCONMOV",
-							valueHigh: idFechaF,
-							valueLow: idFechaIni
+							valueHigh: fechaFin,
+							valueLow: fechaInicio
 						});
 					}
 					// var conPrecio="";
@@ -506,16 +530,26 @@ sap.ui.define([
 						})
 						.then(resp => resp.json()).then(data => {
 
-
+							var prom=0;
+							for(var i=0; i<data.str_app.length;i++){
+								prom+=data.str_app[i].PRCOM;
+							}
+							var promedio=prom/data.str_app.length;
+							promedio=(promedio*100.0)/100.0;
+							var ponderado={
+								NAME1:"PONDERADO",
+								PRCOM:promedio.toFixed(2)
+							}
+							console.log(ponderado);
+							//let ViewModel= new JSONModel();
+							data.str_app.push(ponderado);
 
 							//let ViewModel= new JSONModel();
 							var dataPrecio = data;
 							console.log(dataPrecio);
 							this.getView().getModel("Acopio").setProperty("/listaPrecio", dataPrecio.str_app);
 							this.byId("title").setText("Lista de registros: " + (dataPrecio.str_app.length - 1));
-							if (dataPrecio.str_app.length <= 0) {
-								this.byId("title").setText("Lista de registros: No se encontraron resultados");
-							}
+							
 
 							//console.log(this.getView().getModel());
 
@@ -1532,7 +1566,7 @@ sap.ui.define([
 				oEvent.getSource().getParent().close();
 			},
 			onShowSearchTrip: async function (oEvent) {
-				let sIdInput = oEvent.getSource().getId(),
+				let sIdInput = oEvent.getSource().getId(),				
 					oView = this.getView(),
 					oModel = this.getModel(),
 					sUrl = this.HOST_HELP + ".AyudasBusqueda.busqarmadores-1.0.0",
@@ -1540,7 +1574,9 @@ sap.ui.define([
 					idComponent = "busqarmadores",
 					oInput = this.getView().byId(sIdInput);
 				oModel.setProperty("/input", oInput);
-
+				oModel.setProperty("/user",{
+                    name:this.usuario
+                });
 				if (!this.DialogComponent) {
 					this.DialogComponent = await Fragment.load({
 						name: "tasa.com.consultapreciospesca.view.fragments.BusqArmadores",

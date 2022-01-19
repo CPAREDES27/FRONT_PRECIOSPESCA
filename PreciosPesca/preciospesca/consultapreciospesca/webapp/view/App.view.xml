@@ -101,8 +101,8 @@
                                                 <m:Label text="Embarcación" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-											<m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true"  valueHelpRequest="onShowEmbarcaciones"/>
-											<m:Input id="inputId1_R" placeholder="Seleccione embarcación" showValueHelp="true"  valueHelpRequest="onShowEmbarcaciones"/>
+											<m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true" 	valueHelpOnly="true" valueHelpRequest="onShowEmbarcaciones"/>
+											<m:Input id="inputId1_R" placeholder="Seleccione embarcación" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowEmbarcaciones"/>
                                             </form:fields>
                                         </form:FormElement>
                             <form:FormElement visible="true">
@@ -110,7 +110,8 @@
                                     <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:DateRangeSelection  id="idFechaIniVigencia" displayFormat="dd/MM/yyyy" width="377.609375px" valueState="{consultaMareas>/valueStateFechaInicioVigencia}" change="refreshFechaInicio()" />
+									<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+                                    <m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement visible="true">

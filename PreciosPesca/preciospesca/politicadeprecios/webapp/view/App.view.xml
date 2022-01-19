@@ -239,28 +239,23 @@
                                             <form:fields>
                                             <m:Input id="idArmadorIni_R" 
 											showValueHelp="true"
+											valueHelpOnly="true"
 											valueHelpRequest="onShowSearchTrip"/>	
 											<m:Input id="idArmadorFin_R" 
 											showValueHelp="true"
+											valueHelpOnly="true"
 											valueHelpRequest="onShowSearchTrip"/>
                                             </form:fields>
                                         </form:FormElement>
                                         <form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Fecha Inicio Vigencia" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Fecha  Vigencia" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-                                                <m:DateRangeSelection  id="idFechaIniVigencia" width="377.609375px" displayFormat="dd/MM/yyyy" valueFormat="yyyyMMdd"/>
+													<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+                                				    <m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
                                             </form:fields>
-                                        </form:FormElement>
-                                        <form:FormElement visible="true">
-                                            <form:label>
-                                                <m:Label text="Fecha Fin Vigencia" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                            </form:label>
-                                            <form:fields>
-                                                <m:DateRangeSelection change="buscarFecha" id="idFechaFinVigencia" width="377.609375px" displayFormat="dd/MM/yyyy"  valueFormat="yyyyMMdd"/>
-                                            </form:fields>
-                                        </form:FormElement>
+                                        </form:FormElement>                                      
                                         <form:FormElement visible="true">
                                             <form:label>
                                                 <m:Label text="Especie" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
@@ -409,7 +404,7 @@
                             ariaLabelledBy="title">
 				<extension>
 					<m:OverflowToolbar style="Clear">
-						<m:Title id="title" text="Lista de registros: {dataPrecio.str_ppc.total}" />
+						<m:Title id="title" text="Lista de registros: 0" />
 						<m:ToolbarSpacer/>
                         <m:Button type="Information" icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo"/>
 						  <m:Button type="Reject" icon="sap-icon://sys-cancel" press="anularRegistro" tooltip="Anular" text="Anular"/>
@@ -426,7 +421,7 @@
                  
                 	<Column
 						id="CDPPC"
-						width="11rem"
+						width="8rem"
 						sortProperty="CDPPC"
 						filterProperty="CDPPC"
 						showFilterMenuEntry="true"
@@ -443,7 +438,7 @@
                    
                     <Column
 						id="DSZLT"
-						width="11rem"
+						width="8rem"
 						sortProperty="DSZLT"
 						filterProperty="DSZLT"
 						showFilterMenuEntry="true"
@@ -459,7 +454,7 @@
 					</Column>
                     <Column
 						id="DSPTO"
-						width="11rem"
+						width="8rem"
 						sortProperty="DSPTO"
 						filterProperty="DSPTO"
 						showFilterMenuEntry="true"
@@ -475,7 +470,7 @@
 					</Column>
                     <Column
 						id="DESCR"
-						width="22rem"
+						width="9rem"
 						sortProperty="DESCR"
 						filterProperty="DESCR"
 						showFilterMenuEntry="true"
@@ -507,7 +502,7 @@
 					</Column>
                     <Column
 						id="FIVIG"
-						width="11rem"
+						width="7rem"
 						sortProperty="FIVIG"
 						filterProperty="FIVIG"
 						showFilterMenuEntry="true"
@@ -518,12 +513,15 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>FIVIG}" wrapping="false" />
+							<m:Text text="{
+								path: 'PoliticaPrecio>FIVIG',
+								formatter: '.formatter.formatDate'
+								}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
 						id="FFVIG"
-						width="11rem"
+						width="6rem"
 						sortProperty="FFVIG"
 						filterProperty="FFVIG"
 						showFilterMenuEntry="true"
@@ -534,12 +532,15 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>FFVIG}" wrapping="false" />
+							<m:Text text="{
+								path: 'PoliticaPrecio>FFVIG',
+								formatter: '.formatter.formatDate'
+								}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
 						id="PRCMX"
-						width="11rem"
+						width="5rem"
 						sortProperty="PRCMX"						
 						filterProperty="PRCMX"
 						showFilterMenuEntry="true"
@@ -558,7 +559,7 @@
 					</Column>
                     <Column
 						id="PRCTP"
-						width="11rem"
+						width="6rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -576,7 +577,7 @@
 					</Column>
                     <Column
 						id="PRVMN"
-						width="11rem"
+						width="6rem"
 						sortProperty="PRVMN"
 						filterProperty="PRVMN"
 						showFilterMenuEntry="true"
@@ -625,10 +626,10 @@
 						</template>
 					</Column>
                     <Column
-						id="WAERS"
+						id="DESC_WAERS"
 						width="11rem"
-						sortProperty="WAERS"
-						filterProperty="WAERS"
+						sortProperty="DESC_WAERS"
+						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
                           <multiLabels>
@@ -637,12 +638,12 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>WAERS}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>DESC_WAERS}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
 						id="ESPMR"
-						width="11rem"
+						width="6rem"
 						sortProperty="ESPMR"
 						filterProperty="ESPMR"
 						showFilterMenuEntry="true"

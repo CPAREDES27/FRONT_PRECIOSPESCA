@@ -14,6 +14,7 @@ sap.ui.define([
 	'sap/ui/export/Spreadsheet',
 	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/Fragment"
+
 ],
 	/**
 	 * @param {typeof sap.ui.core.mvc.Controller} Controller
@@ -33,7 +34,8 @@ sap.ui.define([
 		var usuario = "";
 		const HOST = "https://tasaqas.launchpad.cfapps.us10.hana.ondemand.com";
 		return BaseController.extend("tasa.com.preciosacopio.controller.App", {
-			//formatter: formatter,
+
+			formatter: formatter,
 			onInit: function () {
 				let ViewModel = new JSONModel(
 					{}
@@ -321,12 +323,17 @@ sap.ui.define([
 			},
 			limpiarFiltros: function () {
 				this.byId("idPlantaIni").setValue("");
-				this.byId("idPlantaFin").setValue("");
+				//this.byId("idPlantaFin").setValue("");
 				this.byId("idArmadorIni_R").setValue("");
 				this.byId("idArmadorFin_R").setValue("");
 				this.byId("inputId0_R").setValue("");
 				this.byId("inputId1_R").setValue("");
-				this.byId("idFechaIniVigencia").setValue("");
+				this.byId("fechaInicio").setValue("");
+				this.byId("fechaFin").setValue("");
+
+
+				this.getModel("Acopio").setProperty("/listaPrecio", []);				
+				this.byId("title").setText("Lista de registros: 0");
 
 				JsonFechaIni = {
 					fechaFin: "",
@@ -499,27 +506,40 @@ sap.ui.define([
 				var idEmbarcacionFin = this.byId("inputId1_R").getValue();
 				var idEstado = this.byId("idEstado").getSelectedKey();
 				var idAciertos = this.byId("idAciertos").getValue();
-				var fechaIni = this.byId("idFechaIniVigencia").getValue();
-				var error = ""
-				var estado = true;
-				if (!fechaIni) {
-					error = "Debe ingresar un rango de fecha de producción\n";
-					this.getModel("consultaMareas").setProperty("/valueStateFechaInicioVigencia", "Error");
-					estado = false;
+				//var fechaIni = this.byId("idFechaIniVigencia").getValue();
+				
+				var fechaInicio=this.byId("fechaInicio").getValue();
+				var fechaFin=this.byId("fechaFin").getValue();
+
+				if(fechaInicio){
+					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
+
 				}
 
-				if (!estado) {
-					MessageBox.error(error);
-					oGlobalBusyDialog.close()
-					return false;
+				if(fechaFin){
+					fechaFin = fechaFin.split("/")[2].concat(fechaFin.split("/")[1], fechaFin.split("/")[0]);
+
 				}
-				var feccc = [];
-				feccc = fechaIni.trim().split("-");
-				for (var i = 0; i < feccc.length; i++) {
-					feccc[i] = feccc[i].trim();
+				
+
+				if(!idPlantaIni && !idArmadorIni && !idArmadorFin && !idEmbarcacionIni && !idEmbarcacionFin
+					  && !fechaInicio && !fechaFin ){
+						var msj="Por favor ingrese un dato de selección";
+				
+						MessageBox.error(msj);
+						oGlobalBusyDialog.close();
+						return false;
 				}
-				var fechaIniVigencia = this.castFechas(feccc[0]);
-				var fechaIniVigencia2 = this.castFechas(feccc[1]);
+
+				if(fechaInicio && !fechaFin){
+					fechaFin= fechaInicio;
+				}
+				if(fechaFin && !fechaInicio){
+					fechaInicio= fechaFin;
+				}
+
+			
+				
 				if (idPlantaIni) {
 					options.push({
 						cantidad: "10",
@@ -556,13 +576,13 @@ sap.ui.define([
 						valueLow: idEmbarcacionIni
 					});
 				}
-				if (fechaIniVigencia || fechaIniVigencia2) {
+				if (fechaInicio || fechaFin) {
 					options.push({
 						cantidad: "10",
 						control: "MULTIINPUT",
 						key: "FECCONMOV",
-						valueHigh: fechaIniVigencia2,
-						valueLow: fechaIniVigencia
+						valueHigh: fechaFin,
+						valueLow: fechaInicio
 					});
 				}
 				console.log(idEstado);
@@ -624,9 +644,7 @@ sap.ui.define([
 						dataPrecio.str_pm.total = dataPrecio.str_pm.length;
 
 						this.byId("title").setText("Lista de registros: " + dataPrecio.str_pm.total);
-						if (dataPrecio.str_pm.length <= 0) {
-							this.byId("title").setText("Lista de registros: No se encontraron resultados");
-						}
+						
 
 						// Habilitar o desabilitar selectores
 						var tableMareas = this.getView().byId("table");
@@ -1624,7 +1642,9 @@ sap.ui.define([
 					idComponent = "busqarmadores",
 					oInput = this.getView().byId(sIdInput);
 				oModel.setProperty("/input", oInput);
-
+				oModel.setProperty("/user",{
+                    name:this.usuario
+                });
 				if (!this.DialogComponent) {
 					this.DialogComponent = await Fragment.load({
 						name: "tasa.com.preciosacopio.view.fragments.BusqArmadores",

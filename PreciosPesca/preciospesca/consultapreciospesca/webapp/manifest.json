@@ -30,7 +30,7 @@
     "sap.ui": {
         "technology": "UI5",
         "icons": {
-            "icon": "sap-icon://expense-report",
+            "icon": "sap-icon://BusinessSuiteInAppSymbols/icon-paid-search",
             "favIcon": "",
             "phone": "",
             "phone@2": "",

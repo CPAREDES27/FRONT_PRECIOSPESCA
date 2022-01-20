@@ -20,7 +20,7 @@
 		<semantic:headerContent >
 			<form:Form id="idFormHeader"  >
 				<form:title>
-					<core:Title text="Datos de Selección" />
+					<core:Title text="Datos de Selección" icon="sap-icon://filter" />
 				</form:title>
 				<form:formContainers >
 					<form:FormContainer  >

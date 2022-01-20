@@ -444,20 +444,20 @@ sap.ui.define([
 				let especie = this.byId("idEspecie").getValue();
 				let especie2 = this.byId("idEspecie2").getValue();
 				let estadoPrecio = this.byId("cbEstadoPrecio").getSelectedKey();
+
 				//#region
+				var zonaLitoral = this.byId("cboLitoral").getSelectedKeys();
 
 				var fechaInicio=this.byId("fechaInicio").getValue();
 				var fechaFin=this.byId("fechaFin").getValue();
 
 				if(fechaInicio){
 					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
-					fechaEstado = true;
 
 				}
 
 				if(fechaFin){
 					fechaFin = fechaFin.split("/")[2].concat(fechaFin.split("/")[1], fechaFin.split("/")[0]);
-					fechaEstado = true;
 
 				}
 				
@@ -470,25 +470,24 @@ sap.ui.define([
 						oGlobalBusyDialog.close();
 						return false;
 				}
-				/*
+				
 				if(fechaInicio && !fechaFin){
 					fechaFin= fechaInicio;
 				}
 				if(fechaFin && !fechaInicio){
 					fechaInicio= fechaFin;
 				}
-*/
+
 				var cadena = "";
-				var num = this.byId("cboLitoral").getSelectedKeys();
-				console.log(num);
-				if (num != '' || num != "") {
-					for (var i = 0; i < num.length; i++) {
+				console.log(zonaLitoral);
+				if (zonaLitoral != '' || zonaLitoral != "") {
+					for (var i = 0; i < zonaLitoral.length; i++) {
 						options.push({
 							cantidad: "10",
 							control: "MULTICOMBOBOX",
 							key: "CDZLT",
 							valueHigh: "",
-							valueLow: num[i]
+							valueLow: zonaLitoral[i]
 						});
 					}
 				}
@@ -575,7 +574,7 @@ sap.ui.define([
 					});
 				}
 				//#endregion
-				console.log(fechaIni, "", fechaIni2);
+				//console.log(fechaIni, "", fechaIni2);
 				let body = {
 					"option": option,
 					"options": options,
@@ -665,7 +664,7 @@ sap.ui.define([
 				return number + ""; // siempre devuelve tipo cadena
 			},
 			limpiarFiltros: function () {
-				console.log(this.byId("cboLitoral").setSelectedKeys(""));
+				//console.log(this.byId("cboLitoral").setSelectedKeys());
 				this.byId("idPuertoIni").setValue("");
 				this.byId("idPuertoFin").setValue("");
 				this.byId("idPlantaIni").setValue("");
@@ -679,10 +678,16 @@ sap.ui.define([
 
 				this.byId("fechaInicio").setValue("");
 				this.byId("fechaFin").setValue("");
+				
+				this.byId("cboLitoral").setSelectedKeys(null);
 
+				this.byId("title").setText("Lista de registros: 0");
+
+				this.getView().getModel("PoliticaPrecio").setProperty("/listaPolitica",null);
+				console.log(a);
 				//limpiar grilla
 				this.getModel("precio").setProperty("/zdoTipoMareaDom", []);
-				this.byId("title").setText("Lista de registros: 0");
+				
 				JsonFechaFin = {
 					fechaFin: "",
 					fechaFin2: ""
@@ -719,15 +724,11 @@ sap.ui.define([
 				let estadoPrecio = this.byId("cbEstadoPrecio").getSelectedKey();
 
 
-				//var fechaIni = this.byId("idFechaIniVigencia").getValue();
-				//var fechaFin = this.byId("idFechaFinVigencia").getValue();
+			
 				var error = ""
 				var estado = true;
 
-				var fechaIniVigencia = "";
-				var fechaIniVigencia2 = "";
-				var fechaFinVigencia = "";
-				var fechaFinVigencia2 = "";
+				var zonaLitoral = this.byId("cboLitoral").getSelectedKeys();
 
 				var fechaInicio=this.byId("fechaInicio").getValue();
 				var fechaFin=this.byId("fechaFin").getValue();
@@ -743,7 +744,7 @@ sap.ui.define([
 				}
 				
 
-				if(!idPuertoIni && !idPuertoFin && !idPlantaIni && !idArmadorIni && !idArmadorFin && !idEspecieIni &&
+				if(!zonaLitoral.length>0 && !idPuertoIni && !idPuertoFin && !idPlantaIni && !idArmadorIni && !idArmadorFin && !idEspecieIni &&
 					 !idEspecieFin  && !fechaInicio && !fechaFin ){
 						var msj="Por favor ingrese un dato de selección";
 				
@@ -822,11 +823,10 @@ sap.ui.define([
 				// 	}
 				//endregion
 				var cadena = "";
-				var num = this.byId("cboLitoral").getSelectedKeys();
-				console.log(num);
+				console.log(zonaLitoral);
 
-				if (num.length > 0) {
-					num.forEach(numZonaLit => {
+				if (zonaLitoral.length > 0) {
+					zonaLitoral.forEach(numZonaLit => {
 						options.push({
 							cantidad: "10",
 							control: "MULTICOMBOBOX",

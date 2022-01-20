@@ -6,7 +6,7 @@
     xmlns="sap.ui.table" xmlns:m="sap.m"
     xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout"
 >
-<m:Shell>
+<m:Shell appWidthLimited="false">
 <m:App id="app">
 		<semantic:SemanticPage
 		>
@@ -43,7 +43,7 @@
 										</form:FormElement>
 						
 					
-										<form:FormElement visible="true" width="100%">
+										<form:FormElement visible="true" width="100%" >
                                             <form:label>
                                                 <m:Label text="Puerto" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>

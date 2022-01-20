@@ -542,13 +542,14 @@ sap.ui.define([
 							}
 							console.log(ponderado);
 							//let ViewModel= new JSONModel();
+							if(data.str_app.length>0){
 							data.str_app.push(ponderado);
-
+							}
 							//let ViewModel= new JSONModel();
 							var dataPrecio = data;
 							console.log(dataPrecio);
 							this.getView().getModel("Acopio").setProperty("/listaPrecio", dataPrecio.str_app);
-							this.byId("title").setText("Lista de registros: " + (dataPrecio.str_app.length - 1));
+							this.byId("title").setText("Lista de registros: " + (dataPrecio.str_app.length));
 							
 
 							//console.log(this.getView().getModel());

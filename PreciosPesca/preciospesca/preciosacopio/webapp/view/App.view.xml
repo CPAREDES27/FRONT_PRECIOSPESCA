@@ -1,5 +1,13 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="tasa.com.preciosacopio.controller.App" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
-	<m:Shell id="shell">
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+ xmlns:semantic="sap.f.semantic"
+  controllerName="tasa.com.preciosacopio.controller.App"
+   xmlns="sap.ui.table"
+    xmlns:m="sap.m"
+	 xmlns:form="sap.ui.layout.form"
+	  xmlns:core="sap.ui.core"
+	   xmlns:layout="sap.ui.layout">
+	   
+	<m:Shell id="shell" appWidthLimited="false">
 		<m:App id="app">
 		<semantic:SemanticPage
 		>
@@ -525,7 +533,7 @@
 						<m:Label text="Calidad" />
 						<template>
 							<!-- <m:Text  text="{path:'Acopio>CALIDA',formatter:'.formatter.disabledItems'}" wrapping="false" /> -->
-							<m:Text  text="{Acopio>DESC_CALIDA}" wrapping="false" />
+							<m:Text  text="{Acopio>DESC_CALIDAD}" wrapping="false" />
 						</template>
 					</Column> 
 					<!--Columnas-->

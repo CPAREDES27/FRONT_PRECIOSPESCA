@@ -1,5 +1,5 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="tasa.com.consultapreciospesca.controller.App" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout">
-	<m:Shell id="shell">
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:semantic="sap.f.semantic" controllerName="tasa.com.consultapreciospesca.controller.App" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core" xmlns:layout="sap.ui.layout" >
+	<m:Shell id="shell" appWidthLimited="false">
 		<m:App id="app">
 			<semantic:SemanticPage
 		>
@@ -81,7 +81,7 @@
                                         </form:FormElement>
                             			<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Armador Comercial" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Armador Empresa" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
 											<m:Input id="idArmadorIni_R" 
@@ -189,7 +189,7 @@
 				ariaLabelledBy="title">
 				<extension>
 					<m:OverflowToolbar style="Clear">
-						<m:Title id="title" text="Lista de registros"/>
+						<m:Title id="title" text="Lista de registros : 0"/>
 						<m:ToolbarSpacer/> 
 						  <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel"/>
 						<m:ToolbarSeparator/>

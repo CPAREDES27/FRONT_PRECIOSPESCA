@@ -9,8 +9,7 @@
 	   
 	<m:Shell id="shell" appWidthLimited="false">
 		<m:App id="app">
-		<semantic:SemanticPage
-		>
+		<semantic:SemanticPage>
 
 		<semantic:titleHeading>
 			<m:Title
@@ -19,193 +18,194 @@
 		</semantic:titleHeading>
 
 		<semantic:headerContent >
-			
-            <form:Form width="100%" editable="true" visible="true">
-                
+            <form:Form width="100%" editable="true">
                 <form:title>
                     <core:Title text="Datos de selección" level="Auto" icon="sap-icon://filter"/>
                 </form:title>
                 
                 <form:formContainers>
-                    <form:FormContainer visible="true">
+                    <form:FormContainer>
                         <form:formElements>
-                             <form:FormElement visible="true">
-                                            <form:label>
-                                                <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                            </form:label>
-                                            <form:fields>
-                                            <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
-												id="idPlantaIni"
-												width="100%"
-												placeholder="Ingresar Planta..."
-												showSuggestion="true"
-												showValueHelp="false"
-												valueState="Information"
-												valueStateText="Ingrese un texto"
-												suggestionRows="{Planta>/listaPlanta}">
-												<m:suggestionColumns>
-													
-													<m:Column
-														hAlign="Begin"
-														popinDisplay="Inline"
-														demandPopin="true"
-														minScreenWidth="Tablet">
-														<m:Label text="Centro"/>
-													</m:Column>
-													<m:Column
-														hAlign="End"
-														popinDisplay="Inline"
-														demandPopin="true"
-														minScreenWidth="Tablet">
-														<m:Label text="Planta"/>
-													</m:Column>
-													<m:Column
-														hAlign="End"
-														popinDisplay="Inline"
-														demandPopin="true"
-														minScreenWidth="Tablet">
-														<m:Label text="Descripción"/>
-													</m:Column>
-												</m:suggestionColumns>
-												<m:suggestionRows>
-													<m:ColumnListItem>
-													<m:cells>
-														<m:Label text="{Planta>WERKS}"/>
-														<m:Label text="{Planta>CDPTA}"/>
-														<m:Label text="{Planta>DESCR}"/>
-														<m:Label text="{
-																parts:[{path:'Planta'},{path:'Centro'}],
-																type: 'sap.ui.model.type.Currency',
-																formatOptions: {showMeasure: true}
-																}"/>
-													</m:cells>
-													</m:ColumnListItem>
-												</m:suggestionRows>
-											</m:Input>
-											<!-- <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
-												id="idPlantaFin"
-												width="100%"
-												placeholder="Ingresar Planta..."
-												showSuggestion="true"
-												showValueHelp="false"
-												valueState="Information"
-												valueStateText="Ingrese un texto"
-												suggestionRows="{Planta>/listaPlanta}">
-												<m:suggestionColumns>
-													
-													<m:Column
-														hAlign="Begin"
-														popinDisplay="Inline"
-														demandPopin="true"
-														minScreenWidth="Tablet">
-														<m:Label text="Centro"/>
-													</m:Column>
-													<m:Column
-														hAlign="End"
-														popinDisplay="Inline"
-														demandPopin="true"
-														minScreenWidth="Tablet">
-														<m:Label text="Planta"/>
-													</m:Column>
-													<m:Column
-														hAlign="End"
-														popinDisplay="Inline"
-														demandPopin="true"
-														minScreenWidth="Tablet">
-														<m:Label text="Descripción"/>
-													</m:Column>
-												</m:suggestionColumns>
-												<m:suggestionRows>
-													<m:ColumnListItem>
-													<m:cells>
-														<m:Label text="{Planta>WERKS}"/>
-														<m:Label text="{Planta>CDPTA}"/>
-														<m:Label text="{Planta>DESCR}"/>
-														<m:Label text="{
-																parts:[{path:'Planta'},{path:'Descripcion'}],
-																type: 'sap.ui.model.type.Currency',
-																formatOptions: {showMeasure: true}
-																}"/>
-													</m:cells>
-													</m:ColumnListItem>
-												</m:suggestionRows>
-											</m:Input> -->
-                                            </form:fields>
-                                        </form:FormElement>
-                            			<form:FormElement visible="true">
-                                            <form:label>
-                                                <m:Label text="Armador Empresa" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                            </form:label>
-                                            <form:fields>
-											<m:Input id="idArmadorIni_R" 
-											showValueHelp="true"
-											valueHelpOnly="true"
-											valueHelpRequest="onShowSearchTrip"/>	
-											<m:Input id="idArmadorFin_R" 
-											showValueHelp="true"
-											valueHelpOnly="true"
-											valueHelpRequest="onShowSearchTrip"/>
-                                            <!-- <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			 -->
-											<!-- <m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" visible="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			 -->
-                                            </form:fields>
-                                        </form:FormElement>
-                            <form:FormElement visible="true">
-                                            <form:label>
-                                                <m:Label text="Embarcaciones" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
-                                            </form:label>
-                                            <form:fields>
-											<m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true" valueHelpOnly="true"  valueHelpRequest="onShowEmbarcaciones"/>
-											<m:Input id="inputId1_R" placeholder="Seleccione embarcación" showValueHelp="true" valueHelpOnly="true"  valueHelpRequest="onShowEmbarcaciones"/>
-                                            </form:fields>
-                                        </form:FormElement>
-                            <form:FormElement visible="true">
+                             <form:FormElement>
+								<form:label>
+									<m:Label text="Planta" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+								</form:label>
+								<form:fields>
+									<m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+										id="idPlantaIni"
+										width="100%"
+										placeholder="Ingresar Planta..."
+										showSuggestion="true"
+										showValueHelp="false"
+										valueState="Information"
+										valueStateText="Ingrese un texto"
+										suggestionRows="{Planta>/listaPlanta}">
+										<m:suggestionColumns>
+											
+											<m:Column
+												hAlign="Begin"
+												popinDisplay="Inline"
+												demandPopin="true"
+												minScreenWidth="Tablet">
+												<m:Label text="Centro"/>
+											</m:Column>
+											<m:Column
+												hAlign="End"
+												popinDisplay="Inline"
+												demandPopin="true"
+												minScreenWidth="Tablet">
+												<m:Label text="Planta"/>
+											</m:Column>
+											<m:Column
+												hAlign="End"
+												popinDisplay="Inline"
+												demandPopin="true"
+												minScreenWidth="Tablet">
+												<m:Label text="Descripción"/>
+											</m:Column>
+										</m:suggestionColumns>
+										<m:suggestionRows>
+											<m:ColumnListItem>
+											<m:cells>
+												<m:Label text="{Planta>WERKS}"/>
+												<m:Label text="{Planta>CDPTA}"/>
+												<m:Label text="{Planta>DESCR}"/>
+												<m:Label text="{
+														parts:[{path:'Planta'},{path:'Centro'}],
+														type: 'sap.ui.model.type.Currency',
+														formatOptions: {showMeasure: true}
+														}"/>
+											</m:cells>
+											</m:ColumnListItem>
+										</m:suggestionRows>
+									</m:Input>
+										<!-- <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
+											id="idPlantaFin"
+											width="100%"
+											placeholder="Ingresar Planta..."
+											showSuggestion="true"
+											showValueHelp="false"
+											valueState="Information"
+											valueStateText="Ingrese un texto"
+											suggestionRows="{Planta>/listaPlanta}">
+											<m:suggestionColumns>
+												
+												<m:Column
+													hAlign="Begin"
+													popinDisplay="Inline"
+													demandPopin="true"
+													minScreenWidth="Tablet">
+													<m:Label text="Centro"/>
+												</m:Column>
+												<m:Column
+													hAlign="End"
+													popinDisplay="Inline"
+													demandPopin="true"
+													minScreenWidth="Tablet">
+													<m:Label text="Planta"/>
+												</m:Column>
+												<m:Column
+													hAlign="End"
+													popinDisplay="Inline"
+													demandPopin="true"
+													minScreenWidth="Tablet">
+													<m:Label text="Descripción"/>
+												</m:Column>
+											</m:suggestionColumns>
+											<m:suggestionRows>
+												<m:ColumnListItem>
+												<m:cells>
+													<m:Label text="{Planta>WERKS}"/>
+													<m:Label text="{Planta>CDPTA}"/>
+													<m:Label text="{Planta>DESCR}"/>
+													<m:Label text="{
+															parts:[{path:'Planta'},{path:'Descripcion'}],
+															type: 'sap.ui.model.type.Currency',
+															formatOptions: {showMeasure: true}
+															}"/>
+												</m:cells>
+												</m:ColumnListItem>
+											</m:suggestionRows>
+										</m:Input> -->
+                                </form:fields>
+                             </form:FormElement>
+							<form:FormElement>
+								<form:label>
+									<m:Label text="Armador Empresa" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+								</form:label>
+								<form:fields>
+								<m:Input id="idArmadorIni_R" 
+								showValueHelp="true"
+								valueHelpOnly="true"
+								valueHelpRequest="onShowSearchTrip"/>	
+								<m:Input id="idArmadorFin_R" 
+								showValueHelp="true"
+								valueHelpOnly="true"
+								valueHelpRequest="onShowSearchTrip"/>
+								<!-- <m:Input type="Text" id="idArmadorIni" showValueHelp="true" enabled="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popOne')"/>			 -->
+								<!-- <m:Input type="Text" id="idArmadorFin" showValueHelp="true" enabled="true" width="100%" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0" valueHelpRequest="_onOpenDialogArmador('popTwo')"/>			 -->
+								</form:fields>
+							</form:FormElement>
+                            <form:FormElement>
+								<form:label>
+									<m:Label text="Embarcaciones" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
+								</form:label>
+								<form:fields>
+									<m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true" valueHelpOnly="true"  valueHelpRequest="onShowEmbarcaciones"/>
+									<m:Input id="inputId1_R" placeholder="Seleccione embarcación" showValueHelp="true" valueHelpOnly="true"  valueHelpRequest="onShowEmbarcaciones"/>
+								</form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+					<form:FormContainer >
+						<form:formElements>
+							<form:FormElement>
                                 <form:label>
-                                    <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="Fecha Producción" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-									<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
-                                	<m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+									<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" valueFormat="dd/MM/yyyy"/>
+                                	<m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" valueFormat="dd/MM/yyyy"/>
                                 </form:fields>
                             </form:FormElement>
-                            <form:FormElement visible="true">
+                            <form:FormElement>
                                 <form:label>
-                                    <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="Estado" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:ComboBox editable="true" selectedKey="C" id="idEstado" items="{precio>/ZDO_PRECIO}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
+                                    <m:ComboBox editable="true" selectedKey="C" id="idEstado" items="{precio>/ZDO_PRECIO}" enabled="true" width="auto" valueState="None" maxWidth="100%">
                                         <m:items>
                                                         <core:Item text="{precio>descripcion}" enabled="true" key="{precio>id}"/>
                                         </m:items>
                                     </m:ComboBox>
                                 </form:fields>
                             </form:FormElement>
-                            <form:FormElement visible="true">
+                            <form:FormElement>
                                 <form:label>
-                                    <m:Label text="Cant. de Aciertos" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="Cant. de Aciertos" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-                                    <m:Input type="Number" id="idAciertos" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                    <m:Input type="Number" id="idAciertos" showValueHelp="false" enabled="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                 </form:fields>
                             </form:FormElement>
-                            <form:FormElement visible="true">
+                            <form:FormElement>
                                 <form:label>
-                                    <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
                                     
-									<m:Button text="Buscar" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+									<m:Button text="Buscar" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" iconDensityAware="false"
                                                    press="loadTablaPreciosAcopio"/>
-                                                   <m:Button text="Limpiar" tooltip="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
+                                                   <m:Button text="Limpiar" tooltip="Limpiar"  icon="sap-icon://clear-filter" iconFirst="true" width="100%" enabled="true" iconDensityAware="false"
                                                    press="limpiarFiltros"/>
                                 </form:fields>
                             </form:FormElement>
-                        </form:formElements>
-                        <form:title/>
-                    </form:FormContainer>
+						</form:formElements>
+					</form:FormContainer>
                 </form:formContainers>
                 <form:layout>
 					<form:ResponsiveGridLayout
-						labelSpanXL="2"
+						labelSpanXL="3"
 						labelSpanL="3"
 						labelSpanM="4"
 						labelSpanS="12"
@@ -215,14 +215,14 @@
 						emptySpanM="0"
 						emptySpanS="0"
 						columnsXL="2"
-						columnsL="1"
+						columnsL="2"
 						columnsM="1"
 						singleContainerFullSize="false"  />
 				</form:layout>
             </form:Form>
-			</semantic:headerContent>
+		</semantic:headerContent>
 		<semantic:content>
-            <!-- <ScrollContainer horizontal="true" vertical="true" width="100%" height="194.375px" visible="true"> -->
+            <!-- <ScrollContainer horizontal="true" vertical="true" width="100%" height="194.375px"> -->
              <Table
 				id="table"
 				rows="{
@@ -230,7 +230,7 @@
 				}"
 				rowSelectionChange="onSelectionChange"
 				visibleRowCount="7"
-                selectionMode="MultiToggle"
+                selectionMode="None"
 				showColumnVisibilityMenu="{ui>/showVisibilityMenuEntry}"
 				enableColumnFreeze="{ui>/showFreezeMenuEntry}"
 				enableCellFilter="true"
@@ -238,7 +238,7 @@
 				cellContextmenu="onProductIdCellContextMenu"
 				ariaLabelledBy="title"
 				fixedColumnCount="5"
-				class="classTable">
+				class="classTable sapUiSizeCompact">
 
 				<extension>
 					<m:OverflowToolbar style="Clear">
@@ -269,12 +269,20 @@
 						<m:Button icon="sap-icon://edit" text="Editar" press="editRow"/> 
 						</template>
 					</Column> -->
-					<!--<Column	width="3rem" hAlign="Begin">
-						<m:Label text="" />
+					<Column	width="4rem" hAlign="Begin">
+						<m:CheckBox 
+							select="onSelectAllCheckBox"
+							selected="{Acopio>/selectedAllCheckBox}"
+							partiallySelected="{Acopio>/partiallySelected}"
+							enabled="{Acopio>/enabledCheckboxAll}" />
 						<template>
-							<m:CheckBox id="idCheckBox" editable="{Acopio>STATUS}"/>
+							<m:CheckBox 
+								id="idCheckBox" 
+								enabled="{Acopio>STATUS}"
+								selected="{Acopio>selectedRow}"
+								select="onSelectCheckBox"/>
 						</template>
-					</Column>-->
+					</Column>
 					<Column
 						id="NMEMB"
 						width="9rem"

@@ -65,9 +65,11 @@ sap.ui.define([
 				this.objetoHelp = this._getHelpSearch();
 				this.parameter = this.objetoHelp[0].parameter;
 				this.url = this.objetoHelp[0].url;
-				console.log(this.parameter)
-				console.log(this.url)
 				this.callConstantes();
+
+				// configuraciones para CheckBox
+				let oAcopioModel = this.getModel("Acopio");
+				oAcopioModel.setProperty("/enabledCheckboxAll",false);
 			},
 
 			callConstantes: function () {
@@ -344,6 +346,10 @@ sap.ui.define([
 				return this.getView().getModel(sName);
 			},
 
+			/**
+			 * Metodo reemplazado por checkBox
+			 * @param {*} oEvent 
+			 */
 			onSelectionChange: function (oEvent) {
 				let oTable = oEvent.getSource(),
 					aSelectedIndices = oTable.getSelectedIndices(),
@@ -380,6 +386,64 @@ sap.ui.define([
 						}
 					}
 				}
+
+			},
+
+			/**
+			 * Metodo que reemplaza a onSelectionChange
+			 * @param {event} oEvent 
+			 */
+			onSelectCheckBox:function(oEvent){
+				let bSelected = oEvent.getParameter("selected"),
+				oAcopioModel = this.getModel("Acopio"),
+				aRowData = oAcopioModel.getProperty("/listaPrecio"),
+				bSelectedAll = oAcopioModel.getProperty("/selectedAllCheckBox");
+
+				if(bSelectedAll){
+					for (let i = 0; i < aRowData.length; i++) {
+						if(aRowData[i].STATUS === undefined){
+							if(!aRowData[i].selectedRow){
+								// oAcopioModel.setProperty("/selectedAllCheckBox",true);
+								oAcopioModel.setProperty("/partiallySelected",true);
+								return;
+							}else{
+								oAcopioModel.setProperty("/partiallySelected",false);
+								// oAcopioModel.setProperty("/selectedAllCheckBox",false);
+							}
+						}
+					}
+				}else{
+					if(bSelected){
+						oAcopioModel.setProperty("/selectedAllCheckBox",true);
+						oAcopioModel.setProperty("/partiallySelected",true);
+					}else{
+						oAcopioModel.setProperty("/selectedAllCheckBox",false);
+						// oAcopioModel.setProperty("/selectedAllCheckBox",false);
+					}
+				}
+
+
+			},
+			/**
+			 * Event Handler para controlar todos los checkbox
+			 * @param {event} oEvent 
+			 */
+
+			onSelectAllCheckBox:function(oEvent){
+				let bSelected = oEvent.getParameter("selected"),
+				oAcopioModel = this.getModel("Acopio"),
+				aRowData = oAcopioModel.getProperty("/listaPrecio");
+				
+				aRowData.forEach(row => {
+					if(row.STATUS === undefined){
+						if(bSelected){
+							row.selectedRow = true;
+						}else{
+							row.selectedRow = false;
+						}
+					}
+				});
+				oAcopioModel.setProperty("/listaPrecio",aRowData);
 
 			},
 
@@ -496,6 +560,11 @@ sap.ui.define([
 				return fechas;
 			},
 			loadTablaPreciosAcopio: function () {
+				// configuracion para checkbox
+				let oAcopioModel = this.getModel("Acopio");
+				oAcopioModel.setProperty("/selectedAllCheckBox", false);
+				oAcopioModel.setProperty("/enabledCheckboxAll",true);
+
 				oGlobalBusyDialog.open();
 				let options = [];
 				var idPlantaIni = this.byId("idPlantaIni").getValue();
@@ -513,7 +582,6 @@ sap.ui.define([
 
 				if(fechaInicio){
 					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
-
 				}
 
 				if(fechaFin){
@@ -522,14 +590,14 @@ sap.ui.define([
 				}
 				
 
-				if(!idPlantaIni && !idArmadorIni && !idArmadorFin && !idEmbarcacionIni && !idEmbarcacionFin
-					  && !fechaInicio && !fechaFin ){
-						var msj="Por favor ingrese un dato de selección";
+				// if(!idPlantaIni && !idArmadorIni && !idArmadorFin && !idEmbarcacionIni && !idEmbarcacionFin
+				// 	  && !fechaInicio && !fechaFin ){
+				// 		var msj="Por favor ingrese un dato de selección";
 				
-						MessageBox.error(msj);
-						oGlobalBusyDialog.close();
-						return false;
-				}
+				// 		MessageBox.error(msj);
+				// 		oGlobalBusyDialog.close();
+				// 		return false;
+				// }
 
 				if(fechaInicio && !fechaFin){
 					fechaFin= fechaInicio;

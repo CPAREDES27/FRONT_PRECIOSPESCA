@@ -1,14 +1,99 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="tasa.com.preciosacopio.controller.EditarAcopio" xmlns="sap.ui.table" xmlns:m="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
        <m:Page showHeader="true" title="Precios de Acopio" showFooter="true" showNavButton="false">
         <m:content>
-            <m:Panel height="auto" width="100%" headerText="Datos de precio" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+        <m:IconTabBar expandable="false" select="holas" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true" selectedKey="Ok">
+                        <m:items>
+                            <m:IconTabFilter icon="sap-icon://sales-quote" iconColor="Default" id="" text="Datos de precio" count="" design="Horizontal" showAll="false" textDirection="Inherit" enabled="true" visible="true" tooltip="Datos de marea" iconDensityAware="false">
+                                <m:content>
+                                   <!-- <m:Panel height="auto" width="100%" headerText="Datos de marea" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+                                        <m:content>-->
+                                            <form:Form width="100%" editable="true" visible="true">
+                                                <form:title/>
+                                                <form:formContainers>
+                                                    <form:FormContainer visible="true">
+                                                        <form:formElements>
+                                                           <form:FormElement visible="true">
+                                                                <form:label>
+                                                                    <m:Label text="Precio de compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="LTR" visible="true"/>
+                                                                </form:label>
+                                                                <form:fields>
+                                                                    <m:Input type="Number" id="txtPrecioCompra"  showValueHelp="false" enabled="true" visible="true" width="288px" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                </form:fields>
+                                                            </form:FormElement>                                                            
+                                                        </form:formElements>
+                                                        <form:title/>
+                                                    </form:FormContainer>
+                                                </form:formContainers>
+                                                <form:layout>
+                                                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                                                </form:layout>
+                                            </form:Form>
+                                       <!-- </m:content>
+                                    </m:Panel>-->
+                                </m:content>
+                            </m:IconTabFilter>  
+                            <m:IconTabFilter icon="sap-icon://collections-insight" iconColor="Default"  text="Bonificaciones" count="" design="Horizontal" showAll="false" textDirection="Inherit" enabled="true" visible="true" tooltip="Datos de marea" iconDensityAware="false">   
+                                <m:content>
+                                    <m:Table id="table" width="580.3624877929688px" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin">
+                                        <m:infoToolbar>
+                                            <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
+                                                <m:content>
+                                                    <m:Label text="Label" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </m:content>
+                                            </m:Toolbar>
+                                        </m:infoToolbar>
+                                        <m:headerToolbar>
+                                            <m:OverflowToolbar width="auto" height="auto" design="Transparent" visible="true" enabled="true">
+                                                <m:content>
+                                                    <m:ToolbarSpacer width=""/>
+                                                    <m:Button text="Agregar" press="onAdd" type="Emphasized" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                                                    <m:Button text="Eliminar" press="getData" type="Reject" icon="sap-icon://delete" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                                                </m:content>
+                                            </m:OverflowToolbar>
+                                        </m:headerToolbar>
+                                        <m:columns>
+                                            <m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Phone" demandPopin="false" popinDisplay="Inline" mergeDuplicates="false">
+                                                <m:header>
+                                                    <m:Text text="Posición" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </m:header>
+                                                <m:footer/>
+                                            </m:Column>
+                                            <m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                <m:header>
+                                                    <m:Text text="Cantidad" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </m:header>
+                                                <m:footer/>
+                                            </m:Column>
+                                            <m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                <m:header>
+                                                    <m:Text text="Estado" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </m:header>
+                                                <m:footer/>
+                                            </m:Column>
+                                            <m:Column width="auto" hAlign="Left" vAlign="Top" minScreenWidth="Tablet" demandPopin="true" popinDisplay="Inline" mergeDuplicates="false">
+                                                <m:header>
+                                                    <m:Text text="" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                </m:header>
+                                                <m:footer/>
+                                            </m:Column>
+                                        </m:columns>
+                                    
+                                    </m:Table>
+                                </m:content>  
+                            </m:IconTabFilter>   
+                        </m:items>
+                        <m:content>
+                            <m:Text text="Tab Bar Content goes here ..." width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </m:content>
+                    </m:IconTabBar>
+            <!--<m:Panel height="auto" width="100%" headerText="Datos de precio" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
                 <m:content>
                     <form:Form width="100%" editable="true" visible="true">
                         <form:title/>
                         <form:formContainers>
                             <form:FormContainer visible="true">
                                 <form:formElements>
-                                    <form:FormElement visible="true">
+                                   <form:FormElement visible="true">
                                         <form:label>
                                             <m:Label text="Precio de compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="LTR" visible="true"/>
                                         </form:label>
@@ -25,10 +110,10 @@
                         </form:layout>
                     </form:Form>
                 </m:content>
-            </m:Panel>
-            <m:Panel height="auto" width="100%" headerText="Bonificaciones" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
+            </m:Panel>-->
+            <!--<m:Panel height="auto" width="100%" headerText="Bonificaciones" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
                 <m:content>
-                    <m:Table id="table" width="580.3624877929688px" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin">
+                   <m:Table id="table" width="580.3624877929688px" noDataText="No data" mode="None" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" class="sapUiResponsiveMargin">
                         <m:infoToolbar>
                             <m:Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="true">
                                 <m:content>
@@ -74,7 +159,7 @@
                        
                     </m:Table>
                 </m:content>
-            </m:Panel>
+            </m:Panel>-->
             <m:Panel id="idPanelInfo" height="auto" width="100%" headerText="Resumen de información" expandable="true" expanded="true" expandAnimation="true" backgroundDesign="Solid">
                 <m:content>
                     <m:IconTabBar expandable="false" select="holas" expanded="true" applyContentPadding="false" backgroundDesign="Solid" upperCase="false" visible="true" selectedKey="Ok">
@@ -262,7 +347,7 @@
                                                                     <m:Label text="Precio tope compra" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>PRCTP}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" id="idPrecioTope"  value="{Acopio>PRCTP}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                             <form:FormElement visible="true">
@@ -301,7 +386,7 @@
                     </m:IconTabBar>
                 </m:content>
             </m:Panel>
-            <Table
+             <Table
 				id="tablePrecio"
 				rows="{dataAcopio>/items}"
 				visibleRowCount="7"
@@ -311,7 +396,8 @@
 				enableCellFilter="{ui>/enableCellFilter}"
 				columnSelect="onColumnSelect"
 				cellContextmenu="onProductIdCellContextMenu"
-				ariaLabelledBy="title">
+				ariaLabelledBy="title"
+                class="classTableDetalle">
 				<extension>
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Products"/>
@@ -325,7 +411,7 @@
                 
                 	<Column
 						id="NRMAR"
-						width="11rem"
+						width="5rem"
 						sortProperty="NRMAR"
 						filterProperty="NRMAR"
 						showFilterMenuEntry="true"
@@ -337,7 +423,7 @@
 					</Column>
                     <Column
 						id="NRDES"
-						width="11rem"
+						width="5.5rem"
 						sortProperty="NRDES"
 						filterProperty="NRDES"
 						showFilterMenuEntry="true"
@@ -349,7 +435,7 @@
 					</Column>
                     <Column
 						id="DESCR"
-						width="11rem"
+						width="5rem"
 						sortProperty="DESCR"
 						filterProperty="DESCR"
 						showFilterMenuEntry="true"
@@ -361,7 +447,7 @@
 					</Column>
                     <Column
 						id="CDSPC"
-						width="11rem"
+						width="7rem"
 						sortProperty="CDSPC"
 						filterProperty="CDSPC"
 						showFilterMenuEntry="true"
@@ -375,7 +461,7 @@
                     
                     <Column
 						id="FIDES"
-						width="11rem"
+						width="7.5rem"
 						sortProperty="FIDES"
 						filterProperty="FIDES"
 						showFilterMenuEntry="true"
@@ -387,7 +473,7 @@
 					</Column>
                     <Column
 						id="FFDES"
-						width="11rem"
+						width="7rem"
 						sortProperty="FFDES"
 						filterProperty="FFDES"
 						showFilterMenuEntry="true"
@@ -399,7 +485,7 @@
 					</Column>
                     <Column
 						id="CNPDS"
-						width="11rem"
+						width="6rem"
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
@@ -412,7 +498,7 @@
 					</Column>
                     <Column
 						id="FECCONMOV"
-						width="11rem"
+						width="5rem"
 						sortProperty="FECCONMOV"
 						filterProperty="FECCONMOV"
 						showFilterMenuEntry="true"
@@ -424,7 +510,7 @@
 					</Column>
                     <Column
 						id="NMEMB"
-						width="11rem"
+						width="8rem"
 						sortProperty="NMEMB"
 						filterProperty="NMEMB"
 						showFilterMenuEntry="true"
@@ -432,6 +518,18 @@
 						<m:Label text="Embarcación" />
 						<template>
 							<m:Text text="{dataAcopio>NMEMB}" wrapping="false" />
+						</template>
+					</Column>
+                     <Column
+						id="MREMB"
+						width="5.5rem"
+						sortProperty="MREMB"
+						filterProperty="MREMB"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Matrícula" />
+						<template>
+							<m:Text text="{dataAcopio>MREMB}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
@@ -448,7 +546,7 @@
 					</Column>
                     <Column
 						id="PRCTP"
-						width="11rem"
+						width="4rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -460,7 +558,7 @@
 					</Column>
                     <Column
 						id="BONIF"
-						width="11rem"
+						width="3rem"
 						sortProperty="BONIF"
 						filterProperty="BONIF"
 						showFilterMenuEntry="true"
@@ -472,7 +570,7 @@
 					</Column>
                     <Column
 						id="PRCMX"
-						width="11rem"
+						width="4rem"
 						sortProperty="PRCMX"
 						filterProperty="PRCMX"
 						showFilterMenuEntry="true"
@@ -484,7 +582,7 @@
 					</Column>
                     <Column
 						id="PRCTP2"
-						width="11rem"
+						width="4rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -495,20 +593,20 @@
 						</template>
 					</Column>
                     <Column
-						id="WAERS"
-						width="11rem"
-						sortProperty="WAERS"
-						filterProperty="WAERS"
+						id="DESC_WAERS"
+						width="6rem"
+						sortProperty="DESC_WAERS"
+						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
 						<m:Label text="Moneda" />
 						<template>
-							<m:Text text="{dataAcopio>WAERS}" wrapping="false" />
+							<m:Text text="{dataAcopio>DESC_WAERS}" wrapping="false" />
 						</template>
 					</Column>
                     <Column
 						id="ESPRC"
-						width="11rem"
+						width="4rem"
 						sortProperty="ESPRC"
 						filterProperty="ESPRC"
 						showFilterMenuEntry="true"
@@ -520,7 +618,7 @@
 					</Column>
                     <Column
 						id="DSSPC"
-						width="11rem"
+						width="5.5rem"
 						sortProperty="DSSPC"
 						filterProperty="DSSPC"
 						showFilterMenuEntry="true"
@@ -532,7 +630,7 @@
 					</Column>
                     <Column
 						id="CALIDA"
-						width="11rem"
+						width="7rem"
 						sortProperty="CALIDA"
 						filterProperty="CALIDA"
 						showFilterMenuEntry="true"
@@ -540,6 +638,15 @@
 						<m:Label text="Calidad" />
 						<template>
 							<m:Text text="{dataAcopio>CALIDA}" wrapping="false" />
+						</template>
+					</Column>
+                     <Column
+						id="Obs"
+						width="17rem"
+						>
+						<m:Label text="Observacion" />
+						<template>
+							<m:Text text="{dataAcopio>OBS}" id="idOBs" wrapping="false" />
 						</template>
 					</Column>
 					<!--Columnas-->

@@ -1,1 +1,7 @@
 /* Enter your custom styles here */
+.classTable td :first-child{
+    font-size: 10.5px;
+}
+.classTableDetalle td :first-child{
+    font-size: 10.5px;
+ }

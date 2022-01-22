@@ -21,6 +21,7 @@ sap.ui.define([
 
             	this._getCurrentUser();
 
+
 		},
 		_getCurrentUser: async function(){
 				let oUshell = sap.ushell,
@@ -78,6 +79,7 @@ sap.ui.define([
                     }
 
                     for (var j = 0; j < data.length; j++) {
+                        data[j].OBS="";
                         this.getView().getModel("dataAcopio").setProperty("/items", data);
 
                     }
@@ -101,6 +103,42 @@ sap.ui.define([
                 fecha = anio + "" + mes + "" + day;
                 var tamanioArray = this.getView().getModel("dataAcopio").oData.items.length;
                 var arrayAcopio = this.getView().getModel("dataAcopio").oData;
+
+
+                var txtPrecioCompra = this.byId("txtPrecioCompra").getValue();
+
+                if (idPrecioCompra <= 0) {
+                    MessageBox.error("El precio de compra debe ser mayor a cero.");
+                    return false;
+                } 
+                if(!txtPrecioCompra.includes(".00") && txtPrecioCompra){
+                    txtPrecioCompra=txtPrecioCompra.concat(".00");
+                }
+                
+                var estadoPrecio=true;
+                for(var i=0; i<arrayAcopio.items.length; i++){
+
+                    var precioTope=arrayAcopio.items[i].PRCTP;
+                    var precioCompraMax=arrayAcopio.items[i].PRCMX;
+
+                    if(parseInt(precioTope) < parseInt(idPrecioCompra) || parseInt(precioCompraMax) < parseInt(idPrecioCompra)){
+                      
+                        estadoPrecio=false;
+                       
+                    }
+                }
+                if(!estadoPrecio){
+                    for(var i=0; i<arrayAcopio.items.length; i++){
+
+                        arrayAcopio.items[i].OBS="El precio de compra supera al tope permitido";
+                        this.getView().getModel("dataAcopio").refresh();
+                        
+                    }
+                    MessageBox.error("No hay precios a aprobar.");
+                    return false;
+                }
+               
+
                 console.log(tamanioArray);
                 var cadena_str_bpm = [];
                 var cadena_str_ppc = [];
@@ -186,9 +224,22 @@ sap.ui.define([
 
             },
             guardarAcopio: function (oEvent) {
+                var precioTope = this.byId("idPrecioTope").getValue();
                 var precioCompraMax = this.byId("idPrecioCompraMax").getValue();
                 var txtPrecioCompra = this.byId("txtPrecioCompra").getValue();
-                if (txtPrecioCompra > precioCompraMax) {
+
+
+/*
+                if(!txtPrecioCompra.includes(".00") && txtPrecioCompra){
+                    txtPrecioCompra=txtPrecioCompra.concat(".00");
+                }*/
+
+                if(precioTope==0.00 && precioCompraMax==0.00){
+                    MessageBox.error("No hay precios a aprobar.");
+                    return false;
+                }
+
+                if (parseInt(txtPrecioCompra) > parseInt(precioCompraMax) || parseInt(txtPrecioCompra) > parseInt(precioTope)) {
                     MessageBox.error("El precio de compra supera al tope permitido.");
                     return false;
 

@@ -354,7 +354,7 @@ sap.ui.define([
 
 				if (allSelected) {
 					let listaPrecios = oEvent.getParameter("rowContext").getModel("/listaPrecio").getData().listaPrecio;
-					let listaPreciosStatus = listaPrecios.filter(p => p.DESC_CALIDA === "");
+					let listaPreciosStatus = listaPrecios.filter(p => p.DESC_CALIDAD === "");
 					if (listaPreciosStatus.length > 0) {
 						MessageBox.error("Error en selección: No es posible editar porque no tienen registrados una calidad");
 						oTable.clearSelection();
@@ -637,7 +637,9 @@ sap.ui.define([
 							data.str_pm[i].PRCMX = parseFloat(data.str_pm[i].PRCMX).toFixed(2);
 							data.str_pm[i].PRCTP = parseFloat(data.str_pm[i].PRCTP).toFixed(2);
 							data.str_pm[i].NRMAR = this.zeroFill(data.str_pm[i].NRMAR, 10);
-
+							if(data.str_pm[i].DESC_CALIDAD==''){
+								data.str_pm[i].STATUS=false;
+							}
 						}
 						var dataPrecio = data;
 						this.getView().getModel("Acopio").setProperty("/listaPrecio", dataPrecio.str_pm);
@@ -732,7 +734,9 @@ sap.ui.define([
 				console.log("hola");
 			},
 			editarMasivo: function (oEvent) {
+				//var cb=this.byId("idCheckBox").getSelected();
 				var indices = this.byId("table").getSelectedIndices();
+				
 				var cadena = "";
 				for (var i = 0; i < indices.length; i++) {
 					cadena += indices[i] + ",";

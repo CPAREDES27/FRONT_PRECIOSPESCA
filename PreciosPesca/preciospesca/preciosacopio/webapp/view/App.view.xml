@@ -236,7 +236,10 @@
 				enableCellFilter="true"
 				columnSelect="onColumnSelect"
 				cellContextmenu="onProductIdCellContextMenu"
-				ariaLabelledBy="title">
+				ariaLabelledBy="title"
+				fixedColumnCount="5"
+				class="classTable">
+
 				<extension>
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Lista de registros: 0"/>
@@ -266,119 +269,15 @@
 						<m:Button icon="sap-icon://edit" text="Editar" press="editRow"/> 
 						</template>
 					</Column> -->
-                	<Column
-						id="NRMAR"
-						width="8rem"
-						sortProperty="NRMAR"
-						filterProperty="NRMAR"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Marea" />
+					<!--<Column	width="3rem" hAlign="Begin">
+						<m:Label text="" />
 						<template>
-							<m:Text text="{Acopio>NRMAR}" wrapping="false" />
+							<m:CheckBox id="idCheckBox" editable="{Acopio>STATUS}"/>
 						</template>
-					</Column>
-                    <Column
-						id="NRDES"
-						width="8rem"
-						sortProperty="NRDES"
-						filterProperty="NRDES"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Nro descarga" />
-						<template>
-							<m:Text text="{Acopio>NRDES}" wrapping="false" />
-						</template>
-					</Column>
-                    <Column
-						id="DESCR"
-						width="8rem"
-						sortProperty="DESCR"
-						filterProperty="DESCR"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Planta" />
-						<template>
-							<m:Text text="{Acopio>DESCR}" wrapping="false" />
-						</template>
-					</Column>
-                    <Column
-						id="CDSPC"
-						width="11rem"
-						sortProperty="CDSPC"
-						filterProperty="CDSPC"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true"
-                        visible="false">
-						<m:Label text="Planta" />
-						<template>
-							<m:Text text="{Acopio>CDSPC}" wrapping="false" />
-						</template>
-					</Column>
-                    
-                    <Column
-						id="FIDES"
-						width="11rem"
-						sortProperty="FIDES"
-						filterProperty="FIDES"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Fecha/hora inic. desc." />
-						<template>
-							<m:Text text="{path:'Acopio>FIDES', formatter:'.formatter.formatDate'}
-                                    {path:'Acopio>HIDES', formatter:'.formatter.formatHour'}" wrapping="false" />
-						</template>
-					</Column>
-                    <Column
-						id="FFDES"
-						width="11rem"
-						sortProperty="FFDES"
-						filterProperty="FFDES"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Fecha/hora fin desc." />
-						<template>
-							<m:Text text="{path:'Acopio>FFDES', formatter:'.formatter.formatDate'}
-                                    {path:'Acopio>HFDES', formatter:'.formatter.formatHour'}"  wrapping="false" />
-						</template>
-					</Column>
-                    <Column
-						id="CNPDS"
-						width="8rem"
-						sortProperty="CNPDS"
-						filterProperty="CNPDS"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true"
-						hAlign="End">
-						<m:Label text="Cant. desc. (Tn)" />
-						<template>
-							<!--<m:Text text="{Acopio>CNPDS}" wrapping="false" />-->
-							<m:Text text="{path:'Acopio>CNPDS', type:'sap.ui.model.type.Float',
-												formatOptions:{
-													minIntegerDigits:1,
-													minFractionDigits:3,
-													maxFractionDigits:3,
-													groupingEnabled:true,
-													groupingSeparator: ',',
-													decimalSeparator: '.'
-												}}" wrapping="false"/>
-						</template>
-					</Column>
-                    <Column
-						id="FECCONMOV"
-						width="8rem"
-						sortProperty="FECCONMOV"
-						filterProperty="FECCONMOV"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Fecha prod." />
-						<template>
-							<m:Text text="{path:'Acopio>FECCONMOV', formatter:'.formatter.formatDate'}" wrapping="false" />
-						</template>
-					</Column>
-                    <Column
+					</Column>-->
+					<Column
 						id="NMEMB"
-						width="11rem"
+						width="9rem"
 						sortProperty="NMEMB"
 						filterProperty="NMEMB"
 						showFilterMenuEntry="true"
@@ -389,63 +288,20 @@
 						</template>
 					</Column>
                     <Column
-						id="NAME1"
-						width="11rem"
-						sortProperty="NAME1"
-						filterProperty="NAME1"
+						id="FECCONMOV"
+						width="5rem"
+						sortProperty="FECCONMOV"
+						filterProperty="FECCONMOV"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
-						<m:Label text="Armador comercial" />
+						<m:Label text="Fecha prod." />
 						<template>
-							<m:Text text="{Acopio>NAME1}" wrapping="false" />
+							<m:Text text="{path:'Acopio>FECCONMOV'}" wrapping="false" />
 						</template>
-					</Column>
-                    <Column
-						id="PRCTP"
-						width="6rem"
-						sortProperty="PRCTP"
-						filterProperty="PRCTP"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true"
-						hAlign="End">
-						<m:Label text="Pactado" />
-						<template>
-							<!--<m:Text text="{Acopio>PRCOM}" wrapping="false" />-->
-							<m:Text text="{path:'Acopio>PRCOM', type:'sap.ui.model.type.Float',
-												formatOptions:{
-													style: 'short',
-													decimals: 2,
-													shortDecimals: 2,
-													groupingSeparator: ',',
-													decimalSeparator: '.'
-												}}" wrapping="false"/>
-						</template>
-					</Column>
-                    <Column
-						id="BONIF"
-						width="6rem"
-						sortProperty="BONIF"
-						filterProperty="BONIF"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true"
-						hAlign="End">
-						<m:Label text="Bonif." 
-						/>
-						<template>
-							<!--<m:Text text="{Acopio>BONIF}" wrapping="false" />-->
-								<m:Text text="{path:'Acopio>BONIF', type:'sap.ui.model.type.Float',
-												formatOptions:{
-													style: 'short',
-													decimals: 2,
-													shortDecimals: 2,
-													groupingSeparator: ',',
-													decimalSeparator: '.'
-												}}" wrapping="false"/>
-						</template>
-					</Column>
+					</Column>                    
                     <Column
 						id="PRCMX"
-						width="6rem"
+						width="4rem"
 						sortProperty="PRCMX"
 						filterProperty="PRCMX"
 						showFilterMenuEntry="true"
@@ -467,7 +323,7 @@
 					</Column>
                     <Column
 						id="PRCTP2"
-						width="6rem"
+						width="4rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -487,11 +343,189 @@
 												}}" wrapping="false"/>
 						</template>
 					</Column>
+					<Column
+						id="CALIDA"
+						width="8rem"
+						sortProperty="CALIDA"
+						filterProperty="CALIDA"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Calidad" />
+						<template>
+							<!-- <m:Text  text="{path:'Acopio>CALIDA',formatter:'.formatter.disabledItems'}" wrapping="false" /> -->
+							<m:Text  text="{Acopio>DESC_CALIDAD}" wrapping="false" />
+						</template>
+					</Column> 
+                	<Column
+						id="NRMAR"
+						width="5rem"
+						sortProperty="NRMAR"
+						filterProperty="NRMAR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Marea" />
+						<template>
+							<m:Text text="{Acopio>NRMAR}" wrapping="false" />
+						</template>
+					</Column>
                     <Column
-						id="WAERS"
+						id="NRDES"
+						width="5.5rem"
+						sortProperty="NRDES"
+						filterProperty="NRDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Nro descarga" />
+						<template>
+							<m:Text text="{Acopio>NRDES}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="DESCR"
+						width="5rem"
+						sortProperty="DESCR"
+						filterProperty="DESCR"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Planta" />
+						<template>
+							<m:Text text="{Acopio>DESCR}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CDSPC"
+						width="9rem"
+						sortProperty="CDSPC"
+						filterProperty="CDSPC"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+                        visible="false">
+						<m:Label text="Planta" />
+						<template>
+							<m:Text text="{Acopio>CDSPC}" wrapping="false" />
+						</template>
+					</Column>
+                    
+                    <Column
+						id="FIDES"
+						width="7.5rem"
+						sortProperty="FIDES"
+						filterProperty="FIDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Fecha/hora inic. desc." />
+						<template>
+							<m:Text text="{path:'Acopio>FIDES'}
+                                    {path:'Acopio>HIDES'}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="FFDES"
+						width="7rem"
+						sortProperty="FFDES"
+						filterProperty="FFDES"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Fecha/hora fin desc." />
+						<template>
+							<m:Text text="{path:'Acopio>FFDES'}
+                                    {path:'Acopio>HFDES'}"  wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="CNPDS"
+						width="6rem"
+						sortProperty="CNPDS"
+						filterProperty="CNPDS"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="Cant. desc. (Tn)" />
+						<template>
+							<!--<m:Text text="{Acopio>CNPDS}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>CNPDS', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													minIntegerDigits:1,
+													minFractionDigits:3,
+													maxFractionDigits:3,
+													groupingEnabled:true,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
+						</template>
+					</Column>
+					  <Column
+						id="MREMB"
+						width="5.5rem"
+						sortProperty="MREMB"
+						filterProperty="MREMB"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Matrícula" />
+						<template>
+							<m:Text text="{Acopio>MREMB}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="NAME1"
 						width="11rem"
-						sortProperty="WAERS"
-						filterProperty="WAERS"
+						sortProperty="NAME1"
+						filterProperty="NAME1"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true">
+						<m:Label text="Armador comercial" />
+						<template>
+							<m:Text text="{Acopio>NAME1}" wrapping="false" />
+						</template>
+					</Column>
+                    <Column
+						id="PRCTP"
+						width="4rem"
+						sortProperty="PRCTP"
+						filterProperty="PRCTP"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="Pactado" />
+						<template>
+							<!--<m:Text text="{Acopio>PRCOM}" wrapping="false" />-->
+							<m:Text text="{path:'Acopio>PRCOM', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
+						</template>
+					</Column>
+                    <Column
+						id="BONIF"
+						width="3rem"
+						sortProperty="BONIF"
+						filterProperty="BONIF"
+						showFilterMenuEntry="true"
+						showSortMenuEntry="true"
+						hAlign="End">
+						<m:Label text="Bonif." 
+						/>
+						<template>
+							<!--<m:Text text="{Acopio>BONIF}" wrapping="false" />-->
+								<m:Text text="{path:'Acopio>BONIF', type:'sap.ui.model.type.Float',
+												formatOptions:{
+													style: 'short',
+													decimals: 2,
+													shortDecimals: 2,
+													groupingSeparator: ',',
+													decimalSeparator: '.'
+												}}" wrapping="false"/>
+						</template>
+					</Column>
+                    <Column
+						id="DESC_WAERS"
+						width="6rem"
+						sortProperty="DESC_WAERS"
+						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
 						<m:Label text="Moneda" />
@@ -501,7 +535,7 @@
 					</Column>
                     <Column
 						id="ESPRC"
-						width="6rem"
+						width="4rem"
 						sortProperty="ESPRC"
 						filterProperty="ESPRC"
 						showFilterMenuEntry="true"
@@ -513,7 +547,7 @@
 					</Column>
                     <Column
 						id="DSSPC"
-						width="9rem"
+						width="5.5rem"
 						sortProperty="DSSPC"
 						filterProperty="DSSPC"
 						showFilterMenuEntry="true"
@@ -523,19 +557,7 @@
 							<m:Text text="{Acopio>DSSPC}" wrapping="false" />
 						</template>
 					</Column>
-                    <Column
-						id="CALIDA"
-						width="11rem"
-						sortProperty="CALIDA"
-						filterProperty="CALIDA"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
-						<m:Label text="Calidad" />
-						<template>
-							<!-- <m:Text  text="{path:'Acopio>CALIDA',formatter:'.formatter.disabledItems'}" wrapping="false" /> -->
-							<m:Text  text="{Acopio>DESC_CALIDAD}" wrapping="false" />
-						</template>
-					</Column> 
+                    
 					<!--Columnas-->
 
 				</columns>

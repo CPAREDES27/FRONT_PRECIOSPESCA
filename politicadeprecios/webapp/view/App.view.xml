@@ -423,7 +423,7 @@
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Lista de registros: 0" />
 						<m:ToolbarSpacer/>
-                        <m:Button type="Information" icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo" type="Accept"/>
+                        <m:Button  icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo" type="Accept"/>
 						  <m:Button type="Reject" icon="sap-icon://sys-cancel" press="anularRegistro" tooltip="Anular" text="Anular"/>
 						<m:ToolbarSeparator/>
                         <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel" type="Accept"/>

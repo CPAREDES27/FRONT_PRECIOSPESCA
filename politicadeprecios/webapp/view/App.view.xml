@@ -27,7 +27,7 @@
 						<form:formElements>
 										<form:FormElement visible="true" >
 															<form:label>
-																<m:Label text="Zona Litoral" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+																<m:Label text="Zona Litoral" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
 															</form:label>
 															<form:fields>
 																<m:MultiComboBox
@@ -40,12 +40,11 @@
 																	<core:Item key="{litoral>id}" text="{litoral>descripcion}"/>
 																</m:MultiComboBox>
 															</form:fields>
-										</form:FormElement>
-						
+										</form:FormElement>					
 					
 										<form:FormElement visible="true" width="100%" >
                                             <form:label>
-                                                <m:Label text="Puerto" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Puerto" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
 											<m:Input  change="multiInput" class="sapUiSmallMarginBottom"
@@ -130,7 +129,7 @@
                                         </form:FormElement>
 										<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Planta" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                             <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
@@ -234,7 +233,7 @@
                                         </form:FormElement>
 										<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Armador Empresa" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Armador Empresa" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                             <m:Input id="idArmadorIni_R" 
@@ -247,9 +246,14 @@
 											valueHelpRequest="onShowSearchTrip"/>
                                             </form:fields>
                                         </form:FormElement>
-                                        <form:FormElement visible="true">
+                                        
+						</form:formElements>						
+					</form:FormContainer>
+					<form:FormContainer>
+						<form:formElements>
+										<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Fecha  Vigencia" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Fecha  Vigencia" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
 													<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
@@ -258,7 +262,7 @@
                                         </form:FormElement>                                      
                                         <form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Especie" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Especie" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                                 <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
@@ -344,7 +348,7 @@
                                         </form:FormElement>
                                         <form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Estado de precio" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Estado de precio" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                                <m:ComboBox id="cbEstadoPrecio" selectedKey="L" items="{precio>/zdoTipoMareaDom}" editable="true" enabled="true" visible="true" width="377.609375px" valueState="None" maxWidth="100%">
@@ -356,7 +360,7 @@
                                         </form:FormElement>
 										<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                                 <m:Button text="Buscar" tooltip="Buscar" type="Emphasized" icon="sap-icon://search" iconFirst="true" width="100%" enabled="true" visible="true" iconDensityAware="false"
@@ -366,12 +370,24 @@
                                             </form:fields>
                                         </form:FormElement>
 						</form:formElements>
-
-						
 					</form:FormContainer>
 				</form:formContainers>
 				<form:layout>
-					<form:ResponsiveGridLayout
+				<form:ResponsiveGridLayout
+						labelSpanXL="3"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="2"
+						columnsM="1"
+						singleContainerFullSize="false"  />
+					<!--<form:ResponsiveGridLayout
 						labelSpanXL="2"
 						labelSpanL="3"
 						labelSpanM="4"
@@ -384,7 +400,7 @@
 						columnsXL="2"
 						columnsL="1"
 						columnsM="1"
-						singleContainerFullSize="false"  />
+						singleContainerFullSize="false"  />-->
 				</form:layout>
 			</form:Form>
 		</semantic:headerContent>
@@ -401,15 +417,16 @@
                             enableCellFilter="{ui>/enableCellFilter}"
                             columnSelect="onColumnSelect"
                             cellContextmenu="onProductIdCellContextMenu"
-                            ariaLabelledBy="title">
+                            ariaLabelledBy="title"
+							class="table">
 				<extension>
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Lista de registros: 0" />
 						<m:ToolbarSpacer/>
-                        <m:Button type="Information" icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo"/>
+                        <m:Button type="Information" icon="sap-icon://add" press="goToNewPrecio" tooltip="Nuevo" text="Nuevo" type="Accept"/>
 						  <m:Button type="Reject" icon="sap-icon://sys-cancel" press="anularRegistro" tooltip="Anular" text="Anular"/>
 						<m:ToolbarSeparator/>
-                        <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel"/>
+                        <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel" type="Accept"/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
 							value="{ui>/globalFilter}"
@@ -421,7 +438,7 @@
                  
                 	<Column
 						id="CDPPC"
-						width="8rem"
+						width="6.5rem"
 						sortProperty="CDPPC"
 						filterProperty="CDPPC"
 						showFilterMenuEntry="true"
@@ -438,7 +455,7 @@
                    
                     <Column
 						id="DSZLT"
-						width="8rem"
+						width="10rem"
 						sortProperty="DSZLT"
 						filterProperty="DSZLT"
 						showFilterMenuEntry="true"
@@ -454,7 +471,7 @@
 					</Column>
                     <Column
 						id="DSPTO"
-						width="8rem"
+						width="5.5rem"
 						sortProperty="DSPTO"
 						filterProperty="DSPTO"
 						showFilterMenuEntry="true"
@@ -470,7 +487,7 @@
 					</Column>
                     <Column
 						id="DESCR"
-						width="9rem"
+						width="7rem"
 						sortProperty="DESCR"
 						filterProperty="DESCR"
 						showFilterMenuEntry="true"
@@ -486,7 +503,7 @@
 					</Column>
                     <Column
 						id="NAME1"
-						width="11rem"
+						width="9rem"
 						sortProperty="NAME1"
 						filterProperty="NAME1"
 						showFilterMenuEntry="true"
@@ -502,7 +519,7 @@
 					</Column>
                     <Column
 						id="FIVIG"
-						width="7rem"
+						width="5rem"
 						sortProperty="FIVIG"
 						filterProperty="FIVIG"
 						showFilterMenuEntry="true"
@@ -520,7 +537,7 @@
 					</Column>
                     <Column
 						id="FFVIG"
-						width="6rem"
+						width="5rem"
 						sortProperty="FFVIG"
 						filterProperty="FFVIG"
 						showFilterMenuEntry="true"
@@ -536,7 +553,7 @@
 					</Column>
                     <Column
 						id="PRCMX"
-						width="5rem"
+						width="3.5rem"
 						sortProperty="PRCMX"						
 						filterProperty="PRCMX"
 						showFilterMenuEntry="true"
@@ -555,7 +572,7 @@
 					</Column>
                     <Column
 						id="PRCTP"
-						width="6rem"
+						width="3.5rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -573,7 +590,7 @@
 					</Column>
                     <Column
 						id="PRVMN"
-						width="6rem"
+						width="3.5rem"
 						sortProperty="PRVMN"
 						filterProperty="PRVMN"
 						showFilterMenuEntry="true"
@@ -590,7 +607,7 @@
 					</Column>
                     <Column
 						id="PRVTP"
-						width="11rem"
+						width="3.5rem"
 						sortProperty="PRVTP"
 						filterProperty="PRVTP"
 						showFilterMenuEntry="true"
@@ -607,7 +624,7 @@
 					</Column>
                     <Column
 						id="DSSPC"
-						width="11rem"
+						width="5.5rem"
 						sortProperty="DSSPC"
 						filterProperty="DSSPC"
 						showFilterMenuEntry="true"
@@ -623,7 +640,7 @@
 					</Column>
                     <Column
 						id="DESC_WAERS"
-						width="11rem"
+						width="6rem"
 						sortProperty="DESC_WAERS"
 						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
@@ -639,7 +656,7 @@
 					</Column>
                     <Column
 						id="ESPMR"
-						width="6rem"
+						width="4rem"
 						sortProperty="ESPMR"
 						filterProperty="ESPMR"
 						showFilterMenuEntry="true"

@@ -323,7 +323,7 @@
                                                                     <m:Label text="Calidad" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>DESC_CALIDA}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input type="Text" value="{Acopio>DESC_CALIDAD}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                             <form:FormElement visible="true">
@@ -411,7 +411,7 @@
                 
                 	<Column
 						id="NRMAR"
-						width="5rem"
+						width="4.5rem"
 						sortProperty="NRMAR"
 						filterProperty="NRMAR"
 						showFilterMenuEntry="true"
@@ -423,7 +423,7 @@
 					</Column>
                     <Column
 						id="NRDES"
-						width="5.5rem"
+						width="4.5rem"
 						sortProperty="NRDES"
 						filterProperty="NRDES"
 						showFilterMenuEntry="true"
@@ -447,7 +447,7 @@
 					</Column>
                     <Column
 						id="CDSPC"
-						width="7rem"
+						width="6rem"
 						sortProperty="CDSPC"
 						filterProperty="CDSPC"
 						showFilterMenuEntry="true"
@@ -461,7 +461,7 @@
                     
                     <Column
 						id="FIDES"
-						width="7.5rem"
+						width="6.5rem"
 						sortProperty="FIDES"
 						filterProperty="FIDES"
 						showFilterMenuEntry="true"
@@ -473,7 +473,7 @@
 					</Column>
                     <Column
 						id="FFDES"
-						width="7rem"
+						width="6rem"
 						sortProperty="FFDES"
 						filterProperty="FFDES"
 						showFilterMenuEntry="true"
@@ -485,7 +485,7 @@
 					</Column>
                     <Column
 						id="CNPDS"
-						width="6rem"
+						width="5rem"
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
@@ -498,7 +498,7 @@
 					</Column>
                     <Column
 						id="FECCONMOV"
-						width="5rem"
+						width="4.5rem"
 						sortProperty="FECCONMOV"
 						filterProperty="FECCONMOV"
 						showFilterMenuEntry="true"
@@ -522,7 +522,7 @@
 					</Column>
                      <Column
 						id="MREMB"
-						width="5.5rem"
+						width="4.5rem"
 						sortProperty="MREMB"
 						filterProperty="MREMB"
 						showFilterMenuEntry="true"
@@ -534,7 +534,7 @@
 					</Column>
                     <Column
 						id="NAME1"
-						width="11rem"
+						width="10rem"
 						sortProperty="NAME1"
 						filterProperty="NAME1"
 						showFilterMenuEntry="true"
@@ -546,7 +546,7 @@
 					</Column>
                     <Column
 						id="PRCTP"
-						width="4rem"
+						width="3.5rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -570,7 +570,7 @@
 					</Column>
                     <Column
 						id="PRCMX"
-						width="4rem"
+						width="3rem"
 						sortProperty="PRCMX"
 						filterProperty="PRCMX"
 						showFilterMenuEntry="true"
@@ -582,7 +582,7 @@
 					</Column>
                     <Column
 						id="PRCTP2"
-						width="4rem"
+						width="3rem"
 						sortProperty="PRCTP"
 						filterProperty="PRCTP"
 						showFilterMenuEntry="true"
@@ -594,7 +594,7 @@
 					</Column>
                     <Column
 						id="DESC_WAERS"
-						width="6rem"
+						width="5.5rem"
 						sortProperty="DESC_WAERS"
 						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
@@ -629,20 +629,20 @@
 						</template>
 					</Column>
                     <Column
-						id="CALIDA"
-						width="7rem"
-						sortProperty="CALIDA"
-						filterProperty="CALIDA"
+						id="DES_CALIDAD"
+						width="6rem"
+						sortProperty="DES_CALIDAD"
+						filterProperty="DES_CALIDAD"
 						showFilterMenuEntry="true"
 						showSortMenuEntry="true">
 						<m:Label text="Calidad" />
 						<template>
-							<m:Text text="{dataAcopio>CALIDA}" wrapping="false" />
+							<m:Text text="{dataAcopio>DES_CALIDAD}" wrapping="false" />
 						</template>
 					</Column>
                      <Column
 						id="Obs"
-						width="17rem"
+						width="14rem"
 						>
 						<m:Label text="Observacion" />
 						<template>

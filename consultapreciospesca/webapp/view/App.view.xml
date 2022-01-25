@@ -20,12 +20,11 @@
                 
                 <form:formContainers>
                     <form:FormContainer visible="true">
-                        <form:formElements>
-                            
+                        <form:formElements>                           
                             
                               <form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Planta" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Planta" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
                                            <m:Input  change="multiInputPlanta" class="sapUiSmallMarginBottom"
@@ -81,7 +80,7 @@
                                         </form:FormElement>
                             			<form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Armador Empresa" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Armador Empresa" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
 											<m:Input id="idArmadorIni_R" 
@@ -98,16 +97,22 @@
                                         </form:FormElement>
                             <form:FormElement visible="true">
                                             <form:label>
-                                                <m:Label text="Embarcación" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                                <m:Label text="Embarcación" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
 											<m:Input id="inputId0_R" placeholder="Seleccione embarcación" showValueHelp="true" 	valueHelpOnly="true" valueHelpRequest="onShowEmbarcaciones"/>
 											<m:Input id="inputId1_R" placeholder="Seleccione embarcación" showValueHelp="true" valueHelpOnly="true" valueHelpRequest="onShowEmbarcaciones"/>
                                             </form:fields>
                                         </form:FormElement>
-                            <form:FormElement visible="true">
+                            
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+					 <form:FormContainer visible="true">
+						 <form:formElements>
+						 <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Fecha Producción" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="Fecha Producción" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
 									<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
@@ -116,7 +121,7 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Estado" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="Estado" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
                                     <m:ComboBox editable="true" id="idEstado"  items="{precio>/ZDO_PRECIO}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
@@ -128,7 +133,7 @@
                             </form:FormElement>
                             <form:FormElement visible="true">
                                 <form:label>
-                                    <m:Label text="Estado castigo" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                    <m:Label text="Estado castigo" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                 </form:label>
                                 <form:fields>
                                     <m:ComboBox editable="true" id="idEstadoCastigo"  items="{castigo>/ZESPRC}" enabled="true" visible="true" width="auto" valueState="None" maxWidth="100%">
@@ -137,8 +142,7 @@
                                         </m:items>
                                     </m:ComboBox>
                                 </form:fields>
-                            </form:FormElement>
-                            
+                            </form:FormElement>                            
                             <form:FormElement visible="true">
                                 <form:label>
                                     <m:Label text="" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
@@ -151,12 +155,25 @@
                                                    press="limpiarFiltros"/>
                                 </form:fields>
                             </form:FormElement>
-                        </form:formElements>
-                        <form:title/>
-                    </form:FormContainer>
+						 </form:formElements>
+					  </form:FormContainer>
                 </form:formContainers>
                    <form:layout>
-					<form:ResponsiveGridLayout
+				   <form:ResponsiveGridLayout
+						labelSpanXL="3"
+						labelSpanL="3"
+						labelSpanM="4"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="0"
+						emptySpanL="0"
+						emptySpanM="0"
+						emptySpanS="0"
+						columnsXL="2"
+						columnsL="2"
+						columnsM="1"
+						singleContainerFullSize="false"  />
+					<!--<form:ResponsiveGridLayout
 						labelSpanXL="2"
 						labelSpanL="3"
 						labelSpanM="4"
@@ -169,7 +186,7 @@
 						columnsXL="2"
 						columnsL="1"
 						columnsM="1"
-						singleContainerFullSize="false"  />
+						singleContainerFullSize="false"  />-->
 				</form:layout>
             </form:Form>
 
@@ -186,12 +203,13 @@
 				enableCellFilter="{ui>/enableCellFilter}"
 				columnSelect="onColumnSelect"
 				cellContextmenu="onProductIdCellContextMenu"
-				ariaLabelledBy="title">
+				ariaLabelledBy="title"
+				class="table">
 				<extension>
 					<m:OverflowToolbar style="Clear">
 						<m:Title id="title" text="Lista de registros : 0"/>
 						<m:ToolbarSpacer/> 
-						  <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel"/>
+						  <m:Button icon="sap-icon://excel-attachment" press="onExport" text="Exportar" tooltip="Exportar Excel" type="Accept"/>
 						<m:ToolbarSeparator/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
@@ -204,7 +222,7 @@
                
                 	<Column
 						id="WERKS"
-						width="5rem"
+						width="3.5rem"
 						sortProperty="WERKS"
 						filterProperty="WERKS"
 						showFilterMenuEntry="true"
@@ -216,7 +234,7 @@
 					</Column>
                     <Column
 						id="MREMB"
-						width="8rem"
+						width="5.5rem"
 						sortProperty="MREMB"
 						filterProperty="MREMB"
 						showFilterMenuEntry="true"
@@ -240,7 +258,7 @@
 					</Column>
 					<Column
 						id="NAME1"
-						width="14rem"
+						width="11rem"
 						sortProperty="NAME1"
 						filterProperty="NAME1"
 						showFilterMenuEntry="true"
@@ -253,7 +271,7 @@
 					
 					<Column
 						id="FECCONMOV"
-						width="7rem"
+						width="4.5rem"
 						sortProperty="FECCONMOV"
 						filterProperty="FECCONMOV"
 						showFilterMenuEntry="true"
@@ -265,7 +283,7 @@
 					</Column>
                     <Column
 						id="CNPDS"
-						width="9rem"
+						width="6.5rem"
 						sortProperty="CNPDS"
 						filterProperty="CNPDS"
 						showFilterMenuEntry="true"
@@ -287,7 +305,7 @@
 					</Column>
                    <Column
 						id="PRCOM"
-						width="5rem"
+						width="4rem"
 						sortProperty="PRCOM"
 						filterProperty="PRCOM"
 						showFilterMenuEntry="true"
@@ -309,7 +327,7 @@
 					</Column>
 					 <Column
 						id="BONIF"
-						width="4rem"
+						width="3rem"
 						sortProperty="BONIF"
 						filterProperty="BONIF"
 						showFilterMenuEntry="true"
@@ -331,7 +349,7 @@
 					</Column>
 					 <Column
 						id="PRVEN"
-						width="4rem"
+						width="3rem"
 						sortProperty="PRVEN"
 						filterProperty="PRVEN"
 						showFilterMenuEntry="true"
@@ -353,7 +371,7 @@
 					</Column>
 					 <Column
 						id="DESC_WAERS"
-						width="13rem"
+						width="6rem"
 						sortProperty="DESC_WAERS"
 						filterProperty="DESC_WAERS"
 						showFilterMenuEntry="true"
@@ -365,7 +383,7 @@
 					</Column>
 					 <Column
 						id="DESC_ESPRC"
-						width="7rem"
+						width="4rem"
 						sortProperty="DESC_ESPRC"
 						filterProperty="DESC_ESPRC"
 						showFilterMenuEntry="true"
@@ -377,7 +395,7 @@
 					</Column>
 					<Column
 						id="PCSPP"
-						width="5rem"
+						width="3.5rem"
 						sortProperty="PCSPP"
 						filterProperty="PCSPP"
 						showFilterMenuEntry="true"
@@ -398,7 +416,7 @@
 					</Column>
 					<Column
 						id="PCCSG"
-						width="4rem"
+						width="3rem"
 						sortProperty="PCCSG"
 						filterProperty="PCCSG"
 						showFilterMenuEntry="true"
@@ -420,7 +438,7 @@
 					</Column>
 					<Column
 						id="DESC_ESCSG"
-						width="9rem"
+						width="6rem"
 						sortProperty="DESC_ESCSG"
 						filterProperty="DESC_ESCSG"
 						showFilterMenuEntry="true"
@@ -432,7 +450,7 @@
 					</Column>
 					<Column
 						id="OBCDF"
-						width="9rem"
+						width="7rem"
 						sortProperty="OBCDF"
 						filterProperty="OBCDF"
 						showFilterMenuEntry="true"
@@ -444,7 +462,7 @@
 					</Column>
 					<Column
 						id="OBCPP"
-						width="9rem"
+						width="7rem"
 						sortProperty="OBCPP"
 						filterProperty="OBCPP"
 						showFilterMenuEntry="true"
@@ -456,7 +474,7 @@
 					</Column>
 					<Column
 						id="CALIDAD"
-						width="9rem"
+						width="6rem"
 						sortProperty="CALIDAD"
 						filterProperty="CALIDAD"
 						showFilterMenuEntry="true"
@@ -490,7 +508,7 @@
 					</Column>
 					<Column
 						id="TVN"
-						width="4rem"
+						width="3rem"
 						sortProperty="TVN"
 						filterProperty="TVN"
 						showFilterMenuEntry="true"
@@ -512,7 +530,7 @@
 					</Column>
 					<Column
 						id="TDC"
-						width="4rem"
+						width="3rem"
 						sortProperty="TDC"
 						filterProperty="TDC"
 						showFilterMenuEntry="true"
@@ -545,7 +563,7 @@
 					</Column>
 					<Column
 						id="EBELN"
-						width="8rem"
+						width="6rem"
 						sortProperty="EBELN"
 						filterProperty="EBELN"
 						showFilterMenuEntry="true"
@@ -557,7 +575,7 @@
 					</Column>
 					<Column
 						id="BELNR"
-						width="9rem"
+						width="6rem"
 						sortProperty="BELNR"
 						filterProperty="BELNR"
 						showFilterMenuEntry="true"

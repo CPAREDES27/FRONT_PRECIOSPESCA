@@ -237,7 +237,7 @@
 				columnSelect="onColumnSelect"
 				cellContextmenu="onProductIdCellContextMenu"
 				ariaLabelledBy="title"
-				fixedColumnCount="5"
+				fixedColumnCount="6"
 				class="classTable sapUiSizeCompact">
 
 				<extension>
@@ -245,8 +245,8 @@
 						<m:Title id="title" text="Lista de registros: 0"/>
 						<m:ToolbarSpacer/>
 						
-                          <m:Button icon="sap-icon://edit" press="editarMasivo" text="Editar" tooltip="Editar"/> 
-						  <m:Button icon="sap-icon://excel-attachment" press="onExportarExcelData" text="Exportar" tooltip="Exportar Excel"/>
+                          <m:Button icon="sap-icon://edit" press="editarMasivo" text="Editar" tooltip="Editar" type="Accept"/> 
+						  <m:Button icon="sap-icon://excel-attachment" press="onExportarExcelData" text="Exportar" tooltip="Exportar Excel" type="Accept"/>
 						<m:ToolbarSeparator/>
 						<m:SearchField
 							placeholder="Búsqueda rápida"
@@ -391,10 +391,10 @@
                     <Column
 						id="DESCR"
 						width="5rem"
-						sortProperty="DESCR"
-						filterProperty="DESCR"
-						showFilterMenuEntry="true"
-						showSortMenuEntry="true">
+							sortProperty="DESCR"
+							filterProperty="DESCR"
+							showFilterMenuEntry="true"
+							showSortMenuEntry="true">
 						<m:Label text="Planta" />
 						<template>
 							<m:Text text="{Acopio>DESCR}" wrapping="false" />

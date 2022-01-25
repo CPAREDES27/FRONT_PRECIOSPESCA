@@ -99,14 +99,40 @@ sap.ui.define([
                 var day = fecha.getDate();
                 var anio = fecha.getFullYear();
                 var mes = fecha.getMonth() + 1;
+                if(mes<10){
+
+                    mes=this.zeroFill(mes,2);
+
+                }
+
+                if(day<10){
+
+                    day=this.zeroFill(day,2);
+
+                }
                 var hora = fecha.getHours() + "" + fecha.getMinutes() + "" + fecha.getUTCSeconds();
                 fecha = anio + "" + mes + "" + day;
                 var tamanioArray = this.getView().getModel("dataAcopio").oData.items.length;
                 var arrayAcopio = this.getView().getModel("dataAcopio").oData;
 
+                if(mes<10){
+
+                    mes=this.zeroFill(mes,2);
+
+                }
+
+                if(day<10){
+
+                    day=this.zeroFill(day,2);
+
+                }
 
                 var txtPrecioCompra = this.byId("txtPrecioCompra").getValue();
 
+                if (txtPrecioCompra === "" || txtPrecioCompra === null) {
+                    MessageBox.error("El campo 'Precio de Compra' es obligatorio.");
+                    return false;
+                }
                 if (idPrecioCompra <= 0) {
                     MessageBox.error("El precio de compra debe ser mayor a cero.");
                     return false;
@@ -233,24 +259,25 @@ sap.ui.define([
                 if(!txtPrecioCompra.includes(".00") && txtPrecioCompra){
                     txtPrecioCompra=txtPrecioCompra.concat(".00");
                 }*/
-
+                if (txtPrecioCompra === "" || txtPrecioCompra === null) {
+                    MessageBox.error("El campo 'Precio de Compra' es obligatorio.");
+                    return false;
+                }
                 if(precioTope==0.00 && precioCompraMax==0.00){
                     MessageBox.error("No hay precios a aprobar.");
                     return false;
                 }
-
-                if (parseInt(txtPrecioCompra) > parseInt(precioCompraMax) || parseInt(txtPrecioCompra) > parseInt(precioTope)) {
+               
+                if (txtPrecioCompra <= 0) {
+                    MessageBox.error("El precio de compra debe ser mayor a cero.");
+                    return false;
+                } 
+                if (parseInt(txtPrecioCompra) > parseInt(precioTope) || parseInt(txtPrecioCompra) > parseInt(precioCompraMax)) {
                     MessageBox.error("El precio de compra supera al tope permitido.");
                     return false;
 
                 }
-                if (txtPrecioCompra <= 0) {
-                    MessageBox.error("El precio de compra debe ser mayor a cero.");
-                    return false;
-                } if (txtPrecioCompra === "" || txtPrecioCompra === null) {
-                    MessageBox.error("El campo 'message.PRECIOCOMPRA' es obligatorio.");
-                    return false;
-                }
+               
                 oGlobalBusyDialog.open();
                 var marea = this.byId("idMarea").getValue().replace(/^(0+)/g, '');
                 var cEspecie = this.byId("idcodEspecie").getValue();
@@ -265,8 +292,16 @@ sap.ui.define([
                 var hora = fecha.getHours() + "" + fecha.getMinutes() + "" + fecha.getUTCSeconds();
                 console.log(hora);
 
-                if (day < 10) {
-                    day = this.zeroFill(day, 2)
+                if(mes<10){
+
+                    mes=this.zeroFill(mes,2);
+
+                }
+
+                if(day<10){
+
+                    day=this.zeroFill(day,2);
+
                 }
                 fecha = anio + "" + mes + "" + day;
                 console.log(fecha);

@@ -705,6 +705,7 @@ sap.ui.define([
 							data.str_pm[i].PRCMX = parseFloat(data.str_pm[i].PRCMX).toFixed(2);
 							data.str_pm[i].PRCTP = parseFloat(data.str_pm[i].PRCTP).toFixed(2);
 							data.str_pm[i].NRMAR = this.zeroFill(data.str_pm[i].NRMAR, 10);
+							data.str_pm[i].CNPDS = String(data.str_pm[i].CNPDS);
 							if(data.str_pm[i].DESC_CALIDAD==''){
 								data.str_pm[i].STATUS=false;
 							}
@@ -803,11 +804,17 @@ sap.ui.define([
 			},
 			editarMasivo: function (oEvent) {
 				//var cb=this.byId("idCheckBox").getSelected();
-				var indices = this.byId("table").getSelectedIndices();
+				//var indices = this.byId("table").getSelectedIndices();
 				
+				let oAcopioModel = this.getModel("Acopio"),
+				oRowData = oAcopioModel.getProperty("/listaPrecio");
+
 				var cadena = "";
-				for (var i = 0; i < indices.length; i++) {
-					cadena += indices[i] + ",";
+				for (var i = 0; i < oRowData.length; i++) {
+					if(oRowData[i].selectedRow==true){
+						cadena += i + ",";
+
+					}
 				}
 				var cadena = cadena.substring(0, cadena.length - 1)
 				console.log(cadena);
@@ -939,7 +946,7 @@ sap.ui.define([
 						{
 							name: "Calidad",
 							template: {
-								content: "{CALIDA}"
+								content: "{DESC_CALIDAD}"
 							}
 						},
 
@@ -958,6 +965,8 @@ sap.ui.define([
 				if (sQuery && sQuery.length > 0) {
 					var filter = new Filter([
 						new Filter("NRMAR", FilterOperator.Contains, sQuery),
+						new Filter("NMEMB", FilterOperator.Contains, sQuery),
+						new Filter("CNPDS", FilterOperator.Contains, sQuery),
 						new Filter("NRDES", FilterOperator.Contains, sQuery),
 						new Filter("DESCR", FilterOperator.Contains, sQuery),
 						new Filter("CDSPC", FilterOperator.Contains, sQuery),
@@ -971,7 +980,7 @@ sap.ui.define([
 						new Filter("WAERS", FilterOperator.Contains, sQuery),
 						new Filter("ESPRC", FilterOperator.Contains, sQuery),
 						new Filter("DSSPC", FilterOperator.Contains, sQuery),
-						new Filter("CALIDA", FilterOperator.Contains, sQuery)
+						new Filter("DESC_CALIDAD", FilterOperator.Contains, sQuery)
 					]);
 					aFilters.push(filter);
 				}

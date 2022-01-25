@@ -3,5 +3,10 @@
     font-size: 10.5px;
 }
 .classTableDetalle td :first-child{
-    font-size: 10.5px;
+    font-size: 8.5px;
+    
  }
+.sapUiTableCnt bdi{
+    color:white;
+ 
+}

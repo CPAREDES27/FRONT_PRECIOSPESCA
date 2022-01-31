@@ -292,7 +292,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Embarcación" />
 						<template>
-							<m:Text text="{Acopio>NMEMB}" wrapping="false" />
+							<m:Text text="{Acopio>NMEMB}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -304,7 +304,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Fecha prod." />
 						<template>
-							<m:Text text="{path:'Acopio>FECCONMOV'}" wrapping="false" />
+							<m:Text text="{path:'Acopio>FECCONMOV'}" wrapping="true" />
 						</template>
 					</Column>                    
                     <Column
@@ -318,7 +318,7 @@
 						<m:Label text="Max." 
 						/>
 						<template>
-							<!--<m:Text text="{Acopio>PRCMX}" wrapping="false" />-->
+							<!--<m:Text text="{Acopio>PRCMX}" wrapping="true" />-->
 							<m:Text text="{path:'Acopio>PRCMX', type:'sap.ui.model.type.Float',
 												formatOptions:{
 													style: 'short',
@@ -326,7 +326,7 @@
 													shortDecimals: 2,
 													groupingSeparator: ',',
 													decimalSeparator: '.'
-												}}" wrapping="false"/>
+												}}" wrapping="true"/>
 						</template>
 					</Column>
                     <Column
@@ -340,7 +340,6 @@
 						<m:Label text="Tope"
 						 />
 						<template>
-							<!--<m:Text text="{Acopio>PRCTP}" wrapping="false" />-->
 							<m:Text text="{path:'Acopio>PRCTP', type:'sap.ui.model.type.Float',
 												formatOptions:{
 													style: 'short',
@@ -348,7 +347,7 @@
 													shortDecimals: 2,
 													groupingSeparator: ',',
 													decimalSeparator: '.'
-												}}" wrapping="false"/>
+												}}" wrapping="true"/>
 						</template>
 					</Column>
 					<Column
@@ -360,8 +359,8 @@
 						showSortMenuEntry="true">
 						<m:Label text="Calidad" />
 						<template>
-							<!-- <m:Text  text="{path:'Acopio>CALIDA',formatter:'.formatter.disabledItems'}" wrapping="false" /> -->
-							<m:Text  text="{Acopio>DESC_CALIDAD}" wrapping="false" />
+							<!-- <m:Text  text="{path:'Acopio>CALIDA',formatter:'.formatter.disabledItems'}" wrapping="true" /> -->
+							<m:Text  text="{Acopio>DESC_CALIDAD}" wrapping="true" />
 						</template>
 					</Column> 
                 	<Column
@@ -373,7 +372,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Marea" />
 						<template>
-							<m:Text text="{Acopio>NRMAR}" wrapping="false" />
+							<m:Text text="{Acopio>NRMAR}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -385,7 +384,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Nro descarga" />
 						<template>
-							<m:Text text="{Acopio>NRDES}" wrapping="false" />
+							<m:Text text="{Acopio>NRDES}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -397,7 +396,7 @@
 							showSortMenuEntry="true">
 						<m:Label text="Planta" />
 						<template>
-							<m:Text text="{Acopio>DESCR}" wrapping="false" />
+							<m:Text text="{Acopio>DESCR}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -410,7 +409,7 @@
                         visible="false">
 						<m:Label text="Planta" />
 						<template>
-							<m:Text text="{Acopio>CDSPC}" wrapping="false" />
+							<m:Text text="{Acopio>CDSPC}" wrapping="true" />
 						</template>
 					</Column>
                     
@@ -424,7 +423,7 @@
 						<m:Label text="Fecha/hora inic. desc." />
 						<template>
 							<m:Text text="{path:'Acopio>FIDES'}
-                                    {path:'Acopio>HIDES'}" wrapping="false" />
+                                    {path:'Acopio>HIDES'}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -437,7 +436,7 @@
 						<m:Label text="Fecha/hora fin desc." />
 						<template>
 							<m:Text text="{path:'Acopio>FFDES'}
-                                    {path:'Acopio>HFDES'}"  wrapping="false" />
+                                    {path:'Acopio>HFDES'}"  wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -450,7 +449,7 @@
 						hAlign="End">
 						<m:Label text="Cant. desc. (Tn)" />
 						<template>
-							<!--<m:Text text="{Acopio>CNPDS}" wrapping="false" />-->
+							<!--<m:Text text="{Acopio>CNPDS}" wrapping="true" />-->
 							<m:Text text="{path:'Acopio>CNPDS', type:'sap.ui.model.type.Float',
 												formatOptions:{
 													minIntegerDigits:1,
@@ -459,7 +458,7 @@
 													groupingEnabled:true,
 													groupingSeparator: ',',
 													decimalSeparator: '.'
-												}}" wrapping="false"/>
+												}}" wrapping="true"/>
 						</template>
 					</Column>
 					  <Column
@@ -471,7 +470,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Matrícula" />
 						<template>
-							<m:Text text="{Acopio>MREMB}" wrapping="false" />
+							<m:Text text="{Acopio>MREMB}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -483,7 +482,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Armador comercial" />
 						<template>
-							<m:Text text="{Acopio>NAME1}" wrapping="false" />
+							<m:Text text="{Acopio>NAME1}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -496,7 +495,7 @@
 						hAlign="End">
 						<m:Label text="Pactado" />
 						<template>
-							<!--<m:Text text="{Acopio>PRCOM}" wrapping="false" />-->
+							<!--<m:Text text="{Acopio>PRCOM}" wrapping="true" />-->
 							<m:Text text="{path:'Acopio>PRCOM', type:'sap.ui.model.type.Float',
 												formatOptions:{
 													style: 'short',
@@ -504,7 +503,7 @@
 													shortDecimals: 2,
 													groupingSeparator: ',',
 													decimalSeparator: '.'
-												}}" wrapping="false"/>
+												}}" wrapping="true"/>
 						</template>
 					</Column>
                     <Column
@@ -518,7 +517,7 @@
 						<m:Label text="Bonif." 
 						/>
 						<template>
-							<!--<m:Text text="{Acopio>BONIF}" wrapping="false" />-->
+							<!--<m:Text text="{Acopio>BONIF}" wrapping="true" />-->
 								<m:Text text="{path:'Acopio>BONIF', type:'sap.ui.model.type.Float',
 												formatOptions:{
 													style: 'short',
@@ -526,7 +525,7 @@
 													shortDecimals: 2,
 													groupingSeparator: ',',
 													decimalSeparator: '.'
-												}}" wrapping="false"/>
+												}}" wrapping="true"/>
 						</template>
 					</Column>
                     <Column
@@ -538,7 +537,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Moneda" />
 						<template>
-							<m:Text text="{Acopio>DESC_WAERS}" wrapping="false" />
+							<m:Text text="{Acopio>DESC_WAERS}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -550,7 +549,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Estado" />
 						<template>
-							<m:Text text="{Acopio>DESC_ESPRC}" wrapping="false" />
+							<m:Text text="{Acopio>DESC_ESPRC}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -562,7 +561,7 @@
 						showSortMenuEntry="true">
 						<m:Label text="Especie" />
 						<template>
-							<m:Text text="{Acopio>DSSPC}" wrapping="false" />
+							<m:Text text="{Acopio>DSSPC}" wrapping="true" />
 						</template>
 					</Column>
                     

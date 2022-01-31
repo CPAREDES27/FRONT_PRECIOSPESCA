@@ -449,7 +449,7 @@
 						</multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>CDPPC}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>CDPPC}" wrapping="true" />
 						</template>
 					</Column>
                    
@@ -466,7 +466,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>DSZLT}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>DSZLT}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -482,7 +482,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>DSPTO}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>DSPTO}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -514,7 +514,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>NAME1}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>NAME1}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -532,7 +532,7 @@
 						<template>
 							<m:Text text="{
 								path: 'PoliticaPrecio>FIVIG'
-								}" wrapping="false" />
+								}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -548,7 +548,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{path: 'PoliticaPrecio>FFVIG'}" wrapping="false" />
+							<m:Text text="{path: 'PoliticaPrecio>FFVIG'}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -567,7 +567,7 @@
 						</multiLabels>
 						
 						<template style="text-align: left;">
-							<m:Text style="text-align: left;" text="{PoliticaPrecio>PRCMX}" wrapping="false" />
+							<m:Text style="text-align: left;" text="{PoliticaPrecio>PRCMX}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -585,7 +585,7 @@
 						</multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>PRCTP}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>PRCTP}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -602,7 +602,7 @@
                             <m:Label text="Min" />
 						</multiLabels>
 						<template>
-							<m:Text text="{PoliticaPrecio>PRVMN}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>PRVMN}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -619,7 +619,7 @@
                             <m:Label text="Tope" />
 						</multiLabels>
 						<template>
-							<m:Text text="{PoliticaPrecio>PRVTP}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>PRVTP}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -635,7 +635,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>DSSPC}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>DSSPC}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -651,7 +651,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>DESC_WAERS}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>DESC_WAERS}" wrapping="true" />
 						</template>
 					</Column>
                     <Column
@@ -667,7 +667,7 @@
                         </multiLabels>
 						
 						<template>
-							<m:Text text="{PoliticaPrecio>ESPMRDESC}" wrapping="false" />
+							<m:Text text="{PoliticaPrecio>ESPMRDESC}" wrapping="true" />
 						</template>
 					</Column>
 

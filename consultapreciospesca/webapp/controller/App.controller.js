@@ -357,6 +357,31 @@ sap.ui.define([
 				
 				var fechaInicio=this.byId("fechaInicio").getValue();
 				var fechaFin=this.byId("fechaFin").getValue();
+				if(!this.existeFecha(fechaInicio) && fechaInicio){
+
+					MessageBox.error("Ingrese un formato de fecha correcto");
+	  
+					this.getView().byId("fechaInicio").setValueState("Error");
+	  
+					oGlobalBusyDialog.close();
+	  
+					return false;
+	  
+				  }
+				  this.getView().byId("fechaInicio").setValueState("None");
+				  if(!this.existeFecha(fechaFin) && fechaFin){
+
+					MessageBox.error("Ingrese un formato de fecha correcto");
+	  
+					this.getView().byId("fechaFin").setValueState("Error");
+	  
+					oGlobalBusyDialog.close();
+	  
+					return false;
+	  
+				  }
+				  this.getView().byId("fechaFin").setValueState("None");
+
 
 				if(fechaInicio){
 					fechaInicio = fechaInicio.split("/")[2].concat(fechaInicio.split("/")[1], fechaInicio.split("/")[0]);
@@ -1649,6 +1674,19 @@ sap.ui.define([
 				}
 
 				this.DialogComponents.open();
+			},
+			existeFecha: function(fecha) {
+
+				var fechaf = fecha.split("/");
+	
+				var d = fechaf[0];
+	
+				var m = fechaf[1];
+	
+				var y = fechaf[2];
+	
+				return m > 0 && m < 13 && y > 0 && y < 32768 && d > 0 && d <= (new Date(y, m, 0)).getDate();
+	
 			},
 
 		});

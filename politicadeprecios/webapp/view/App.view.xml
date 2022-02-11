@@ -256,8 +256,8 @@
                                                 <m:Label text="Fecha  Vigencia" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                             </form:label>
                                             <form:fields>
-													<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
-                                				    <m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+													<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueState="" valueStateText="Fecha no válida" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
+                                				    <m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueState="" valueStateText="Fecha no válida" enabled="true" visible="true" valueFormat="dd/MM/yyyy"/>
                                             </form:fields>
                                         </form:FormElement>                                      
                                         <form:FormElement visible="true">

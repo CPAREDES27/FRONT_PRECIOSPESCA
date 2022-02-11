@@ -164,8 +164,8 @@
                                     <m:Label text="Fecha Producción" design="Bold" width="100%" required="false" textAlign="Begin" textDirection="Inherit"/>
                                 </form:label>
                                 <form:fields>
-									<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" valueFormat="dd/MM/yyyy"/>
-                                	<m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueStateText="Invalid entry" enabled="true" valueFormat="dd/MM/yyyy"/>
+									<m:DatePicker id="fechaInicio" width="auto" displayFormat="dd/MM/yyyy" required="false" valueState="" valueStateText="Fecha no válida" enabled="true" valueFormat="dd/MM/yyyy"/>
+                                	<m:DatePicker id="fechaFin" width="auto" displayFormat="dd/MM/yyyy" required="false" valueState="" valueStateText="Fecha no válida" enabled="true" valueFormat="dd/MM/yyyy"/>
                                 </form:fields>
                             </form:FormElement>
                             <form:FormElement>

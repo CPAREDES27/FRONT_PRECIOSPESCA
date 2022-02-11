@@ -186,7 +186,7 @@
                                                                     <m:Label text="Propietario" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>NAME1}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input class="classInput" type="Text" design="Bold" value="{Acopio>NAME1}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                             <form:FormElement visible="true">
@@ -194,7 +194,7 @@
                                                                     <m:Label text="Embarcación" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
                                                                 </form:label>
                                                                 <form:fields>
-                                                                    <m:Input type="Text" value="{Acopio>NMEMB}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
+                                                                    <m:Input class="input" type="Text" value="{Acopio>NMEMB}" showValueHelp="false" enabled="false" visible="true" width="auto" valueHelpOnly="false" required="false" valueStateText="Invalid entry" maxLength="0"/>
                                                                 </form:fields>
                                                             </form:FormElement>
                                                             <form:FormElement visible="true">
@@ -316,7 +316,7 @@
                                             <form:Form width="100%" editable="true" visible="true">
                                                 <form:title/>
                                                 <form:formContainers>
-                                                    <form:FormContainer visible="true">
+                                                    <form:FormContainer visible="true" >
                                                         <form:formElements>
                                                             <form:FormElement visible="true">
                                                                 <form:label>

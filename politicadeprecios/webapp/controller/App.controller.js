@@ -404,7 +404,7 @@ sap.ui.define([
 					options.push(agregar);
 				}
 				var bodyGuardar = {
-					"p_campo": "",
+					"p_campo": "X",
 					"p_indtr": "A",
 					"p_user": this.usuario,
 					"str_ppc": options
